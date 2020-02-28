@@ -15,7 +15,6 @@ public class checkControllers : MonoBehaviour
     StartupScreenInput controllerInput1;
     void Start()
     {
-       
 
     }
     private void Awake()
@@ -27,11 +26,9 @@ public class checkControllers : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   if (Gamepad.all[0].buttonSouth.isPressed == true)
-        {
-            controller1Text.color = Color.green;
-        }
+    {
         startupText.text = "Controllers detected: " + Gamepad.all.ToArray().Length; //Get controller count
+
         if (Gamepad.all.ToArray().Length == 0)
         {
             controller1Text.text = "Controller 1 not detected!";
@@ -40,13 +37,16 @@ public class checkControllers : MonoBehaviour
             controller2Text.color = Color.red;
             return;
         }
-
         else
         {
             controller1Text.text = "Press A on Controller 1!";
             controller1Text.color = Color.black;
         }
-        
+        if (Gamepad.all[0].buttonSouth.isPressed == true)
+        {
+            controller1Text.color = Color.green;
+        }
+
         if (Gamepad.all.ToArray().Length < 2)
         {
             controller2Text.text = "Controller 2 not detected!";
@@ -62,11 +62,14 @@ public class checkControllers : MonoBehaviour
         {
             startButton.interactable = true;
         }
-
-        controller1Text.color = Color.black;
-        controller2Text.color = Color.black;
-        
-
+        if (Gamepad.all[1].buttonSouth.isPressed == true)
+        {
+            controller2Text.color = Color.green;
+        }
+        else
+        {
+            controller2Text.color = Color.black;
+        }
     }
 
     private void PlayerA_performed(InputAction.CallbackContext obj)
