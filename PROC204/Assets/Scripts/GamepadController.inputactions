@@ -1,5 +1,5 @@
 {
-    "name": "New Controls",
+    "name": "GamepadController",
     "maps": [
         {
             "name": "Cardinal",
@@ -71,17 +71,9 @@
             "id": "acb825f9-af3a-4d59-8223-cefe279bffbc",
             "actions": [
                 {
-                    "name": "Shield",
+                    "name": "Aim",
                     "type": "Button",
-                    "id": "b5863583-5f26-468e-9ab5-9c0a75e6e894",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "7b46d036-cc53-4f49-94e5-12ea2a14b5e3",
+                    "id": "a00bed91-5c60-4423-acd9-9fa47caf0eac",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -90,56 +82,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "581e1405-a47a-46fa-bfec-2aee554e9a2b",
+                    "id": "4b9d0d6b-da19-40fe-a288-8bfa6c29b17c",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shield",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "20c50a76-57bb-44c1-962a-fef0bb5c182a",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "71a9d1e7-3d6a-40b8-9875-1a0ba1fbf338",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b144afd8-db4e-42b9-b8bb-eeadeaf89193",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "df1573e6-303a-4958-a703-1a8f22801ab4",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
