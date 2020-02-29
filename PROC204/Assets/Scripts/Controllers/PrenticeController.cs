@@ -7,7 +7,7 @@ public class PrenticeController : Controller
 {
     GameObject prentice;
     GamepadController gamepadController;
-    Shoot shoot;
+    RangedWeapon rangedWeapon;
 
     Vector2 aimInput;
 
@@ -32,18 +32,25 @@ public class PrenticeController : Controller
     {
         prentice = GameObject.FindWithTag("Player 2");
         transform.parent = prentice.transform;
-        shoot = prentice.GetComponent<Shoot>();
+        rangedWeapon = prentice.GetComponent<RangedWeapon>();
     }
     private void SetUpControls()
     {
         gamepadController = new GamepadController();
 
         gamepadController.Prentice.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
-        gamepadController.Prentice.Aim.performed += ctx => aimInput = Vector2.zero;
+        gamepadController.Prentice.Aim.canceled += ctx => aimInput = Vector2.zero;
+
+        gamepadController.Prentice.Fire.performed += ctx => RangeAttack();
     }
 
     private void Update()
     {
-        shoot.Aim(aimInput);
+        rangedWeapon.Aim(aimInput);
+    }
+
+    private void RangeAttack()
+    {
+        rangedWeapon.Fire();
     }
 }

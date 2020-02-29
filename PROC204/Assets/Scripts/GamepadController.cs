@@ -57,6 +57,17 @@ public class @GamepadController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""f476f887-8a11-4e64-a2c5-4941003c9157"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d0438779-80bc-4956-994d-46ae5b8c2429"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -90,6 +101,14 @@ public class @GamepadController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""53e6dd2c-9f48-4bcd-b6d9-ace59e577711"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +120,28 @@ public class @GamepadController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d95e9b6-3ba5-46e0-a6c3-bb121d20aee9"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f17e99e8-4009-4d56-b508-f0195d98419f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -117,6 +158,7 @@ public class @GamepadController : IInputActionCollection, IDisposable
         // Prentice
         m_Prentice = asset.FindActionMap("Prentice", throwIfNotFound: true);
         m_Prentice_Aim = m_Prentice.FindAction("Aim", throwIfNotFound: true);
+        m_Prentice_Fire = m_Prentice.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,11 +258,13 @@ public class @GamepadController : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Prentice;
     private IPrenticeActions m_PrenticeActionsCallbackInterface;
     private readonly InputAction m_Prentice_Aim;
+    private readonly InputAction m_Prentice_Fire;
     public struct PrenticeActions
     {
         private @GamepadController m_Wrapper;
         public PrenticeActions(@GamepadController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Aim => m_Wrapper.m_Prentice_Aim;
+        public InputAction @Fire => m_Wrapper.m_Prentice_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Prentice; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +277,9 @@ public class @GamepadController : IInputActionCollection, IDisposable
                 @Aim.started -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnAim;
+                @Fire.started -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PrenticeActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_PrenticeActionsCallbackInterface = instance;
             if (instance != null)
@@ -240,6 +287,9 @@ public class @GamepadController : IInputActionCollection, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -253,5 +303,6 @@ public class @GamepadController : IInputActionCollection, IDisposable
     public interface IPrenticeActions
     {
         void OnAim(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
