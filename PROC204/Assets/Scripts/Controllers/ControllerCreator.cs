@@ -9,8 +9,8 @@ public class ControllerCreator : MonoBehaviour
     {
         Controller controller = FindObjectOfType<Controller>();
 
-        if (controller != null) gameObject.AddComponent<CardinalController>();
-        else gameObject.AddComponent<PrenticeController>();
+        if (controller != null) gameObject.AddComponent<PrenticeController>();
+        else gameObject.AddComponent<CardinalController>();
 
         Destroy(this);
     }

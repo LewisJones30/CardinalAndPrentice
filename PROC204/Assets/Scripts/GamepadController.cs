@@ -96,10 +96,10 @@ public class @GamepadController : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Aim"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""a00bed91-5c60-4423-acd9-9fa47caf0eac"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
                     ""interactions"": """"
                 },
                 {
