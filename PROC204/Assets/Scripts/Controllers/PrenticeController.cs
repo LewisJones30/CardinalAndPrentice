@@ -5,51 +5,55 @@ using UnityEngine;
 
 public class PrenticeController : Controller
 {
-    GameObject prentice;
-    GamepadController gamepadController;
+    GamepadControls gamepadControls;
     RangedWeapon rangedWeapon;
     Shield shield;
 
     Vector2 aimInput;
     bool fireInput = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameObject.name = "Prentice Controller";
-
-        FindPlayer();
         SetUpControls();
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        gamepadController.Prentice.Enable();
+        base.OnEnable();
+        gamepadControls.Prentice.Enable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        gamepadController.Prentice.Disable();
+        base.OnDisable();
+        gamepadControls.Prentice.Disable();
     }
 
     protected override void FindPlayer()
     {
-        prentice = GameObject.FindWithTag("Player 2");
-        transform.parent = prentice.transform;
-        rangedWeapon = prentice.GetComponent<RangedWeapon>();
-        shield = prentice.GetComponent<Shield>();
+        character = GameObject.FindWithTag("Player 2");
+        if (character == null) return;
+
+        transform.parent = character.transform;
+        rangedWeapon = character.GetComponent<RangedWeapon>();
+        shield = character.GetComponent<Shield>();
     }
     private void SetUpControls()
     {
-        gamepadController = new GamepadController();
+        gamepadControls = new GamepadControls();
 
-        gamepadController.Prentice.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
-        gamepadController.Prentice.Aim.canceled += ctx => aimInput = Vector2.zero;
+        gamepadControls.Prentice.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
+        gamepadControls.Prentice.Aim.canceled += ctx => aimInput = Vector2.zero;
 
-        gamepadController.Prentice.Fire.performed += ctx => fireInput = true;
-        gamepadController.Prentice.Fire.canceled += ctx => fireInput = false;
+        gamepadControls.Prentice.Fire.performed += ctx => fireInput = true;
+        gamepadControls.Prentice.Fire.canceled += ctx => fireInput = false;
     }
 
     private void Update()
     {
+        if (!CanControl()) return;
+
         rangedWeapon.Aim(aimInput);
         shield.Protect(aimInput);
         RangeAttack();

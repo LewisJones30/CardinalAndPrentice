@@ -4,53 +4,59 @@ using UnityEngine;
 
 public class CardinalController : Controller
 {
-    GameObject cardinal;
-    GamepadController gamepadController;
+    GamepadControls gamepadControls;
     Mover mover;
 
     Vector2 moveInput;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameObject.name = "Cardinal Controller";
-
-        FindPlayer();
         SetUpControls();
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        gamepadController.Cardinal.Enable();
+        base.OnEnable();
+        gamepadControls.Cardinal.Enable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        gamepadController.Cardinal.Disable();
+        base.OnDisable();
+        gamepadControls.Cardinal.Disable();
     }
 
     private void SetUpControls()
     {
-        gamepadController = new GamepadController();
+        gamepadControls = new GamepadControls();
 
-        gamepadController.Cardinal.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        gamepadController.Cardinal.Movement.canceled += ctx => moveInput = Vector2.zero;
+        gamepadControls.Cardinal.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        gamepadControls.Cardinal.Movement.canceled += ctx => moveInput = Vector2.zero;
 
-        gamepadController.Cardinal.Jump.performed += ctx => Jump();
+        gamepadControls.Cardinal.Jump.performed += ctx => Jump();
     }
 
     protected override void FindPlayer()
     {
-        cardinal = GameObject.FindWithTag("Player 1");
-        transform.parent = cardinal.transform;
-        mover = cardinal.GetComponent<Mover>();
+        character = GameObject.FindWithTag("Player 1");
+        if (character == null) return;
+
+        transform.parent = character.transform;
+        mover = character.GetComponent<Mover>();
     }
 
     private void FixedUpdate()
     {
+        if (!CanControl()) return;
+
         mover.Move(moveInput.x);
     }
 
     private void Jump()
     {
+        if (!CanControl()) return;
+
         mover.Jump();
     }
 }
