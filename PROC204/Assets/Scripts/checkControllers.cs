@@ -9,14 +9,14 @@ public class checkControllers : MonoBehaviour
     //Booleans to check if the controllers are ready
      bool controller1Ready = false;
      bool controller2Ready = false;
-    [SerializeField]
-    private Button startButton;
-    public Text controller1Text, controller2Text, startupText, controller1ReadyText, controller2ReadyText;
+    public Text controller1Text, controller2Text, startupText, controller1ReadyText, controller2ReadyText, pressStartText;
     StartupScreenInput controllerInput1;
     void Start()
     {
+        //Hide the text until it is enabled within methods.
         controller1ReadyText.enabled = false;
         controller2ReadyText.enabled = false;
+        pressStartText.enabled = false;
     }
     private void Awake()
     {
@@ -30,6 +30,7 @@ public class checkControllers : MonoBehaviour
     {
         startupText.text = "Controllers detected: " + Gamepad.all.ToArray().Length; //Get controller count
         unlockStartButton();
+
         if (Gamepad.all.ToArray().Length == 0)
         {
             controller1Text.text = "Controller 1 not detected!";
@@ -56,7 +57,7 @@ public class checkControllers : MonoBehaviour
         {
             controller2Text.text = "Controller 2 not detected!";
             controller2Text.color = Color.red;
-            startButton.interactable = false;
+            pressStartText.enabled = false;
             controller2Ready = false;
             return;
         }
@@ -66,7 +67,7 @@ public class checkControllers : MonoBehaviour
         }
         if (Gamepad.all.ToArray().Length == 2)
         {
-            startButton.interactable = true;
+            startGame();
         }
         if (Gamepad.all[1].buttonSouth.isPressed == true)
         {
@@ -90,11 +91,19 @@ public class checkControllers : MonoBehaviour
     {
         if (controller1Ready == true && controller2Ready == true)
         {
-            startButton.interactable = true;
+            pressStartText.enabled = true;
         }
         else
         {
-            startButton.interactable = false;
+            pressStartText.enabled = false;
+        }
+    }
+    private void startGame()
+    {
+        if (Gamepad.all[0].startButton.isPressed == true || Gamepad.all[1].startButton.isPressed == true)
+        {
+            //Move to the next scene.
+            Debug.Log("Horray!");
         }
     }
 }
