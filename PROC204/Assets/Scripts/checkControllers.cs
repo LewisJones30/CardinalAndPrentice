@@ -11,11 +11,12 @@ public class checkControllers : MonoBehaviour
      bool controller2Ready = false;
     [SerializeField]
     private Button startButton;
-    public Text controller1Text, controller2Text, startupText;
+    public Text controller1Text, controller2Text, startupText, controller1ReadyText, controller2ReadyText;
     StartupScreenInput controllerInput1;
     void Start()
     {
-
+        controller1ReadyText.enabled = false;
+        controller2ReadyText.enabled = false;
     }
     private void Awake()
     {
@@ -28,13 +29,15 @@ public class checkControllers : MonoBehaviour
     void Update()
     {
         startupText.text = "Controllers detected: " + Gamepad.all.ToArray().Length; //Get controller count
-
+        unlockStartButton();
         if (Gamepad.all.ToArray().Length == 0)
         {
             controller1Text.text = "Controller 1 not detected!";
             controller1Text.color = Color.red;
             controller2Text.text = "Controller 2 not detected!";
             controller2Text.color = Color.red;
+            controller1Ready = false; //Reset the controller 1 ready status
+            controller1ReadyText.enabled = false;
             return;
         }
         else
@@ -45,6 +48,8 @@ public class checkControllers : MonoBehaviour
         if (Gamepad.all[0].buttonSouth.isPressed == true)
         {
             controller1Text.color = Color.green;
+            controller1Ready = true;
+            controller1ReadyText.enabled = true;
         }
 
         if (Gamepad.all.ToArray().Length < 2)
@@ -52,6 +57,7 @@ public class checkControllers : MonoBehaviour
             controller2Text.text = "Controller 2 not detected!";
             controller2Text.color = Color.red;
             startButton.interactable = false;
+            controller2Ready = false;
             return;
         }
         else
@@ -65,11 +71,14 @@ public class checkControllers : MonoBehaviour
         if (Gamepad.all[1].buttonSouth.isPressed == true)
         {
             controller2Text.color = Color.green;
+            controller2Ready = true;
+            controller1ReadyText.enabled = true;
         }
         else
         {
             controller2Text.color = Color.black;
         }
+        
     }
 
     private void PlayerA_performed(InputAction.CallbackContext obj)
@@ -77,18 +86,15 @@ public class checkControllers : MonoBehaviour
         throw new System.NotImplementedException();
     }
 
-    private void OnPlayerA()
+    private void unlockStartButton()
     {
-        if (controller1Ready == true)
+        if (controller1Ready == true && controller2Ready == true)
         {
-            controller1Text.color = Color.green;
-            controller1Ready = false;
+            startButton.interactable = true;
         }
         else
         {
-            controller1Text.color = Color.black;
-            controller1Ready = true;
+            startButton.interactable = false;
         }
-
     }
 }
