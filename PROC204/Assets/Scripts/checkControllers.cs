@@ -10,7 +10,6 @@ public class checkControllers : MonoBehaviour
      bool controller1Ready = false;
      bool controller2Ready = false;
     public Text controller1Text, controller2Text, startupText, controller1ReadyText, controller2ReadyText, pressStartText;
-    StartupScreenInput controllerInput1;
     void Start()
     {
         //Hide the text until it is enabled within methods.
