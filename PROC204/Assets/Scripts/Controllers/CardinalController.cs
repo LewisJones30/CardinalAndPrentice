@@ -1,56 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CardinalController : Controller
 {
-    GameObject cardinal;
-    GamepadController gamepadController;
     Mover mover;
-
     Vector2 moveInput;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameObject.name = "Cardinal Controller";
-
-        FindPlayer();
-        SetUpControls();
-    }
-    private void OnEnable()
-    {
-        gamepadController.Cardinal.Enable();
     }
 
-    private void OnDisable()
+    public void OnMovement(InputValue value)
     {
-        gamepadController.Cardinal.Disable();
+        moveInput = value.Get<Vector2>();
     }
 
-    private void SetUpControls()
+    public void OnJump(InputValue value)
     {
-        gamepadController = new GamepadController();
+        if (!CanControl()) return;
 
-        gamepadController.Cardinal.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        gamepadController.Cardinal.Movement.canceled += ctx => moveInput = Vector2.zero;
-
-        gamepadController.Cardinal.Jump.performed += ctx => Jump();
+        mover.Jump();
     }
 
     protected override void FindPlayer()
     {
-        cardinal = GameObject.FindWithTag("Player 1");
-        transform.parent = cardinal.transform;
-        mover = cardinal.GetComponent<Mover>();
+        character = GameObject.FindWithTag("Player 1");
+        if (character == null) return;
+
+        transform.parent = character.transform;
+        mover = character.GetComponent<Mover>();
     }
 
     private void FixedUpdate()
     {
-        mover.Move(moveInput.x);
-    }
+        if (!CanControl()) return;
 
-    private void Jump()
-    {
-        mover.Jump();
-    }
+        mover.Move(moveInput.x);
+    }    
 }

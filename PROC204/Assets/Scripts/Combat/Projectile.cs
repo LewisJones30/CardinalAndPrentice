@@ -27,7 +27,6 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         distanceTravelled += Time.deltaTime * moveSpeed;
-        print(distanceTravelled);
 
         if (distanceTravelled > maxDistance) Destroy(gameObject);
     }
