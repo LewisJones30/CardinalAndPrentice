@@ -53,6 +53,5 @@ public class PrenticeController : Controller
 
         Gamepad prenticeController = gamepads[0];
 
-        prenticeController.buttonEast.
     }
 }
