@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7938673092887154763}
   - component: {fileID: 6933539857896698451}
-  - component: {fileID: 691998540786122304}
+  - component: {fileID: 3421069902785581809}
   m_Layer: 0
   m_Name: Player Controller
   m_TagString: Untagged
@@ -44,11 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a496ac9dd40ec8a4cb3f0169512353bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardinalControls: {fileID: -944628639613478452, guid: 3b737b8cf382b7e4a9382458fe8202cc,
-    type: 3}
-  prenticeControls: {fileID: -944628639613478452, guid: 1509d6dfe267f4e4bae2722f0475ff44,
-    type: 3}
---- !u!114 &691998540786122304
+--- !u!114 &3421069902785581809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3b737b8cf382b7e4a9382458fe8202cc,
     type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -82,6 +78,6 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Cardinal
+  m_DefaultActionMap: 806dbdbe-b00c-4451-9ec7-a3342793463b
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

@@ -107,7 +107,7 @@ public class @GamepadControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""017c43e9-a383-4135-887c-a0eaef092857"",
                     ""expectedControlType"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""interactions"": """"
                 }
             ],
