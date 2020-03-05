@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 884968411}
   - component: {fileID: 884968414}
   - component: {fileID: 884968415}
+  - component: {fileID: 884968416}
   m_Layer: 9
   m_Name: Prentice
   m_TagString: Player 2
@@ -470,6 +471,18 @@ MonoBehaviour:
     type: 3}
   shieldDistance: 2
   shieldDelayAfterWeaponFire: 1
+--- !u!114 &884968416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884968409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e8a41ee0e38f84e981bc83ecc0592f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &992670148
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +973,7 @@ GameObject:
   - component: {fileID: 2064690744}
   - component: {fileID: 2064690748}
   - component: {fileID: 2064690749}
+  - component: {fileID: 2064690750}
   m_Layer: 9
   m_Name: Cardinal
   m_TagString: Player 1
@@ -1073,6 +1087,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 18
   jumpForce: 10
+--- !u!114 &2064690750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064690743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6087891329f31284a923f5a2a93b4be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 100
 --- !u!1001 &1627716393557941812
 PrefabInstance:
   m_ObjectHideFlags: 0

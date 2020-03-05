@@ -10,7 +10,8 @@ public class PrenticeController : Controller
     Shield shield;
 
     Vector2 aimInput;
-
+    private float horizontalRotation = 0.0f;
+    private float verticalRotation = 0.0f;
     protected override void Awake()
     {
         base.Awake();
@@ -22,11 +23,12 @@ public class PrenticeController : Controller
         aimInput = value.Get<Vector2>();
     }
 
-    public void OnFire(InputAction.CallbackContext callbackContext)
+    public void OnFire()
     {
         rangedWeapon.Fire();
 
-        bool fire = callbackContext.ReadValue<bool>();
+
+        //bool fire = callbackContext.ReadValue<bool>();
 
         //callbackContext.phase;
 
@@ -44,15 +46,42 @@ public class PrenticeController : Controller
 
     private void Update()
     {
-        if (!CanControl()) return;
+        //if (!CanControl()) return;
 
-        rangedWeapon.Aim(aimInput);
-        shield.Protect(aimInput);
+            //rangedWeapon.Aim(aimInput);
+            //shield.Protect(aimInput);
+        if (Gamepad.all[0].buttonSouth.isPressed == true) //A button on Xbox Controller, X on PS4
+        {
+            Debug.Log("Fired!!");
+            rangedWeapon.Fire();
+            
+        }
+        else if (Gamepad.all[1].buttonEast.isPressed == true) //B button on Xbox controller, Circle on PS4
+        {
+            //Code to be added
+        }
+        else if (Gamepad.all[1].buttonNorth.isPressed == true) //Y button on Xbox controller, Triangle on PS4
+        {
+            //Code to be added
+        }
+        else if (Gamepad.all[1].buttonWest.isPressed == true) //X button on Xbox controller
+        {
+            //Code to be added
+        }
+        else if (Gamepad.all[1].leftStick.IsPressed()) //Shield controller, left joystick on Xbox/PS4
+        {
+            horizontalRotation = Input.GetAxis("Horizontal");
+            if (Input.GetAxis("Vertical") < 0) //Ensures shield does not go through floor, potentially could work both ways?
+            {
+                verticalRotation = 0;
+            }
+            else
+            {
+                verticalRotation = Input.GetAxis("Vertical"); 
+            }
+            shield.Protect(new Vector2(horizontalRotation, verticalRotation)); //Invoke shield spawner
+        }
 
-        var gamepads = Gamepad.all;
 
-        Gamepad prenticeController = gamepads[0];
-
-        prenticeController.buttonEast.
     }
 }
