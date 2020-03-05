@@ -574,6 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 17.5
   jumpForce: 10
+  cardinalBody: {fileID: 1436294232}
 --- !u!4 &4277554932707162109
 Transform:
   m_ObjectHideFlags: 0
@@ -587,7 +588,6 @@ Transform:
   m_Children:
   - {fileID: 1436294232}
   - {fileID: 4277554931774770868}
-  - {fileID: 4277554933535199772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -674,11 +674,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4277554933535199775}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.631, y: 1.289, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.289, z: -0.63100004}
+  m_LocalScale: {x: 0.5000001, y: 0.5, z: 0.5000001}
   m_Children: []
-  m_Father: {fileID: 4277554932707162109}
+  m_Father: {fileID: 1436294232}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4277554933535199773

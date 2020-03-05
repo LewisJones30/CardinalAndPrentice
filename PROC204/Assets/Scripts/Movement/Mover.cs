@@ -7,6 +7,9 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float jumpForce = 20f;
+    [SerializeField] Transform cardinalBody;
+
+    Coroutine turning;
 
     Rigidbody rb;
     Animator animator;
@@ -28,9 +31,31 @@ public class Mover : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        //print(rb.velocity);
         float speed = rb.velocity.x;
+        float dir = Mathf.Sign(speed);
+
+        if (turning == null) turning = StartCoroutine(Turn());
+
         animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
+    }
+
+    IEnumerator Turn()
+    {
+        Vector3 eulerRot = cardinalBody.rotation.eulerAngles;
+        Quaternion targetRot = Quaternion.Euler(eulerRot + new Vector3(0f, 180f, 0f));
+
+        while(true)
+        {
+            Quaternion newRot = Quaternion.Lerp(cardinalBody.rotation, targetRot, 0.1f);
+
+            if (newRot == targetRot) break;
+
+            cardinalBody.rotation = newRot;
+
+            yield return null;
+        }
+
+        turning = null;
     }
 
     public void Jump()
