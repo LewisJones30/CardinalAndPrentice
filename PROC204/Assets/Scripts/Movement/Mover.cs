@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float jumpForce = 20f;
     [SerializeField] Transform cardinalBody;
 
-    Coroutine turning;
+    bool isGrounded = true;
 
     Rigidbody rb;
     Animator animator;
@@ -32,34 +32,41 @@ public class Mover : MonoBehaviour
     private void UpdateAnimator()
     {
         float speed = rb.velocity.x;
-        float dir = Mathf.Sign(speed);
-
-        if (turning == null) turning = StartCoroutine(Turn());
+        Turn(speed);
 
         animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
     }
 
-    IEnumerator Turn()
+    private void Turn(float input)
     {
-        Vector3 eulerRot = cardinalBody.rotation.eulerAngles;
-        Quaternion targetRot = Quaternion.Euler(eulerRot + new Vector3(0f, 180f, 0f));
+        if (Mathf.Abs(input) < 0.1f) return;
 
-        while(true)
+        if (input > 0)
         {
-            Quaternion newRot = Quaternion.Lerp(cardinalBody.rotation, targetRot, 0.1f);
-
-            if (newRot == targetRot) break;
-
-            cardinalBody.rotation = newRot;
-
-            yield return null;
+            cardinalBody.right = new Vector3(0, 0, -1);
         }
+        else if (input < 0)
+        {
+            cardinalBody.right = new Vector3(0, 0, 1);
+        }
+    }
 
-        turning = null;
+    private void OnTriggerEnter(Collider other)
+    {
+        isGrounded = true;
+        animator.SetBool("isGrounded", true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isGrounded = false;
+        animator.SetBool("isGrounded", false);
     }
 
     public void Jump()
     {
+        if (!isGrounded) return;
+        animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
 }

@@ -15,4 +15,9 @@ public class P1KeyboardController : MonoBehaviour
     {
         mover.Move(Input.GetAxis("Horizontal"));
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) mover.Jump();
+    }
 }
