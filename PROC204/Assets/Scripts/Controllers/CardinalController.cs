@@ -38,12 +38,6 @@ public class CardinalController : Controller
         mover = character.GetComponent<Mover>();
     }
 
-    private void FixedUpdate()
-    {
-        if (!CanControl()) return;
-
-        mover.Move(moveInput.x);
-    }
     private void Update()
     {
         if (Gamepad.all[0].leftStick.IsPressed() == true) //Only moves if player 1 is using the left stick
@@ -51,6 +45,7 @@ public class CardinalController : Controller
             //transform.Translate((Input.GetAxis("Horizontal") * movementSpeed), 0, 0); //transforms the object
             rb.AddForce(Vector3.right * movementSpeed * Input.GetAxis("Horizontal"));
         }
+
         else if (Gamepad.all[0].buttonWest.isPressed == true) //Player 1 melee button
         {
             //Melee script here.
@@ -66,6 +61,10 @@ public class CardinalController : Controller
         if (Gamepad.all[0].buttonEast.isPressed == true) //B on Xbox, Circle on PS4
         {
             //Code to be added
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 }
