@@ -6,27 +6,14 @@ using UnityEngine.InputSystem;
 public class CardinalController : Controller
 {
     Mover mover;
+
     Vector2 moveInput;
-    public float movementSpeed = 0.1f;
-    Rigidbody rb;
+    bool jumpReset = true;
 
     protected override void Awake()
     {
         base.Awake();
-        gameObject.name = "Cardinal Controller";
-        rb = this.GetComponent<Rigidbody>();
-    }
-
-    public void OnMovement(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-    }
-
-    public void OnJump(InputValue value)
-    {
-        if (!CanControl()) return;
-
-        mover.Jump();
+        mover = GetComponent<Mover>();
     }
 
     protected override void FindPlayer()
@@ -38,22 +25,36 @@ public class CardinalController : Controller
         mover = character.GetComponent<Mover>();
     }
 
+    
+
     private void Update()
     {
-        if (Gamepad.all[0].leftStick.IsPressed() == true) //Only moves if player 1 is using the left stick
+        if (Gamepad.all[0].leftStick.IsPressed()) //Only moves if player 1 is using the left stick
         {
-            //transform.Translate((Input.GetAxis("Horizontal") * movementSpeed), 0, 0); //transforms the object
-            rb.AddForce(Vector3.right * movementSpeed * Input.GetAxis("Horizontal"));
+            moveInput = Gamepad.all[0].leftStick.ReadValue();
+        }
+        else
+        {
+            moveInput = Vector3.zero;
         }
 
-        else if (Gamepad.all[0].buttonWest.isPressed == true) //Player 1 melee button
+        if (Gamepad.all[0].buttonSouth.isPressed && jumpReset) //A on Xbox, X on PS4
+        {
+            print("JUMP");
+            jumpReset = false;
+            mover.Jump();
+        }
+        
+        if (!Gamepad.all[0].buttonSouth.isPressed)
+        {
+            jumpReset = true;
+        }
+
+        if (Gamepad.all[0].buttonWest.isPressed == true) //Player 1 melee button
         {
             //Melee script here.
         }
-        else if (Gamepad.all[0].buttonSouth.isPressed == true) //A on Xbox, X on PS4
-        {
-            //Code to be added
-        }
+        
         else if (Gamepad.all[0].buttonNorth.isPressed == true) //Y on Xbox, Triangle on PS4
         {
             //Code to be added
@@ -62,9 +63,10 @@ public class CardinalController : Controller
         {
             //Code to be added
         }
-        else
-        {
-            rb.velocity = Vector3.zero;
-        }
+    }
+
+    private void FixedUpdate()
+    {
+        mover.Move(moveInput.x);
     }
 }
