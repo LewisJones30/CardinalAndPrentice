@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float acceleration = 60f;
     [SerializeField] float jumpForce = 20f;
     [SerializeField] Transform cardinalBody;
 
@@ -22,7 +23,7 @@ public class Mover : MonoBehaviour
 
     public void Move(float input)
     {
-        float moveForce = input * moveSpeed;
+        float moveForce = input * acceleration;
 
         rb.AddForce(new Vector3(moveForce, 0f, 0f), ForceMode.Acceleration);
 

@@ -13,7 +13,7 @@ public class P1KeyboardController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        mover.Move(Input.GetAxis("Horizontal"));
+        mover.Move(Input.GetAxisRaw("Horizontal"));
     }
 
     private void Update()
