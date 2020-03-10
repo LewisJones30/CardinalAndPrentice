@@ -10,12 +10,10 @@ public class checkControllers : MonoBehaviour
     //Booleans to check if the controllers are ready
      bool controller1Ready = false;
      bool controller2Ready = false;
-    public Text controller1Text, controller2Text, startupText, controller1ReadyText, controller2ReadyText, pressStartText;
+    public Text controller1Text, controller2Text, startupText, pressStartText;
     void Start()
     {
         //Hide the text until it is enabled within methods.
-        controller1ReadyText.enabled = false;
-        controller2ReadyText.enabled = false;
         pressStartText.enabled = false;
     }
     private void Awake()
@@ -36,9 +34,9 @@ public class checkControllers : MonoBehaviour
             controller2Text.text = "Controller 2 not detected!";
             controller2Text.color = Color.red;
             controller1Ready = false; //Reset the controller 1 ready status
-            controller1ReadyText.enabled = false;
             return;
         }
+
         else
         {
             controller1Text.text = "Press A on Controller 1!";
@@ -48,7 +46,10 @@ public class checkControllers : MonoBehaviour
         {
             controller1Text.color = Color.green;
             controller1Ready = true;
-            controller1ReadyText.enabled = true;
+        }
+        if (controller1Ready == true)
+        {
+            controller1Text.text = "Cardinal is connected!";
         }
         if (Gamepad.all.ToArray().Length < 2)
         {
@@ -56,7 +57,7 @@ public class checkControllers : MonoBehaviour
             controller2Text.color = Color.red;
             pressStartText.enabled = false;
             controller2Ready = false;
-            controller2ReadyText.enabled = false;
+            return;
         }
         else
         {
@@ -66,7 +67,7 @@ public class checkControllers : MonoBehaviour
         {
             controller2Text.color = Color.green;
             controller2Ready = true;
-            controller2ReadyText.enabled = true;
+            controller2Text.text = "Prenice is connected!";
         }
         else
         {
@@ -80,6 +81,11 @@ public class checkControllers : MonoBehaviour
         else
         {
             pressStartText.enabled = false;
+        }
+
+        if (controller2Ready == true)
+        {
+            controller2Text.text = "Prentice is connected!";
         }
         
     }

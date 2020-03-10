@@ -50,6 +50,10 @@ public class PrenticeController : Controller
 
             //rangedWeapon.Aim(aimInput);
             //shield.Protect(aimInput);
+        if (Gamepad.all.ToArray().Length == 1)
+        {
+            return;
+        }
         if (Gamepad.all[0].buttonSouth.isPressed == true) //A button on Xbox Controller, X on PS4
         {
             Debug.Log("Fired!!");
