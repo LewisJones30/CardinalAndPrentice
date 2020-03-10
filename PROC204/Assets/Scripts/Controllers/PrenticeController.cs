@@ -4,84 +4,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PrenticeController : Controller
+public class PrenticeController : MonoBehaviour
 {
+    [SerializeField] int gamepadNum = 1;
+
     RangedWeapon rangedWeapon;
     Shield shield;
-
-    Vector2 aimInput;
-    private float horizontalRotation = 0.0f;
-    private float verticalRotation = 0.0f;
-    protected override void Awake()
+    
+    void Awake()
     {
-        base.Awake();
-        gameObject.name = "Prentice Controller";
-    }
-
-    public void OnAim(InputValue value)
-    {
-        aimInput = value.Get<Vector2>();
-    }
-
-    public void OnFire()
-    {
-        rangedWeapon.Fire();
-
-
-        //bool fire = callbackContext.ReadValue<bool>();
-
-        //callbackContext.phase;
-
-    }
-
-    protected override void FindPlayer()
-    {
-        character = GameObject.FindWithTag("Player 2");
-        if (character == null) return;
-
-        transform.parent = character.transform;
-        rangedWeapon = character.GetComponent<RangedWeapon>();
-        shield = character.GetComponent<Shield>();
+        rangedWeapon = GetComponent<RangedWeapon>();
+        shield = GetComponent<Shield>();
     }
 
     private void Update()
     {
-        //if (!CanControl()) return;
+        if (gamepadNum >= Gamepad.all.Count) return;
 
-            //rangedWeapon.Aim(aimInput);
-            //shield.Protect(aimInput);
-        if (Gamepad.all[0].buttonSouth.isPressed == true) //A button on Xbox Controller, X on PS4
+        var gamepad = Gamepad.all[gamepadNum];
+        if (gamepad == null) return;
+
+        Aim(gamepad);
+        Fire(gamepad);
+
+        if (gamepad.buttonEast.isPressed) //B button on Xbox controller, Circle on PS4
         {
-            Debug.Log("Fired!!");
+            //Code to be added
+        }
+
+        if (gamepad.buttonNorth.isPressed) //Y button on Xbox controller, Triangle on PS4
+        {
+            //Code to be added
+        }
+
+        if (gamepad.buttonWest.isPressed) //X button on Xbox controller
+        {
+            //Code to be added
+        }
+    }
+
+    private void Fire(Gamepad gamepad)
+    {
+        if (gamepad.buttonSouth.isPressed) //A button on Xbox Controller, X on PS4
+        {
             rangedWeapon.Fire();
-            
         }
-        else if (Gamepad.all[1].buttonEast.isPressed == true) //B button on Xbox controller, Circle on PS4
+    }
+
+    private void Aim(Gamepad gamepad)
+    {
+        Vector2 aim;
+
+        if (gamepad.leftStick.IsPressed()) //left joystick on Xbox/PS4
         {
-            //Code to be added
+            aim = gamepad.leftStick.ReadValue().normalized;
         }
-        else if (Gamepad.all[1].buttonNorth.isPressed == true) //Y button on Xbox controller, Triangle on PS4
+        else
         {
-            //Code to be added
-        }
-        else if (Gamepad.all[1].buttonWest.isPressed == true) //X button on Xbox controller
-        {
-            //Code to be added
-        }
-        else if (Gamepad.all[1].leftStick.IsPressed()) //Shield controller, left joystick on Xbox/PS4
-        {
-            horizontalRotation = Input.GetAxis("Horizontal");
-            if (Input.GetAxis("Vertical") < 0) //Ensures shield does not go through floor, potentially could work both ways?
-            {
-                verticalRotation = 0;
-            }
-            else
-            {
-                verticalRotation = Input.GetAxis("Vertical"); 
-            }
-            shield.Protect(new Vector2(horizontalRotation, verticalRotation)); //Invoke shield spawner
+            aim = Vector2.zero;
         }
 
-
+        shield.Protect(aim);
+        rangedWeapon.Aim(aim);
     }
 }
