@@ -20,4 +20,11 @@ public class GroundCollider : MonoBehaviour
         IsGrounded = false;
         onChangeGroundState?.Invoke(IsGrounded);
     }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        IsGrounded = true;
+        onChangeGroundState?.Invoke(IsGrounded);
+    }
 }
