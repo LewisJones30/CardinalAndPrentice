@@ -8,12 +8,15 @@ public class CardinalController : MonoBehaviour
     [SerializeField] int gamepadNum = 0;
 
     Mover mover;
+    Melee melee;
     Vector2 moveInput;
     bool jumpReset = true;
+    bool attackReset = true;
 
     void Awake()
     {
         mover = GetComponent<Mover>();
+        melee = GetComponent<Melee>();
     }    
 
     private void Update()
@@ -25,11 +28,7 @@ public class CardinalController : MonoBehaviour
 
         Move(gamepad);
         Jump(gamepad);
-
-        if (gamepad.buttonWest.isPressed == true) //Player 1 melee button
-        {
-            //Melee script here.
-        }
+        MeleeAttack(gamepad);
 
         if (gamepad.buttonNorth.isPressed == true) //Y on Xbox, Triangle on PS4
         {
@@ -39,6 +38,20 @@ public class CardinalController : MonoBehaviour
         if (gamepad.buttonEast.isPressed == true) //B on Xbox, Circle on PS4
         {
             //Code to be added
+        }
+    }
+
+    private void MeleeAttack(Gamepad gamepad)
+    {
+        if (gamepad.buttonWest.isPressed && attackReset) //Player 1 melee button
+        {
+            attackReset = false;
+            melee.Swing();
+        }
+
+        if(!gamepad.buttonWest.isPressed)
+        {
+            attackReset = true;
         }
     }
 
