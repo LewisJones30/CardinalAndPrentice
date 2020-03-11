@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class checkControllers : MonoBehaviour
+public class ControllerSetup : MonoBehaviour
 {
     //Booleans to check if the controllers are ready
      bool controller1Ready = false;
@@ -88,11 +88,6 @@ public class checkControllers : MonoBehaviour
             controller2Text.text = "Prentice is connected!";
         }
         
-    }
-
-    private void PlayerA_performed(InputAction.CallbackContext obj)
-    {
-        throw new System.NotImplementedException();
     }
 
     private void startGame()

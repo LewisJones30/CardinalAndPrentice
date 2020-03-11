@@ -695,7 +695,6 @@ GameObject:
   - component: {fileID: 4277554932645408444}
   - component: {fileID: 4277554932645408443}
   - component: {fileID: 4277554932645408442}
-  - component: {fileID: 4277554932645408445}
   - component: {fileID: 4277554932645408440}
   - component: {fileID: 4277554932645408441}
   - component: {fileID: 892970162}
@@ -767,19 +766,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4277554932645408445
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4277554932645408447}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4277554932645408440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,11 +972,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5139425562de751409bca64276e51cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 6
   acceleration: 95
   jumpForce: 100
   cardinalBody: {fileID: 9020162545015709247}
-  isGrounded: 1
 --- !u!114 &4355474281378937764
 MonoBehaviour:
   m_ObjectHideFlags: 0
