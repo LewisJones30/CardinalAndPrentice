@@ -5,18 +5,15 @@ using UnityEngine.InputSystem;
 
 public class GameOverScript : MonoBehaviour
 {
-    GameObject gameOverObject;
-    Canvas gameOverCanvas;
+    [SerializeField] Canvas gameOverCanvas;
     bool gameOver = false;
-    // Start is called before the first frame update
+
     void Start()
     {
-        gameOverObject = GameObject.Find("GameOverCanvas");
-        gameOverCanvas = gameOverObject.GetComponent<Canvas>();
         gameOverCanvas.enabled = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (gameOver == true)
@@ -26,10 +23,6 @@ public class GameOverScript : MonoBehaviour
                 //Restart the game
                 gameOver = false;
             }
-        }
-        else
-        {
-
         }
     }
 
