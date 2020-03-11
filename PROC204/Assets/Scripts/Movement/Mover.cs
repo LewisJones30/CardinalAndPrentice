@@ -5,24 +5,34 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float acceleration = 60f;
     [SerializeField] float jumpForce = 20f;
     [SerializeField] Transform cardinalBody;
 
-    bool isGrounded = true;
-
     Rigidbody rb;
     Animator animator;
+    GroundCollider groundCollider;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        groundCollider = GetComponentInChildren<GroundCollider>();
+    }
+
+    private void OnEnable()
+    {
+        groundCollider.onChangeGroundState += FallingAnimation;
+    }
+
+    private void OnDisable()
+    {
+        groundCollider.onChangeGroundState -= FallingAnimation;
     }
 
     public void Move(float input)
     {
-        float moveForce = input * moveSpeed;
+        float moveForce = input * acceleration;
 
         rb.AddForce(new Vector3(moveForce, 0f, 0f), ForceMode.Acceleration);
 
@@ -51,21 +61,15 @@ public class Mover : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FallingAnimation(bool isGrounded)
     {
-        isGrounded = true;
-        animator.SetBool("isGrounded", true);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isGrounded = false;
-        animator.SetBool("isGrounded", false);
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     public void Jump()
     {
-        if (!isGrounded) return;
+        if (!groundCollider.IsGrounded) return;
+
         animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
