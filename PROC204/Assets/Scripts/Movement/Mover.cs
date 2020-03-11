@@ -7,7 +7,7 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] float acceleration = 60f;
     [SerializeField] float jumpForce = 20f;
-    [SerializeField] Transform cardinalBody;
+    [SerializeField] Transform characterBody;
 
     Rigidbody rb;
     Animator animator;
@@ -53,11 +53,11 @@ public class Mover : MonoBehaviour
 
         if (input > 0)
         {
-            cardinalBody.right = new Vector3(0, 0, -1);
+            characterBody.right = new Vector3(0, 0, -1);
         }
         else if (input < 0)
         {
-            cardinalBody.right = new Vector3(0, 0, 1);
+            characterBody.right = new Vector3(0, 0, 1);
         }
     }
 
