@@ -5,6 +5,10 @@ using UnityEngine;
 public class RangedWeapon : MonoBehaviour
 {
     [SerializeField] Projectile loadedProjectile;
+    [SerializeField] Projectile secondLoadedProjectile;
+    [SerializeField] Projectile thirdLoadedProjectile;
+    [SerializeField] Projectile fourthLoadedProjectile;
+    private int currentProjectile = 0;
 
     bool isReloaded = true;
     Vector2 currentAimDirection;
@@ -25,11 +29,42 @@ public class RangedWeapon : MonoBehaviour
         if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
 
         isReloaded = false;
-        Projectile projectile = Instantiate(loadedProjectile, transform.position, Quaternion.identity);
-        projectile.AddForce(currentAimDirection);
+        if (currentProjectile % 4 == 0)
+        {
+            currentProjectile = currentProjectile + 1;
+            Projectile projectile = Instantiate(secondLoadedProjectile, transform.position, Quaternion.identity);
+            projectile.AddForce(currentAimDirection);
+            onFire?.Invoke();
+            StartCoroutine(Reload());
 
-        onFire?.Invoke();
-        StartCoroutine(Reload());
+        }
+        else if (currentProjectile % 4 == 1)
+        {
+            currentProjectile = currentProjectile + 1;
+            Projectile projectile = Instantiate(thirdLoadedProjectile, transform.position, Quaternion.identity);
+            projectile.AddForce(currentAimDirection);
+
+            onFire?.Invoke();
+            StartCoroutine(Reload());
+        }
+        else if (currentProjectile % 4 == 2)
+        {
+            currentProjectile = currentProjectile + 1;
+            Projectile projectile = Instantiate(fourthLoadedProjectile, transform.position, Quaternion.identity);
+            projectile.AddForce(currentAimDirection);
+
+            onFire?.Invoke();
+            StartCoroutine(Reload());
+        }
+        else if (currentProjectile % 4 == 3)
+        {
+            currentProjectile = currentProjectile + 1;
+            Projectile projectile = Instantiate(loadedProjectile, transform.position, Quaternion.identity);
+            projectile.AddForce(currentAimDirection);
+
+            onFire?.Invoke();
+            StartCoroutine(Reload());
+        }
     }
 
     IEnumerator Reload()

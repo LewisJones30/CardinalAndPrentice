@@ -727,6 +727,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cardinal
       objectReference: {fileID: 0}
+    - target: {fileID: 7673656908939781953, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: loadedProjectile
+      value: 
+      objectReference: {fileID: 7878976939068178231, guid: 1220774a6e4cd454aa215fc9dfec7f4a,
+        type: 3}
+    - target: {fileID: 7673656908939781953, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: secondLoadedProjectile
+      value: 
+      objectReference: {fileID: -5327958510201944958, guid: 840f338b0237d3440b6d0de9ca9481f5,
+        type: 3}
+    - target: {fileID: 7673656908939781953, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: thirdLoadedProjectile
+      value: 
+      objectReference: {fileID: -3579212382191866586, guid: eca1ff6741def5a468081e17839fc91e,
+        type: 3}
+    - target: {fileID: 7673656908939781953, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: fourthLoadedProjectile
+      value: 
+      objectReference: {fileID: -3650573850797042174, guid: 1608c3f9bcd1e9746b09dcb49a56fea9,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db53ccecd76169d44b03a3d5c633c555, type: 3}
 --- !u!4 &1608905983 stripped
