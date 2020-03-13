@@ -323,13 +323,14 @@ GameObject:
   - component: {fileID: 423457190}
   - component: {fileID: 423457189}
   - component: {fileID: 423457188}
+  - component: {fileID: 423457192}
   m_Layer: 5
   m_Name: Main Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &423457188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +398,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423457187}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -409,6 +410,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &423457192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423457187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3164104322d142146b3f97743f8dc9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threeHearts: {fileID: 0}
+  twoHearts: {fileID: 0}
+  OneHeart: {fileID: 0}
+  twoHalfHearts: {fileID: 0}
+  oneHalfHearts: {fileID: 0}
+  zeroHalfHearts: {fileID: 0}
 --- !u!4 &620894541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2845297161927127591, guid: d43fc3a59a0db8d4e88852268b9cedcb,
@@ -845,6 +864,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3650573850797042174, guid: 1608c3f9bcd1e9746b09dcb49a56fea9,
         type: 3}
+    - target: {fileID: 8071684230418285660, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: healthScript
+      value: 
+      objectReference: {fileID: 423457192}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db53ccecd76169d44b03a3d5c633c555, type: 3}
 --- !u!4 &1608905983 stripped
