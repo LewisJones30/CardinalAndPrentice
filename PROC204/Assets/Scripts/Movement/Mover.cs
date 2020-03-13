@@ -90,4 +90,9 @@ public class Mover : MonoBehaviour
         animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
+
+    public Vector3 GetVelocity()
+    {
+        return rb.velocity;
+    }
 }
