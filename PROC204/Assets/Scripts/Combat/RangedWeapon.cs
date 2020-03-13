@@ -24,7 +24,17 @@ public class RangedWeapon : MonoBehaviour
         Debug.DrawRay(transform.position, input);
     }
 
-    public void FireSouth() //Blue attack
+    public void FireSouth() //Green attack
+    {
+        if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
+        isReloaded = false;
+        currentProjectile = currentProjectile + 1;
+        Projectile projectile = Instantiate(secondLoadedProjectile, transform.position, Quaternion.identity);
+        projectile.AddForce(currentAimDirection);
+        onFire?.Invoke();
+        StartCoroutine(Reload());
+    }
+    public void FireWest() //Blue attack
     {
         if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
         isReloaded = false;
@@ -34,7 +44,7 @@ public class RangedWeapon : MonoBehaviour
         onFire?.Invoke();
         StartCoroutine(Reload());
     }
-    public void FireWest() //Orange/Yellow attack
+    public void FireNorth() //Yellow attack
     {
         if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
         isReloaded = false;
@@ -44,22 +54,12 @@ public class RangedWeapon : MonoBehaviour
         onFire?.Invoke();
         StartCoroutine(Reload());
     }
-    public void FireNorth() //Red attack
+    public void FireEast()  //Red attack
     {
         if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
         isReloaded = false;
         currentProjectile = currentProjectile + 1;
         Projectile projectile = Instantiate(thirdLoadedProjectile, transform.position, Quaternion.identity);
-        projectile.AddForce(currentAimDirection);
-        onFire?.Invoke();
-        StartCoroutine(Reload());
-    }
-    public void FireEast()  //Green attack
-    {
-        if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
-        isReloaded = false;
-        currentProjectile = currentProjectile + 1;
-        Projectile projectile = Instantiate(secondLoadedProjectile, transform.position, Quaternion.identity);
         projectile.AddForce(currentAimDirection);
         onFire?.Invoke();
         StartCoroutine(Reload());
