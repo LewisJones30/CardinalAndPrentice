@@ -8,11 +8,14 @@ public class Health : MonoBehaviour
 
     Animator animator;
 
+    ParticleSystem sleepParticle;
+
     bool isDead = false;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        sleepParticle = GetComponent<ParticleSystem>();
     }
 
     public void DealDamage(int damage)
@@ -30,5 +33,7 @@ public class Health : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer("Passable");
         animator.SetTrigger("Die");
+
+        sleepParticle.Play();
     }
 }
