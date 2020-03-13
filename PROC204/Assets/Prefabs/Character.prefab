@@ -86,8 +86,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 95
-  jumpForce: 100
+  jumpForce: 55
   characterBody: {fileID: 1118315093523149361}
+  rollCooldown: 3
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d1b2cb491b60745a796198a7c58592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
   attackPoint: {fileID: 4176649508806424554}
   attackRange: 1
   attackHeight: 0.9
