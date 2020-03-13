@@ -8,10 +8,13 @@ public class Mover : MonoBehaviour
     [SerializeField] float acceleration = 60f;
     [SerializeField] float jumpForce = 20f;
     [SerializeField] Transform characterBody;
+    [SerializeField] float rollCooldown = 1.5f;
 
     Rigidbody rb;
     Animator animator;
     GroundCollider groundCollider;
+
+    bool canRoll = true;
 
     private void Awake()
     {
@@ -37,6 +40,20 @@ public class Mover : MonoBehaviour
         rb.AddForce(new Vector3(moveForce, 0f, 0f), ForceMode.Acceleration);
 
         UpdateAnimator();
+    }
+
+    public void ForwardRoll()
+    {
+        if (!canRoll) return;
+
+        canRoll = false;
+        animator.SetTrigger("rollTrigger");
+        Invoke(nameof(EnableRoll), rollCooldown);
+    }
+
+    private void EnableRoll()
+    {
+        canRoll = true;
     }
 
     private void UpdateAnimator()
