@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeedFraction: 0.65
   turnRefreshRate: 1
+  findPlayerRate: 0.5
+  lineOfSight: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &3596768471909572419
 PrefabInstance:
   m_ObjectHideFlags: 0

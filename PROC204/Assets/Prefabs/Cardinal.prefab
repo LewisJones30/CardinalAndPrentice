@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 2676745983714285647}
   - component: {fileID: 8992450379165043408}
   - component: {fileID: 5074117188565939728}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1685,7 +1685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1446649706315108023}
   - component: {fileID: 8088995725357772204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vcam Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2184,6 +2184,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Wep_Zweihander_01
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 92d7c1e3be84e11418d409a448779b17,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92d7c1e3be84e11418d409a448779b17, type: 3}
 --- !u!4 &5611273344576124940 stripped
@@ -2274,6 +2279,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2508065009959992339, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3166315991581963353, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
       propertyPath: m_Layer
@@ -2329,6 +2339,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 92e56c69768691a40a5004c652aa04ec, type: 2}
+    - target: {fileID: 8428554116240819231, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99cddfe4ae8513d4eb67ba19a415c1fa, type: 3}
 --- !u!1 &4052145456438329426 stripped
