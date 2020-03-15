@@ -12,6 +12,7 @@ public class CardinalController : MonoBehaviour
     Vector2 moveInput;
     bool jumpReset = true;
     bool attackReset = true;
+    bool rollReset = true;
 
     void Awake()
     {
@@ -29,15 +30,25 @@ public class CardinalController : MonoBehaviour
         Move(gamepad);
         Jump(gamepad);
         MeleeAttack(gamepad);
+        ForwardRoll(gamepad);
 
         if (gamepad.buttonNorth.isPressed == true) //Y on Xbox, Triangle on PS4
         {
             //Code to be added
         }
+    }
 
-        if (gamepad.buttonEast.isPressed == true) //B on Xbox, Circle on PS4
+    private void ForwardRoll(Gamepad gamepad)
+    {
+        if (gamepad.buttonEast.isPressed && rollReset) //B on Xbox, Circle on PS4
         {
-            //Code to be added
+            rollReset = false;
+            mover.ForwardRoll();
+        }
+
+        if (!gamepad.buttonEast.isPressed)
+        {
+            rollReset = true;
         }
     }
 
@@ -54,6 +65,7 @@ public class CardinalController : MonoBehaviour
             attackReset = true;
         }
     }
+
 
     private void Jump(Gamepad gamepad)
     {
