@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthUI : MonoBehaviour
 {
 
-    public Sprite threeHearts, twoHearts, OneHeart, twoHalfHearts, oneHalfHearts, zeroHalfHearts;
+    public Sprite threeHearts, twoHearts, oneHeart, twoHalfHearts, oneHalfHearts, zeroHalfHearts;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,31 +22,37 @@ public class HealthUI : MonoBehaviour
 
     public void TakeHealthUpdate()
     {
-        Sprite currentSprite = GetComponent<Sprite>();
-        var currentSpriteName = currentSprite.name;
+        Image currentSprite = GetComponent<Image>();
+        var currentSpriteName = currentSprite.sprite.name;
         if (currentSpriteName.ToString() == "threeHearts")
         {
-            //Instantiate 2.5 hearts sprite
+            currentSprite.overrideSprite = twoHalfHearts;
+            currentSprite.sprite = twoHalfHearts;
         }
         else if (currentSpriteName.ToString() == "twoHalfHearts")
         {
-            //Instantiate 2 hearts sprite
+            currentSprite.overrideSprite = twoHearts;
+            currentSprite.sprite = twoHearts;
         }
         else if (currentSpriteName.ToString() == "twoHearts")
         {
-            //Instantiate 1.5 hearts sprite
+            currentSprite.overrideSprite = oneHalfHearts;
+            currentSprite.sprite = oneHalfHearts;
         }
         else if (currentSpriteName.ToString() == "oneHalfHearts")
         {
-            //Instantiate 1 hearts sprite
+            currentSprite.overrideSprite = oneHeart;
+            currentSprite.sprite = oneHeart;
         }
         else if (currentSpriteName.ToString() == "oneHeart")
         {
-            //Instantiate 0.5 hearts sprite
+            currentSprite.overrideSprite = zeroHalfHearts;
+            currentSprite.sprite = zeroHalfHearts;
         }
         else
         {
             //Default case
+            this.GetComponent<SpriteRenderer>().sprite = threeHearts;
         }
     }
 }

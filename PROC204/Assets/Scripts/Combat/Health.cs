@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 50;
-
+    [SerializeField] HealthUI healthUI;
     Animator animator;
 
     ParticleSystem sleepParticle;
@@ -17,14 +17,17 @@ public class Health : MonoBehaviour
         animator = GetComponent<Animator>();
         sleepParticle = GetComponent<ParticleSystem>();
     }
-
     public void DealDamage(int damage)
     {
         if (isDead) return;
 
         health -= damage;
-
         if (health < 1) Die();
+        if (this.gameObject.name == "Cardinal")
+        {
+            healthUI.TakeHealthUpdate();
+        }
+
     }
 
     private void Die()
