@@ -16,7 +16,7 @@ MonoBehaviour:
   pursueSpeedFraction: 0.8
   turnRefreshRate: 1
   reactionTime: 0.5
-  lineOfSight: 5
+  lineOfSight: 10
 --- !u!1 &5878623655234811416
 GameObject:
   m_ObjectHideFlags: 0
