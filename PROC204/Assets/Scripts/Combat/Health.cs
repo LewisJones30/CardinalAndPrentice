@@ -23,6 +23,11 @@ public class Health : MonoBehaviour
 
         health -= damage;
 
+        if (gameObject.name == "Cardinal")
+        {
+            healthUI.TakeHealthUpdate();
+        }
+
         if (health < 1) Die();
     }
 
@@ -32,11 +37,6 @@ public class Health : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer("Passable");
         animator.SetTrigger("Die");
-
-        if (gameObject.name == "Cardinal")
-        {
-            healthUI.TakeHealthUpdate();
-        }
 
         sleepParticle.Play();
     }

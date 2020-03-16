@@ -52,7 +52,7 @@ public class HealthUI : MonoBehaviour
         else
         {
             //Default case
-            this.GetComponent<SpriteRenderer>().sprite = threeHearts;
+            currentSprite.enabled = false;
         }
     }
 }
