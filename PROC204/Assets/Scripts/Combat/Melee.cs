@@ -9,27 +9,27 @@ public class Melee : MonoBehaviour
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange = 1f;
     [SerializeField] float attackHeight = 0.9f;
-    [SerializeField] LayerMask hitLayers;
+    [SerializeField] int targetLayerIndex;
 
-    Vector3 hitBox;
+    public Vector3 AttackPoint { get { return attackPoint.position; } }
+    public Vector3 HitBox { get; private set; }
+
+    public int TargetLayerIndex { get { return targetLayerIndex; } }
+    public int TargetLayerMask { get { return 1 << targetLayerIndex; } }
 
     Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        hitBox = new Vector3(attackRange / 2, attackHeight / 2, 1f / 2);
+        HitBox = new Vector3(attackRange / 2, attackHeight / 2, 1f / 2);
     }
 
     private void Update()
     {
         if (!Application.isPlaying)
         {
-            attackPoint.position = new Vector3(attackRange / 2, attackPoint.position.y, 0f);
+            attackPoint.position = transform.position + new Vector3(attackRange / 2, attackPoint.position.y, 0f);
         }        
     }
 
@@ -40,7 +40,7 @@ public class Melee : MonoBehaviour
 
     void Hit()
     {
-        Collider[] colliders = Physics.OverlapBox(attackPoint.position, hitBox, Quaternion.identity, hitLayers);
+        Collider[] colliders = Physics.OverlapBox(attackPoint.position, HitBox, Quaternion.identity, TargetLayerMask);
 
         foreach (Collider collider in colliders)
         {
@@ -54,4 +54,5 @@ public class Melee : MonoBehaviour
     {
         Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange, attackHeight, 1f));
     }
+
 }

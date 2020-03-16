@@ -10,6 +10,8 @@ public class Mover : MonoBehaviour
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
 
+    public Vector3 Direction { get { return characterBody.forward; } }
+
     Rigidbody rb;
     Animator animator;
     GroundCollider groundCollider;

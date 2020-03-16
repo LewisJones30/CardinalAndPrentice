@@ -7,14 +7,15 @@ public class AIController : MonoBehaviour
     [SerializeField] float patrolSpeedFraction = 0.6f;
     [SerializeField] float pursueSpeedFraction = 0.8f;
     [SerializeField] float turnRefreshRate = 1f;
-    [SerializeField] float findPlayerRate = 0.5f;
+    [SerializeField] float reactionTime = 0.5f;
     [SerializeField] float lineOfSight = 5f;
-    [SerializeField] LayerMask targetMask;
 
     Transform currentTarget;
     float speedFraction = 1f;
 
     Mover mover;
+    Melee melee;
+    AttackCollider attackCollider;
 
     float moveDirection = 1f;
     bool canTurn = true;
@@ -22,41 +23,56 @@ public class AIController : MonoBehaviour
     private void Awake()
     {
         mover = GetComponent<Mover>();
+        melee = GetComponent<Melee>();
+        attackCollider = GetComponentInChildren<AttackCollider>();
     }
 
     private void Start()
     {
-        StartCoroutine(FindPlayer());
+        StartCoroutine(AIBrain());
     }
 
     private void FixedUpdate()
     {
-        mover.Move(moveDirection * speedFraction);
+        if (!attackCollider.CanAttack) mover.Move(moveDirection * speedFraction);
+    }
+    IEnumerator AIBrain()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(reactionTime);
+
+            FindTarget();
+            Attack();
+        }
     }
 
-    IEnumerator FindPlayer()
+    private void FindTarget()
     {
-        while(true)
+        if (currentTarget == null) speedFraction = patrolSpeedFraction;
+        else speedFraction = pursueSpeedFraction;
+
+        if (currentTarget != null)
         {
-            if (currentTarget == null) speedFraction = patrolSpeedFraction;
-            else speedFraction = pursueSpeedFraction;
+            float targetDistance = Vector3.Distance(transform.position, currentTarget.position);
 
-            yield return new WaitForSeconds(findPlayerRate);
+            if (targetDistance > lineOfSight) currentTarget = null;
+            else return;
+        }
 
-            if (currentTarget != null)
-            {
-                float targetDistance = Vector3.Distance(transform.position, currentTarget.position);
+        Collider[] targets = Physics.OverlapSphere(transform.position, lineOfSight, melee.TargetLayerMask);
 
-                if (targetDistance > lineOfSight) currentTarget = null;
-                else continue;
-            }
+        if (targets.Length < 1) return;
 
-            Collider[] targets = Physics.OverlapSphere(transform.position, lineOfSight, targetMask);
+        currentTarget = targets[0].transform;
+    }
 
-            if (targets.Length < 1) continue;
 
-            currentTarget = targets[0].transform;
-        }        
+    void Attack()
+    {
+        if (!attackCollider.CanAttack) return;
+
+        melee.Swing();
     }
 
     private void Update()

@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
 
     Animator animator;
 
-    bool isDead = false;
+    public bool IsDead { get; private set; } = false;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        if (isDead) return;
+        if (IsDead) return;
 
         health -= damage;
 
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        isDead = true;
+        IsDead = true;
 
         gameObject.layer = LayerMask.NameToLayer("Passable");
         animator.SetTrigger("Die");
