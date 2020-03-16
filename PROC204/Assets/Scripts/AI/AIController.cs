@@ -36,6 +36,8 @@ public class AIController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (health.IsDead) return;
+
         if (!attackCollider.CanAttack) mover.Move(moveDirection * speedFraction);
     }
     IEnumerator AIBrain()
@@ -81,6 +83,8 @@ public class AIController : MonoBehaviour
 
     private void Update()
     {
+        if (health.IsDead) return;
+
         if (currentTarget != null)
         {
             float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
