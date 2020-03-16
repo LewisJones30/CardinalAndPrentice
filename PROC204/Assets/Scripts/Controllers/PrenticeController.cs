@@ -8,11 +8,13 @@ public class PrenticeController : MonoBehaviour
 {
     [SerializeField] int gamepadNum = 1;
 
+    Health health;
     RangedWeapon rangedWeapon;
     Shield shield;
     
     void Awake()
     {
+        health = GetComponentInParent<Health>();
         rangedWeapon = GetComponent<RangedWeapon>();
         shield = GetComponent<Shield>();
     }
@@ -23,6 +25,8 @@ public class PrenticeController : MonoBehaviour
 
         var gamepad = Gamepad.all[gamepadNum];
         if (gamepad == null) return;
+
+        if (health.IsDead) return;
 
         Aim(gamepad);
         Fire(gamepad);
