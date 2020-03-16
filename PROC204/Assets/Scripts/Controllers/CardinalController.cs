@@ -9,6 +9,7 @@ public class CardinalController : MonoBehaviour
 
     Mover mover;
     Melee melee;
+    Health health;
     Vector2 moveInput;
     bool jumpReset = true;
     bool attackReset = true;
@@ -18,6 +19,7 @@ public class CardinalController : MonoBehaviour
     {
         mover = GetComponent<Mover>();
         melee = GetComponent<Melee>();
+        health = GetComponent<Health>();
     }    
 
     private void Update()
@@ -26,6 +28,8 @@ public class CardinalController : MonoBehaviour
 
         var gamepad = Gamepad.all[gamepadNum];
         if (gamepad == null) return;
+
+        if (health.IsDead) return;
 
         Move(gamepad);
         Jump(gamepad);
@@ -95,6 +99,8 @@ public class CardinalController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (health.IsDead) return;
+
         mover.Move(moveInput.x);
     }
 }
