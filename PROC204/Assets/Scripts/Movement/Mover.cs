@@ -10,6 +10,8 @@ public class Mover : MonoBehaviour
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
 
+    public Vector3 Direction { get { return characterBody.forward; } }
+
     Rigidbody rb;
     Animator animator;
     GroundCollider groundCollider;
@@ -89,5 +91,10 @@ public class Mover : MonoBehaviour
 
         animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return rb.velocity;
     }
 }
