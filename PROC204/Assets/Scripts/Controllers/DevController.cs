@@ -8,20 +8,26 @@ public class DevController : MonoBehaviour
 
     Mover mover;
     Melee melee;
+    Health health;
 
     void Awake()
     {
         mover = GetComponent<Mover>();
         melee = GetComponent<Melee>();
+        health = GetComponent<Health>();
     }    
 
     private void Update()
     {
+        if (health.IsDead) return;
+
         if (Input.GetKeyDown(KeyCode.Space)) mover.Jump();
     }
 
     private void FixedUpdate()
     {
+        if (health.IsDead) return;
+
         mover.Move(Input.GetAxisRaw("Horizontal"));
 
         if (Input.GetMouseButtonDown(0)) melee.Swing();

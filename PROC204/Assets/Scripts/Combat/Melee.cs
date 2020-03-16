@@ -9,7 +9,10 @@ public class Melee : MonoBehaviour
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange = 1f;
     [SerializeField] float attackHeight = 0.9f;
+    [SerializeField] float attackRate = 1.2f;
     [SerializeField] int targetLayerIndex;
+
+    bool attackReset = true;
 
     public Vector3 AttackPoint { get { return attackPoint.position; } }
     public Vector3 HitBox { get; private set; }
@@ -35,7 +38,18 @@ public class Melee : MonoBehaviour
 
     public void Swing()
     {
-        animator.SetTrigger("attackTrigger");        
+        if (!attackReset) return;
+
+        attackReset = false;
+
+        animator.SetTrigger("attackTrigger");
+
+        Invoke(nameof(ResetAttack), attackRate);
+    }
+
+    void ResetAttack()
+    {
+        attackReset = true;
     }
 
     void Hit()

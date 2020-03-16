@@ -10,12 +10,13 @@ public class AIController : MonoBehaviour
     [SerializeField] float reactionTime = 0.5f;
     [SerializeField] float lineOfSight = 5f;
 
-    Transform currentTarget;
+    Health currentTarget;
     float speedFraction = 1f;
 
     Mover mover;
     Melee melee;
     AttackCollider attackCollider;
+    Health health;
 
     float moveDirection = 1f;
     bool canTurn = true;
@@ -24,6 +25,7 @@ public class AIController : MonoBehaviour
     {
         mover = GetComponent<Mover>();
         melee = GetComponent<Melee>();
+        health = GetComponent<Health>();
         attackCollider = GetComponentInChildren<AttackCollider>();
     }
 
@@ -42,6 +44,8 @@ public class AIController : MonoBehaviour
         {
             yield return new WaitForSeconds(reactionTime);
 
+            if (health.IsDead) continue;
+
             FindTarget();
             Attack();
         }
@@ -54,9 +58,9 @@ public class AIController : MonoBehaviour
 
         if (currentTarget != null)
         {
-            float targetDistance = Vector3.Distance(transform.position, currentTarget.position);
+            float targetDistance = Vector3.Distance(transform.position, currentTarget.transform.position);
 
-            if (targetDistance > lineOfSight) currentTarget = null;
+            if (targetDistance > lineOfSight || currentTarget.IsDead) currentTarget = null;
             else return;
         }
 
@@ -64,7 +68,7 @@ public class AIController : MonoBehaviour
 
         if (targets.Length < 1) return;
 
-        currentTarget = targets[0].transform;
+        currentTarget = targets[0].gameObject.GetComponent<Health>();
     }
 
 
@@ -79,7 +83,7 @@ public class AIController : MonoBehaviour
     {
         if (currentTarget != null)
         {
-            float targetDirection = Mathf.Sign(currentTarget.position.x - transform.position.x);
+            float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
 
             if (targetDirection != moveDirection) Turn();
         }
