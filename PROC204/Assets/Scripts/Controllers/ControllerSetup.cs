@@ -96,7 +96,7 @@ public class ControllerSetup : MonoBehaviour
         {
             //Move to the next scene.
             Debug.Log("Horray!");
-            SceneManager.LoadScene("Game Mechanic");
+            SceneManager.LoadScene("lvl_1_background");
 
         }
     }
