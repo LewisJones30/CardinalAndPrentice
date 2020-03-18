@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float acceleration = 60f;
-    [SerializeField] float jumpForce = 20f;
+    [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
 
@@ -37,9 +37,7 @@ public class Mover : MonoBehaviour
 
     public void Move(float input)
     {
-        float moveForce = input * acceleration;
-
-        rb.AddForce(new Vector3(moveForce, 0f, 0f), ForceMode.Acceleration);
+        rb.velocity = new Vector3(maxSpeed * input, rb.velocity.y, 0f);
 
         UpdateAnimator();
     }
