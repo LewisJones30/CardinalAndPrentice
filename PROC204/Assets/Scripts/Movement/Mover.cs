@@ -7,7 +7,7 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] PhysicMaterial stationaryMaterial;
     [SerializeField] float maxSpeed = 6f;
-    [SerializeField] float acceleration = 500f;
+    [SerializeField] float acceleration = 80f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
@@ -33,34 +33,47 @@ public class Mover : MonoBehaviour
         FallingAnimation(groundCollider.IsGrounded);
     }
 
+    // Moves character based on input and chosen max speed
     public void Move(float input, float speedFraction)
     {
+        if (Mathf.Abs(input) < Mathf.Epsilon)
+        {
+            SetStationary(true);
+        }
+        else SetStationary(false);
+
         modifedMaxSpeed = maxSpeed * speedFraction;
 
-        if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
-        else SetStationary(false);
+        AddForce(input);
+        UpdateAnimator(input);
+    }
+
+    // Adds force if max speed not reached
+    private void AddForce(float input)
+    {
+        if ((input < 0f) && (rb.velocity.x < -modifedMaxSpeed) ||
+            ((input > 0f) && (rb.velocity.x > modifedMaxSpeed))) return;
 
         Vector3 charDirection = characterBody.TransformDirection(characterBody.forward);
         Vector3 moveDir = groundCollider.CalculateGroundDirection(charDirection) * input;
 
         Debug.DrawRay(characterBody.position, moveDir);
 
+        // Add extra force when climbing up slopes
         if (moveDir.y > 0) moveDir.y *= slopeClimbBoost;
 
-        Vector3 moveForce;
-
-        if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
-        else moveForce = moveDir * airAcceleration;
-        
-        if ((input < 0f) && (rb.velocity.x < -modifedMaxSpeed) || ((input > 0f) && (rb.velocity.x > modifedMaxSpeed))) return;
-
-        rb.AddForce(moveForce, ForceMode.Acceleration);
-
-        print(rb.velocity);
-
-        UpdateAnimator();
+        rb.AddForce(CalculateForce(moveDir), ForceMode.Acceleration);
     }
 
+    // Calculates force to add based on whether the character is on the ground or not
+    private Vector3 CalculateForce(Vector3 moveDir)
+    {
+        Vector3 moveForce;
+        if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
+        else moveForce = moveDir * airAcceleration;
+
+        return moveForce;
+    }
 
     public void ForwardRoll()
     {
@@ -76,14 +89,16 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void UpdateAnimator()
+    // Updates animator based on input and move speed
+    private void UpdateAnimator(float input)
     {
         float speed = rb.velocity.x;
-        Turn(speed);
+        Turn(input);
 
         animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
     }
 
+    // Turns character avatar based on the horizontal input
     private void Turn(float input)
     {
         if (Mathf.Abs(input) < 0.1f) return;
@@ -98,11 +113,13 @@ public class Mover : MonoBehaviour
         }
     }
 
+    // Falling animation played when character is not touching ground
     private void FallingAnimation(bool isGrounded)
     {
         animator.SetBool("isGrounded", isGrounded);
     }
 
+    // Jump when on ground triggering animation and adding force
     public void Jump()
     {
         if (!groundCollider.IsGrounded) return;
@@ -111,6 +128,8 @@ public class Mover : MonoBehaviour
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
 
+    // Stationary friction force applied to prevent avatar from 
+    // slipping down slopes
     public void SetStationary(bool isStationary)
     {
         if (isStationary)
