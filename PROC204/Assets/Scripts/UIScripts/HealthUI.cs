@@ -10,10 +10,13 @@ public class HealthUI : MonoBehaviour
 
     public Sprite threeHearts, twoHearts, oneHeart, twoHalfHearts, oneHalfHearts, zeroHalfHearts;
     bool playerDead = false; //Used to detect if the player is dead, for the canvas to appear.
+    public Image currentSprite;
+    public string currentSpriteName;
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentSprite = GetComponent<Image>();
+        currentSpriteName = currentSprite.sprite.name;
     }
 
     // Update is called once per frame
@@ -36,8 +39,7 @@ public class HealthUI : MonoBehaviour
 
     public void TakeHealthUpdate()
     {
-        Image currentSprite = GetComponent<Image>();
-        var currentSpriteName = currentSprite.sprite.name;
+        
         if (currentSpriteName.ToString() == "threeHearts")
         {
             currentSprite.overrideSprite = twoHalfHearts;
@@ -66,7 +68,83 @@ public class HealthUI : MonoBehaviour
         else
         {
             //Default case
-            currentSprite.enabled = false;
+            Debug.Log("Error. Default case triggered in TakeHealthUpdate.");
+        }
+    }
+
+    public void AddHalfHeart() //This is if the player heals by half a heart.
+    {
+        if (currentSpriteName.ToString() == "threeHearts")
+        {
+            //No healing takes place, player is at maximum health.
+        }
+        else if (currentSpriteName.ToString() == "twoHalfHearts")
+        {
+            currentSprite.overrideSprite = threeHearts;
+            currentSprite.sprite = threeHearts;
+        }
+        else if (currentSpriteName.ToString() == "twoHearts")
+        {
+            currentSprite.overrideSprite = twoHalfHearts;
+            currentSprite.sprite = twoHalfHearts;
+        }
+        else if (currentSpriteName.ToString() == "oneHalfHearts")
+        {
+            currentSprite.overrideSprite = twoHearts;
+            currentSprite.sprite = twoHearts;
+        }
+        else if (currentSpriteName.ToString() == "oneHeart")
+        {
+            currentSprite.overrideSprite = oneHalfHearts;
+            currentSprite.sprite = oneHalfHearts;
+        }
+        else if (currentSpriteName.ToString() == "zeroHalfHearts")
+        {
+            currentSprite.overrideSprite = oneHeart;
+            currentSprite.sprite = oneHeart;
+        }
+        else
+        {
+            //Default case
+            Debug.Log("Error. Default case triggered in AddHalfHeart.");
+        }
+    }
+    public void AddOneHeart() //This method is used if the player heals 1 heart. The cap is currently 3 hearts.
+    {
+        if (currentSpriteName.ToString() == "threeHearts")
+        {
+            //No healing takes place, player is at maximum health.
+        }
+        else if (currentSpriteName.ToString() == "twoHalfHearts")
+        {
+            //Player can only go to three hearts. Therefore this still only adds half a heart.
+            currentSprite.overrideSprite = threeHearts;
+            currentSprite.sprite = threeHearts;
+        }
+        else if (currentSpriteName.ToString() == "twoHearts")
+        {
+            currentSprite.overrideSprite = threeHearts;
+            currentSprite.sprite = threeHearts;
+        }
+        else if (currentSpriteName.ToString() == "oneHalfHearts")
+        {
+            currentSprite.overrideSprite = twoHalfHearts;
+            currentSprite.sprite = twoHalfHearts;
+        }
+        else if (currentSpriteName.ToString() == "oneHeart")
+        {
+            currentSprite.overrideSprite = twoHearts;
+            currentSprite.sprite = twoHearts;
+        }
+        else if (currentSpriteName.ToString() == "zeroHalfHearts")
+        {
+            currentSprite.overrideSprite = oneHalfHearts;
+            currentSprite.sprite = oneHalfHearts;
+        }
+        else
+        {
+            //Default case
+            Debug.Log("Error. Default case triggered in AddHalfHeart.");
         }
     }
     public void gameOver() //Called by health if cardinal dies
