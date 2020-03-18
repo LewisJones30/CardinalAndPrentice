@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
+    [SerializeField] PhysicMaterial stationaryMaterial;
+    [SerializeField] float maxSpeed = 6f;
     [SerializeField] float acceleration = 500f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float slopeClimbBoost = 2f;
+    [SerializeField] float airAcceleration = 8f;
 
     Rigidbody rb;
     Animator animator;
@@ -31,15 +34,26 @@ public class Mover : MonoBehaviour
 
     public void Move(float input)
     {
+        if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
+        else SetStationary(false);
+
         Vector3 charDirection = characterBody.TransformDirection(characterBody.forward);
         Vector3 moveDir = groundCollider.CalculateGroundDirection(charDirection) * input;
 
         Debug.DrawRay(characterBody.position, moveDir);
 
-        moveDir.y *= slopeClimbBoost;
-        Vector3 moveForce = moveDir * acceleration;
+        if (moveDir.y > 0) moveDir.y *= slopeClimbBoost;
+
+        Vector3 moveForce;
+
+        if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
+        else moveForce = moveDir * airAcceleration;
+        
+        if ((input < 0f) && (rb.velocity.x < -maxSpeed) || ((input > 0f) && (rb.velocity.x > maxSpeed))) return;
 
         rb.AddForce(moveForce, ForceMode.Acceleration);
+
+        print(rb.velocity);
 
         UpdateAnimator();
     }
@@ -92,6 +106,19 @@ public class Mover : MonoBehaviour
 
         animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+    }
+
+    public void SetStationary(bool isStationary)
+    {
+        if (isStationary)
+        {
+            GetComponent<CapsuleCollider>().material = stationaryMaterial;
+        }
+        else
+        {
+            GetComponent<CapsuleCollider>().material = null;
+        }
+
     }
 
     public Vector3 GetVelocity()
