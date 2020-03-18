@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float acceleration = 500f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
-
-    public Vector3 Direction { get { return characterBody.forward; } }
+    [SerializeField] float slopeClimbBoost = 2f;
 
     Rigidbody rb;
     Animator animator;
@@ -25,22 +24,26 @@ public class Mover : MonoBehaviour
         groundCollider = GetComponentInChildren<GroundCollider>();
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        groundCollider.onChangeGroundState += FallingAnimation;
-    }
-
-    private void OnDisable()
-    {
-        groundCollider.onChangeGroundState -= FallingAnimation;
+        FallingAnimation(groundCollider.IsGrounded);
     }
 
     public void Move(float input)
     {
-        rb.velocity = new Vector3(maxSpeed * input, rb.velocity.y, 0f);
+        Vector3 charDirection = characterBody.TransformDirection(characterBody.forward);
+        Vector3 moveDir = groundCollider.CalculateGroundDirection(charDirection) * input;
+
+        Debug.DrawRay(characterBody.position, moveDir);
+
+        moveDir.y *= slopeClimbBoost;
+        Vector3 moveForce = moveDir * acceleration;
+
+        rb.AddForce(moveForce, ForceMode.Acceleration);
 
         UpdateAnimator();
     }
+
 
     public void ForwardRoll()
     {
@@ -70,11 +73,11 @@ public class Mover : MonoBehaviour
 
         if (input > 0)
         {
-            characterBody.right = new Vector3(0, 0, -1);
+            characterBody.forward = new Vector3(1, 0, 0);
         }
         else if (input < 0)
         {
-            characterBody.right = new Vector3(0, 0, 1);
+            characterBody.forward = new Vector3(-1, 0, 0);
         }
     }
 

@@ -91,8 +91,7 @@ public class AIController : MonoBehaviour
 
             if (targetDirection != moveDirection) Turn();
         }
-
-        if (mover.GetVelocity().magnitude < 1f && canTurn)
+        else if (mover.GetVelocity().magnitude < 1f && canTurn)
         {
             Turn();
         }

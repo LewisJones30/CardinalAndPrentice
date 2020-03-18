@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d363844029d620a428ff472f5b808d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeedFraction: 0.6
-  pursueSpeedFraction: 0.8
+  patrolSpeedFraction: 0.75
+  pursueSpeedFraction: 0.9
   turnRefreshRate: 1
   reactionTime: 0.5
   lineOfSight: 10
@@ -47,7 +47,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1269320543236493712}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7429267562992344462
 BoxCollider:
@@ -81,6 +81,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1335958735518719992, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1627716395190545764, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
       propertyPath: m_LocalPosition.x
