@@ -18,6 +18,7 @@ public class Mover : MonoBehaviour
     Animator animator;
     GroundCollider groundCollider;
 
+    float modifedMaxSpeed;
     bool canRoll = true;
 
     private void Awake()
@@ -32,8 +33,10 @@ public class Mover : MonoBehaviour
         FallingAnimation(groundCollider.IsGrounded);
     }
 
-    public void Move(float input)
+    public void Move(float input, float speedFraction)
     {
+        modifedMaxSpeed = maxSpeed * speedFraction;
+
         if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
         else SetStationary(false);
 
@@ -49,7 +52,7 @@ public class Mover : MonoBehaviour
         if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
         else moveForce = moveDir * airAcceleration;
         
-        if ((input < 0f) && (rb.velocity.x < -maxSpeed) || ((input > 0f) && (rb.velocity.x > maxSpeed))) return;
+        if ((input < 0f) && (rb.velocity.x < -modifedMaxSpeed) || ((input > 0f) && (rb.velocity.x > modifedMaxSpeed))) return;
 
         rb.AddForce(moveForce, ForceMode.Acceleration);
 

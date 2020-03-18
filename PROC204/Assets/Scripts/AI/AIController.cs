@@ -38,7 +38,7 @@ public class AIController : MonoBehaviour
     {
         if (health.IsDead) return;
 
-        if (!attackCollider.CanAttack) mover.Move(moveDirection * speedFraction);
+        if (!attackCollider.CanAttack) mover.Move(moveDirection, speedFraction);
     }
     IEnumerator AIBrain()
     {

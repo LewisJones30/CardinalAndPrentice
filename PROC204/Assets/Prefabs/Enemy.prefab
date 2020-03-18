@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d363844029d620a428ff472f5b808d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeedFraction: 0.75
-  pursueSpeedFraction: 0.9
+  patrolSpeedFraction: 0.4
+  pursueSpeedFraction: 0.8
   turnRefreshRate: 1
   reactionTime: 0.5
   lineOfSight: 10
