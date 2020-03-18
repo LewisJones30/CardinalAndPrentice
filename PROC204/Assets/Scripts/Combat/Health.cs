@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Health : MonoBehaviour
 
     Animator animator;
     ParticleSystem sleepParticle;
+    bool playerDead = false;
     public bool IsDead { get; private set; } = false;
 
     private void Awake()
@@ -34,10 +36,14 @@ public class Health : MonoBehaviour
     private void Die()
     {
         IsDead = true;
-
+        if (this.gameObject.name == "Cardinal")
+        {
+            healthUI.gameOver();
+        }
         gameObject.layer = LayerMask.NameToLayer("Passable");
         animator.SetTrigger("Die");
 
         sleepParticle.Play();
     }
+
 }

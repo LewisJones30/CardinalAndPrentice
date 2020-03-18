@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class HealthUI : MonoBehaviour
 {
 
     public Sprite threeHearts, twoHearts, oneHeart, twoHalfHearts, oneHalfHearts, zeroHalfHearts;
+    bool playerDead = false; //Used to detect if the player is dead, for the canvas to appear.
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +19,18 @@ public class HealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (playerDead == true)
+        {
+            if (Gamepad.all[0].buttonSouth.isPressed == true)
+            {
+                SceneManager.LoadScene("lvl_1_background");
+                //Restart the scene
+            }
+            else if (Gamepad.all[0].startButton.isPressed == true)
+            { 
+                //Transport to the main menu, currently not available as this is not a scene.
+            }
+        }
     }
 
 
@@ -54,5 +68,12 @@ public class HealthUI : MonoBehaviour
             //Default case
             currentSprite.enabled = false;
         }
+    }
+    public void gameOver() //Called by health if cardinal dies
+    { 
+        GameObject gameoverCanvas = GameObject.Find("GameOver Canvas");
+        gameoverCanvas.GetComponent<Canvas>().enabled = true; //Set the gameover canvas to be true
+        playerDead = true;
+
     }
 }
