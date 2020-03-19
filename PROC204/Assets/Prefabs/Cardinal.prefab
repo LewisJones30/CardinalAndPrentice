@@ -2349,11 +2349,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3318235847993337424, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
-      propertyPath: attackHeight
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3318235847993337424, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
-        type: 3}
       propertyPath: targetMask.m_Bits
       value: 2048
       objectReference: {fileID: 0}

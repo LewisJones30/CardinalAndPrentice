@@ -66,6 +66,7 @@ public class Melee : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackRange, attackHeight, 1f));
     }
 
