@@ -58,7 +58,7 @@ public class Mover : MonoBehaviour
 
         print(rb.velocity);
 
-        UpdateAnimator();
+        UpdateAnimator(input);
     }
 
 
@@ -76,10 +76,10 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void UpdateAnimator()
+    private void UpdateAnimator(float input)
     {
         float speed = rb.velocity.x;
-        Turn(speed);
+        Turn(input);
 
         animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
     }

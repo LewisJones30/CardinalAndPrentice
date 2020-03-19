@@ -10,8 +10,12 @@ public class Health : MonoBehaviour
 
     Animator animator;
     ParticleSystem sleepParticle;
-    bool playerDead = false;
+
+    public delegate void OnHealthChange();
+    public event OnHealthChange onHealthChange;
+
     public bool IsDead { get; private set; } = false;
+    public int HealthPoints { get { return health; } }
 
     private void Awake()
     {
@@ -24,13 +28,15 @@ public class Health : MonoBehaviour
         if (IsDead) return;
 
         health -= damage;
-
+        
         if (gameObject.name == "Cardinal")
         {
             healthUI.TakeHealthUpdate();
         }
 
         if (health < 1) Die();
+
+        onHealthChange?.Invoke();
     }
 
     private void Die()
