@@ -395,7 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e8a41ee0e38f84e981bc83ecc0592f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadNum: 1
 --- !u!1 &1964323382505634527
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6087891329f31284a923f5a2a93b4be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadNum: 0
 --- !u!1 &3795290056376011815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1485,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f079cd68069018144b87bca6a0914c9c, type: 2}
+  - {fileID: 2100000, guid: f5e3d6ba334ad7f4792836adb13ce46d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
