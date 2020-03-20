@@ -16,12 +16,6 @@ public class ControllerSetup : MonoBehaviour
         //Hide the text until it is enabled within methods.
         pressStartText.enabled = false;
     }
-    private void Awake()
-    {
-        //controllerInput1 = new StartupScreenInput();
-
-        //controllerInput1.checkInput.playerA.performed += ctx => controller1Ready = ctx.ReadValue<bool>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -95,8 +89,7 @@ public class ControllerSetup : MonoBehaviour
         if (Gamepad.all[0].startButton.isPressed == true || Gamepad.all[1].startButton.isPressed == true)
         {
             //Move to the next scene.
-            Debug.Log("Horray!");
-            SceneManager.LoadScene("lvl_1_background");
+            SceneManager.LoadScene("Level 1");
 
         }
     }
