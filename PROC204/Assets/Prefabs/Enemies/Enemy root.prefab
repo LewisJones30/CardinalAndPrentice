@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d363844029d620a428ff472f5b808d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeedFraction: 0.4
+  patrolSpeedFraction: 0.5
   pursueSpeedFraction: 0.8
   turnRefreshRate: 0.5
   reactionTime: 0.2
@@ -29,6 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0080f178f38b5043898a6c9a9db6465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityColours: []
 --- !u!1 &2525797766744214117
 GameObject:
   m_ObjectHideFlags: 0

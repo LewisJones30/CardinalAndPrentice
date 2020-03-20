@@ -15,12 +15,8 @@ public class ColourManager : MonoBehaviour
     {
         SetColour();
 
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-
-        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-        {
-            renderer.material = entityColour.colourMaterial;
-        }
+        SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        renderer.material = entityColour.colourMaterial;
     }
 
     private void SetColour()
