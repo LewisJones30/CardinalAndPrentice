@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PrenticeController : MonoBehaviour
 {
-    [SerializeField] int gamepadNum = 1;
+    const int gamepadNum = 1;
 
     Health health;
     RangedWeapon rangedWeapon;
@@ -30,29 +30,27 @@ public class PrenticeController : MonoBehaviour
 
         Aim(gamepad);
         Fire(gamepad);
-
-
     }
 
     private void Fire(Gamepad gamepad)
     {
         if (gamepad.buttonSouth.isPressed) //A button on Xbox Controller, X on PS4
         {
-            rangedWeapon.FireSouth();
+            rangedWeapon.Fire(ColourValue.Green);
         }
         if (gamepad.buttonEast.isPressed) //B button on Xbox controller, Circle on PS4
         {
-            rangedWeapon.FireEast();
+            rangedWeapon.Fire(ColourValue.Red);
         }
 
         if (gamepad.buttonNorth.isPressed) //Y button on Xbox controller, Triangle on PS4
         {
-            rangedWeapon.FireNorth();
+            rangedWeapon.Fire(ColourValue.Yellow);
         }
 
         if (gamepad.buttonWest.isPressed) //X button on Xbox controller
         {
-            rangedWeapon.FireWest();
+            rangedWeapon.Fire(ColourValue.Blue);
         }
     }
 

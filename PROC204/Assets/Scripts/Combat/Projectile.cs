@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float maxDistance = 1000f;
     [SerializeField] float reloadTime = 0.4f;
+    [SerializeField] ColourValue projectileColour;
+
     public float ReloadTime => reloadTime;
 
     float distanceTravelled = 0f;

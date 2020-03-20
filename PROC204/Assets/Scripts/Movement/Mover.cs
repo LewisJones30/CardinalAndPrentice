@@ -56,8 +56,6 @@ public class Mover : MonoBehaviour
 
         rb.AddForce(moveForce, ForceMode.Acceleration);
 
-        print(rb.velocity);
-
         UpdateAnimator(input);
     }
 
