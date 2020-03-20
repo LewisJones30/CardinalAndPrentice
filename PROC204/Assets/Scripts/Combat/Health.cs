@@ -16,6 +16,9 @@ public class Health : MonoBehaviour
 
     public bool IsDead { get; private set; } = false;
     public int HealthPoints { get { return health; } }
+    public ColourValue ColourWeakness { get; set; } = ColourValue.None;
+
+    const int damageMultiplier = 3;
 
     private void Awake()
     {
@@ -37,6 +40,13 @@ public class Health : MonoBehaviour
         if (health < 1) Die();
 
         onHealthChange?.Invoke();
+    }
+
+    public void DealDamage(int damage, ColourValue colour)
+    {
+        if (ColourWeakness == colour) damage *= damageMultiplier;
+
+        DealDamage(damage);
     }
 
     private void Die()

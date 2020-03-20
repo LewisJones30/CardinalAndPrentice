@@ -359,11 +359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d36a057223224478c714541a8e105c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadedProjectile: {fileID: 568667326373042750, guid: 08bdbab9765b5b04481e8b60b223aac0,
+  yellowProjectile: {fileID: -3650573850797042174, guid: 1608c3f9bcd1e9746b09dcb49a56fea9,
     type: 3}
-  secondLoadedProjectile: {fileID: 0}
-  thirdLoadedProjectile: {fileID: 0}
-  fourthLoadedProjectile: {fileID: 0}
+  redProjectile: {fileID: -3579212382191866586, guid: eca1ff6741def5a468081e17839fc91e,
+    type: 3}
+  greenProjectile: {fileID: -1388049781045630868, guid: f44a3d27c7c4d174794ed789ee4333bc,
+    type: 3}
+  blueProjectile: {fileID: 7878976939068178231, guid: 1220774a6e4cd454aa215fc9dfec7f4a,
+    type: 3}
 --- !u!114 &8420279005296712935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e8a41ee0e38f84e981bc83ecc0592f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadNum: 1
 --- !u!1 &1964323382505634527
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6087891329f31284a923f5a2a93b4be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadNum: 0
 --- !u!1 &3795290056376011815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1485,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f079cd68069018144b87bca6a0914c9c, type: 2}
+  - {fileID: 2100000, guid: f5e3d6ba334ad7f4792836adb13ce46d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
