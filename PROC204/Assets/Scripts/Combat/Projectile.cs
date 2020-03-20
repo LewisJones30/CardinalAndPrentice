@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float maxDistance = 1000f;
     [SerializeField] float reloadTime = 0.4f;
+    [SerializeField] ColourValue projectileColour;
+
     public float ReloadTime => reloadTime;
 
     float distanceTravelled = 0f;
@@ -31,10 +33,10 @@ public class Projectile : MonoBehaviour
         if (distanceTravelled > maxDistance) Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        Health health = other.gameObject.GetComponent<Health>();
-        if (health != null) health.DealDamage(damage);
+        Health health = other.gameObject.GetComponentInParent<Health>();
+        if (health != null) health.DealDamage(damage, projectileColour);
 
         Destroy(gameObject);
     }

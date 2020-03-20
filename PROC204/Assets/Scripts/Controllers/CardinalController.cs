@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CardinalController : MonoBehaviour
 {
-    [SerializeField] int gamepadNum = 0;
+    const int gamepadNum = 0;
 
     Mover mover;
     Melee melee;
