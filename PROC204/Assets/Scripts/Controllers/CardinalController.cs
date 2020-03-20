@@ -101,6 +101,6 @@ public class CardinalController : MonoBehaviour
     {
         if (health.IsDead) return;
 
-        mover.Move(moveInput.x);
+        mover.Move(moveInput.x, 1f);
     }
 }

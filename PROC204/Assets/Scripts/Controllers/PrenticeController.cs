@@ -10,13 +10,13 @@ public class PrenticeController : MonoBehaviour
 
     Health health;
     RangedWeapon rangedWeapon;
-    Shield shield;
+    ShieldPower shield;
     
     void Awake()
     {
         health = GetComponentInParent<Health>();
         rangedWeapon = GetComponent<RangedWeapon>();
-        shield = GetComponent<Shield>();
+        shield = GetComponent<ShieldPower>();
     }
 
     private void Update()

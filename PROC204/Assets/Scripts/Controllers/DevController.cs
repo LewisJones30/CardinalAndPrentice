@@ -28,7 +28,7 @@ public class DevController : MonoBehaviour
     {
         if (health.IsDead) return;
 
-        mover.Move(Input.GetAxisRaw("Horizontal"));
+        mover.Move(Input.GetAxisRaw("Horizontal"), 1f);
 
         if (Input.GetMouseButtonDown(0)) melee.Swing();
     }

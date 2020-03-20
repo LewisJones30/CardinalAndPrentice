@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float acceleration = 60f;
-    [SerializeField] float jumpForce = 20f;
+    [SerializeField] PhysicMaterial stationaryMaterial;
+    [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float acceleration = 500f;
+    [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
-
-    public Vector3 Direction { get { return characterBody.forward; } }
+    [SerializeField] float slopeClimbBoost = 2f;
+    [SerializeField] float airAcceleration = 8f;
 
     Rigidbody rb;
     Animator animator;
     GroundCollider groundCollider;
 
+    float modifedMaxSpeed;
     bool canRoll = true;
 
     private void Awake()
@@ -25,24 +28,39 @@ public class Mover : MonoBehaviour
         groundCollider = GetComponentInChildren<GroundCollider>();
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        groundCollider.onChangeGroundState += FallingAnimation;
+        FallingAnimation(groundCollider.IsGrounded);
     }
 
-    private void OnDisable()
+    public void Move(float input, float speedFraction)
     {
-        groundCollider.onChangeGroundState -= FallingAnimation;
+        modifedMaxSpeed = maxSpeed * speedFraction;
+
+        if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
+        else SetStationary(false);
+
+        Vector3 charDirection = characterBody.TransformDirection(characterBody.forward);
+        Vector3 moveDir = groundCollider.CalculateGroundDirection(charDirection) * input;
+
+        Debug.DrawRay(characterBody.position, moveDir);
+
+        if (moveDir.y > 0) moveDir.y *= slopeClimbBoost;
+
+        Vector3 moveForce;
+
+        if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
+        else moveForce = moveDir * airAcceleration;
+
+        if ((input < 0f) && (rb.velocity.x < -modifedMaxSpeed) || ((input > 0f) && (rb.velocity.x > modifedMaxSpeed))) return;
+
+        rb.AddForce(moveForce, ForceMode.Acceleration);
+
+        print(rb.velocity);
+
+        UpdateAnimator(input);
     }
 
-    public void Move(float input)
-    {
-        float moveForce = input * acceleration;
-
-        rb.AddForce(new Vector3(moveForce, 0f, 0f), ForceMode.Acceleration);
-
-        UpdateAnimator();
-    }
 
     public void ForwardRoll()
     {
@@ -58,10 +76,10 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void UpdateAnimator()
+    private void UpdateAnimator(float input)
     {
         float speed = rb.velocity.x;
-        Turn(speed);
+        Turn(input);
 
         animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
     }
@@ -72,11 +90,11 @@ public class Mover : MonoBehaviour
 
         if (input > 0)
         {
-            characterBody.right = new Vector3(0, 0, -1);
+            characterBody.forward = new Vector3(1, 0, 0);
         }
         else if (input < 0)
         {
-            characterBody.right = new Vector3(0, 0, 1);
+            characterBody.forward = new Vector3(-1, 0, 0);
         }
     }
 
@@ -91,6 +109,19 @@ public class Mover : MonoBehaviour
 
         animator.SetTrigger("jumpTrigger");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+    }
+
+    public void SetStationary(bool isStationary)
+    {
+        if (isStationary)
+        {
+            GetComponent<CapsuleCollider>().material = stationaryMaterial;
+        }
+        else
+        {
+            GetComponent<CapsuleCollider>().material = null;
+        }
+
     }
 
     public Vector3 GetVelocity()
