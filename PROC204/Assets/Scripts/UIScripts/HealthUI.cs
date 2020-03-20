@@ -23,7 +23,7 @@ public class HealthUI : MonoBehaviour
         {
             if (Gamepad.all[0].buttonSouth.isPressed == true)
             {
-                SceneManager.LoadScene("lvl_1_background");
+                SceneManager.LoadScene("Level 1");
                 //Restart the scene
             }
             else if (Gamepad.all[0].startButton.isPressed == true)
