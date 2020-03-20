@@ -33,10 +33,10 @@ public class Projectile : MonoBehaviour
         if (distanceTravelled > maxDistance) Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        Health health = other.gameObject.GetComponent<Health>();
-        if (health != null) health.DealDamage(damage);
+        Health health = other.gameObject.GetComponentInParent<Health>();
+        if (health != null) health.DealDamage(damage, projectileColour);
 
         Destroy(gameObject);
     }

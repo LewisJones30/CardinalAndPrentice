@@ -17,6 +17,8 @@ public class ColourManager : MonoBehaviour
 
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         renderer.material = entityColour.colourMaterial;
+
+        GetComponent<Health>().ColourWeakness = entityColour.colour;
     }
 
     private void SetColour()
@@ -38,5 +40,6 @@ public enum ColourValue
     Yellow,
     Red,
     Green,
-    Blue
+    Blue,
+    None
 }

@@ -32,7 +32,9 @@ public class RangedWeapon : MonoBehaviour
 
         if (!isReloaded || currentAimDirection.Equals(Vector2.zero)) return;
         isReloaded = false;
-        Projectile projectile = Instantiate(loadedProjectile, transform.position, Quaternion.identity);
+
+        Vector3 launchPos = new Vector3(transform.position.x, transform.position.y, 0f);
+        Projectile projectile = Instantiate(loadedProjectile, launchPos, Quaternion.identity);
         projectile.AddForce(currentAimDirection);
         onFire?.Invoke();
         StartCoroutine(Reload());

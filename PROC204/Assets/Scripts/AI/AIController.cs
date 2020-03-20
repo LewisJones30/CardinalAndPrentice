@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+    [SerializeField] bool isStationary = false;
     [SerializeField] float patrolSpeedFraction = 0.6f;
     [SerializeField] float pursueSpeedFraction = 0.8f;
     [SerializeField] float turnRefreshRate = 1f;
@@ -38,7 +39,7 @@ public class AIController : MonoBehaviour
     {
         if (health.IsDead) return;
 
-        if (!attackCollider.CanAttack) mover.Move(moveDirection, speedFraction);
+        if (!attackCollider.CanAttack && !isStationary) mover.Move(moveDirection, speedFraction);
     }
     IEnumerator AIBrain()
     {
