@@ -89,7 +89,6 @@ public class CardinalController : MonoBehaviour
     {
         if (gamepad.leftStick.IsPressed()) //Only moves if player 1 is using the left stick
         {
-            print("moving from gamepad 0");
             moveInput = gamepad.leftStick.ReadValue();
         }
         else

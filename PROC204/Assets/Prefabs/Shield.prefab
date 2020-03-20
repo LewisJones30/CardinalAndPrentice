@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d099182e101104d9e9751082637f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounciness: 80
+  bounciness: 30
 --- !u!54 &3359494621831553561
 Rigidbody:
   m_ObjectHideFlags: 0
