@@ -20,12 +20,15 @@ public class Mover : MonoBehaviour
 
     float modifedMaxSpeed;
     bool canRoll = true;
+    string layerName;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+
+        layerName = LayerMask.LayerToName(gameObject.layer);
     }
 
     private void Update()
@@ -66,12 +69,18 @@ public class Mover : MonoBehaviour
 
         canRoll = false;
         animator.SetTrigger("rollTrigger");
+        gameObject.layer = LayerMask.NameToLayer("Passable");
         Invoke(nameof(EnableRoll), rollCooldown);
     }
 
     private void EnableRoll()
     {
         canRoll = true;
+    }
+
+    private void FinishRoll()
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
     private void UpdateAnimator(float input)
