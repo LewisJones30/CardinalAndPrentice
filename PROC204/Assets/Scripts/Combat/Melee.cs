@@ -11,7 +11,7 @@ public class Melee : MonoBehaviour
     [SerializeField] float attackHeight = 0.9f;
     [SerializeField] float attackRate = 1.2f;
     [SerializeField] int targetLayerIndex;
-
+    ComboSystem comboSystem;
     bool attackReset = true;
 
     public Vector3 AttackPoint { get { return attackPoint.position; } }
@@ -26,6 +26,7 @@ public class Melee : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         HitBox = new Vector3(attackRange / 2, attackHeight / 2, 1f / 2);
+        comboSystem = GetComponent<ComboSystem>();
     }
 
     private void Update()
@@ -55,13 +56,23 @@ public class Melee : MonoBehaviour
     void Hit()
     {
         Collider[] colliders = Physics.OverlapBox(attackPoint.position, HitBox, Quaternion.identity, TargetLayerMask);
-
+        if (colliders.Length == 0 && this.gameObject.name == "Cardinal")
+        {
+            comboSystem.decreaseDamage(); //If player misses a melee attack.
+            return;
+        }
+         
         foreach (Collider collider in colliders)
         {
             Health health = collider.gameObject.GetComponent<Health>();
 
             if (health != null) health.DealDamage(damage);
         }
+        if (this.gameObject.name == "Cardinal")
+        {
+            comboSystem.increaseDamage();
+        }
+
     }
 
     private void OnDrawGizmosSelected()

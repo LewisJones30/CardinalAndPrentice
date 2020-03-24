@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class RangedWeapon : MonoBehaviour
 {
-    [SerializeField] Projectile yellowProjectile;
-    [SerializeField] Projectile redProjectile;
-    [SerializeField] Projectile greenProjectile;
-    [SerializeField] Projectile blueProjectile;
+    public Projectile yellowProjectile;
+    public Projectile redProjectile;
+    public Projectile greenProjectile;
+    public Projectile blueProjectile;
 
     Projectile loadedProjectile;
 

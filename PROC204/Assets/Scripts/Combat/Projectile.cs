@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] int damage = 20;
+    public int damage = 20;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float maxDistance = 1000f;
     [SerializeField] float reloadTime = 0.4f;
