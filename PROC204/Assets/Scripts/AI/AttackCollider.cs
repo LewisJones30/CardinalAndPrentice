@@ -6,9 +6,10 @@ public class AttackCollider : MonoBehaviour
 {
     Melee melee;
     BoxCollider box;
-    Health currentTarget;
 
-    public bool CanAttack { get { return currentTarget != null; } }
+    public bool CanAttack { get { return targets.Count > 0; } }
+
+    List<Health> targets = new List<Health>();
 
     private void Awake()
     {
@@ -24,9 +25,17 @@ public class AttackCollider : MonoBehaviour
 
     private void Update()
     {
-        if (currentTarget != null && currentTarget.IsDead)
+        List<Health> targetsToRemove = new List<Health>();
+
+        foreach (Health target in targets)
         {
-            currentTarget = null;
+            if (target == null || target.IsDead ||
+                target.gameObject.layer != melee.TargetLayerIndex) targetsToRemove.Add(target);
+        }
+
+        foreach (Health target in targetsToRemove)
+        {
+            targets.Remove(target);
         }
     }
 
@@ -34,14 +43,26 @@ public class AttackCollider : MonoBehaviour
     {
         if (other.gameObject.layer != melee.TargetLayerIndex) return;
 
-        currentTarget = other.gameObject.GetComponent<Health>();
+        Health target = other.gameObject.GetComponent<Health>();
 
+        if (!targets.Contains(target)) targets.Add(target);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer != melee.TargetLayerIndex) return;
+
+        Health target = other.gameObject.GetComponent<Health>();
+
+        if (!targets.Contains(target)) targets.Add(target);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer != melee.TargetLayerIndex) return;
 
-        currentTarget = null;
+        Health target = other.gameObject.GetComponent<Health>();
+
+        if (targets.Contains(target)) targets.Remove(target);
     }
 }
