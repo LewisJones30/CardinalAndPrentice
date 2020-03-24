@@ -17,6 +17,7 @@ public class Mover : MonoBehaviour
     Rigidbody rb;
     Animator animator;
     GroundCollider groundCollider;
+    Health health;
 
     float modifedMaxSpeed;
     bool canRoll = true;
@@ -27,6 +28,7 @@ public class Mover : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+        health = GetComponent<Health>();
 
         layerName = LayerMask.LayerToName(gameObject.layer);
     }
@@ -34,6 +36,15 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         FallingAnimation(groundCollider.IsGrounded);
+        RollInvulnerability();
+    }
+
+    private void RollInvulnerability()
+    {
+        bool isRolling = animator.GetCurrentAnimatorStateInfo(0).IsName("Roll");
+
+        if (isRolling || health.IsDead) gameObject.layer = LayerMask.NameToLayer("Passable");
+        else gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
     public void Move(float input, float speedFraction)
@@ -68,19 +79,13 @@ public class Mover : MonoBehaviour
         if (!canRoll) return;
 
         canRoll = false;
-        animator.SetTrigger("rollTrigger");
-        gameObject.layer = LayerMask.NameToLayer("Passable");
+        animator.SetTrigger("rollTrigger");        
         Invoke(nameof(EnableRoll), rollCooldown);
     }
 
     private void EnableRoll()
     {
         canRoll = true;
-    }
-
-    private void FinishRoll()
-    {
-        gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
     private void UpdateAnimator(float input)

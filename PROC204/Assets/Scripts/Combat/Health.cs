@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
         {
             healthUI.gameOver();
         }
-        gameObject.layer = LayerMask.NameToLayer("Passable");
+
         animator.SetTrigger("Die");
 
         sleepParticle.Play();
