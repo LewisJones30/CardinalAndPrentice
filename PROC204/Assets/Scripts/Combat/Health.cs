@@ -35,26 +35,18 @@ public class Health : MonoBehaviour
     {
         if (IsDead) return;
 
-<<<<<<< HEAD
         health -= damage;
-        
+
         if (gameObject.name == "Cardinal")
         {
             healthUI.TakeHealthUpdate();
-=======
-        health -= damage;
-        
-        if (gameObject.name == "Cardinal")
-        {
-            healthUI.TakeHealthUpdate();
+            health -= damage;
             CardinalCombo.decreaseDamage();
 
->>>>>>> Combo-System
+            if (health < 1) Die();
+
+            onHealthChange?.Invoke();
         }
-
-        if (health < 1) Die();
-
-        onHealthChange?.Invoke();
     }
 
     public void DealDamage(int damage, ColourValue colour)
