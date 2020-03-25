@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int health = 50;
+    public int health = 50;
     [SerializeField] HealthUI healthUI;
 
     Animator animator;
@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
         if (gameObject.name == "Cardinal")
         {
             healthUI.TakeHealthUpdate();
-            health -= damage;
+            //health -= damage;
             CardinalCombo.decreaseDamage();
 
             if (health < 1) Die();

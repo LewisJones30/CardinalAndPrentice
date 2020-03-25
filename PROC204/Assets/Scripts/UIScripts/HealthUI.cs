@@ -39,7 +39,8 @@ public class HealthUI : MonoBehaviour
 
     public void TakeHealthUpdate()
     {
-        
+        currentSpriteName = currentSprite.sprite.name;
+
         if (currentSpriteName.ToString() == "threeHearts")
         {
             currentSprite.overrideSprite = twoHalfHearts;
