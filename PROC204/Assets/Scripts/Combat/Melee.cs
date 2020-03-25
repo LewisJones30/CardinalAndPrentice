@@ -56,21 +56,15 @@ public class Melee : MonoBehaviour
     void Hit()
     {
         Collider[] colliders = Physics.OverlapBox(attackPoint.position, HitBox, Quaternion.identity, TargetLayerMask);
-        if (colliders.Length == 0 && this.gameObject.name == "Cardinal")
-        {
-            comboSystem.decreaseDamage(); //If player misses a melee attack.
-            return;
-        }
          
         foreach (Collider collider in colliders)
         {
             Health health = collider.gameObject.GetComponent<Health>();
-
+            if (this.gameObject.name == "Cardinal")
+            {
+                comboSystem.increaseDamage();
+            }
             if (health != null) health.DealDamage(damage);
-        }
-        if (this.gameObject.name == "Cardinal")
-        {
-            comboSystem.increaseDamage();
         }
 
     }

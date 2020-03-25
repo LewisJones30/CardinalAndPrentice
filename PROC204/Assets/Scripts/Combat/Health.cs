@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
 
     Animator animator;
     ParticleSystem sleepParticle;
+    ComboSystem CardinalCombo;
 
     public delegate void OnHealthChange();
     public event OnHealthChange onHealthChange;
@@ -24,6 +25,10 @@ public class Health : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         sleepParticle = GetComponent<ParticleSystem>();
+        if (this.gameObject.name == "Cardinal")
+        {
+            CardinalCombo = GetComponent<ComboSystem>();
+        }
     }
 
     public void DealDamage(int damage)
@@ -35,6 +40,8 @@ public class Health : MonoBehaviour
         if (gameObject.name == "Cardinal")
         {
             healthUI.TakeHealthUpdate();
+            CardinalCombo.decreaseDamage();
+
         }
 
         if (health < 1) Die();
