@@ -24,7 +24,8 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(projectileFiredFX, transform.position, Quaternion.identity);
+        GameObject instance = Instantiate(projectileFiredFX, transform.position, Quaternion.identity);
+        Destroy(instance, 10f);
     }
 
     public void AddForce(Vector2 dir)
@@ -45,7 +46,8 @@ public class Projectile : MonoBehaviour
         Health health = other.gameObject.GetComponentInParent<Health>();
         if (health != null) health.DealDamage(damage, projectileColour);
 
-        Instantiate(projectileHitFX, transform.position, Quaternion.identity);
+        GameObject instance =Instantiate(projectileHitFX, transform.position, Quaternion.identity);
+        Destroy(instance, 10f);
 
         Destroy(gameObject);
     }
