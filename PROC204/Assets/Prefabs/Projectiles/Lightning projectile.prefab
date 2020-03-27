@@ -19555,6 +19555,7 @@ MonoBehaviour:
     type: 3}
   projectileHitFX: {fileID: 1351045683517926, guid: f74dabd1cda930947a0337317b57e32c,
     type: 3}
+  seekingDistance: 10
 --- !u!136 &1945184540533709097
 CapsuleCollider:
   m_ObjectHideFlags: 0

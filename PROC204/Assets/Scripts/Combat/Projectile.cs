@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] ColourValue projectileColour;
     [SerializeField] GameObject projectileFiredFX;
     [SerializeField] GameObject projectileHitFX;
+    [SerializeField] float seekingDistance = 20f;
+
+    Health targetEnemy;
 
     public float ReloadTime => reloadTime;
 
@@ -32,13 +36,52 @@ public class Projectile : MonoBehaviour
     {
         transform.right = dir;
         rb.AddForce(transform.right * moveSpeed, ForceMode.VelocityChange);
+
     }
 
     private void Update()
     {
         distanceTravelled += Time.deltaTime * moveSpeed;
+        
+        FindClosestTarget();
+        SteerTowardTarget();
 
         if (distanceTravelled > maxDistance) Destroy(gameObject);
+    }
+
+
+    private void FindClosestTarget()
+    {
+        if (targetEnemy != null) return;
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy"));
+
+        float smallestDistance = Mathf.Infinity;
+        Health closestEnemy = null;
+
+        print(colliders.Length);
+
+        foreach (Collider collider in colliders)
+        {
+            Health health = collider.gameObject.GetComponent<Health>();
+            if (health == null) continue;
+
+            float distance = Vector3.Distance(collider.transform.position, transform.position);
+
+            if (distance < smallestDistance)
+            {
+                closestEnemy = health;
+                smallestDistance = distance;
+            }
+        }
+
+        targetEnemy = closestEnemy;
+    }
+    private void SteerTowardTarget()
+    {
+        if (targetEnemy == null) return;
+
+
     }
 
     private void OnCollisionEnter(Collision other)

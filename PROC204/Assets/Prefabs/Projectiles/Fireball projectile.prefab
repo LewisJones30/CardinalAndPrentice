@@ -29011,6 +29011,7 @@ MonoBehaviour:
     type: 3}
   projectileHitFX: {fileID: 1433295770268946, guid: 9f0ee939215f6df4babea8e4758a7079,
     type: 3}
+  seekingDistance: 10
 --- !u!1 &4179853906982552037
 GameObject:
   m_ObjectHideFlags: 0
