@@ -28989,7 +28989,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 0
   m_Direction: 1
-  m_Center: {x: 0.6, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.6}
 --- !u!114 &-3579212382191866586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29003,7 +29003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 6
-  moveSpeed: 50
+  moveSpeed: 20
   maxDistance: 25
   reloadTime: 1
   projectileColour: 1
@@ -29035,7 +29035,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4179853906982552037}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -29047,4 +29047,4 @@ Transform:
   - {fileID: 4299412727531262}
   m_Father: {fileID: 4033515565896200}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

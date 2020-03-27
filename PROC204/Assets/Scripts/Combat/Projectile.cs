@@ -35,15 +35,15 @@ public class Projectile : MonoBehaviour
     public void AddForce(Vector2 dir)
     {
         print(dir);
-        transform.right = dir;
-        print(transform.right);
+        transform.forward = dir;
+        print(transform.forward);
     }
 
     private void Update()
     {
         distanceTravelled += Time.deltaTime * moveSpeed;
 
-        transform.Translate(transform.right * Time.deltaTime * moveSpeed, Space.World);
+        transform.Translate(transform.forward * Time.deltaTime * moveSpeed, Space.World);
 
         FindClosestTarget();
         SteerTowardTarget();
@@ -81,7 +81,7 @@ public class Projectile : MonoBehaviour
     {
         if (targetEnemy == null) return;
 
-
+        transform.LookAt(targetEnemy.transform);
     }
 
     private void OnCollisionEnter(Collision other)

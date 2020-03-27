@@ -5314,7 +5314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 6
-  moveSpeed: 50
+  moveSpeed: 20
   maxDistance: 25
   reloadTime: 1
   projectileColour: 3
