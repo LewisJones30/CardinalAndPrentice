@@ -5284,7 +5284,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!111 &111889018376725686
 Animation:
   m_ObjectHideFlags: 0
@@ -5314,15 +5314,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  moveSpeed: 15
-  maxDistance: 25
+  moveSpeed: 20
+  turnSpeed: 5
+  maxDistance: 100
   reloadTime: 1
   projectileColour: 3
   projectileFiredFX: {fileID: 1463365761452998, guid: 658cb8ae4932a554c94e70096acb899c,
     type: 3}
   projectileHitFX: {fileID: 1188432315835894, guid: 52ea9bc3247c4134aa5ac4c8eb45e774,
     type: 3}
-  seekingDistance: 10
+  seekingDistance: 15
 --- !u!136 &5102595484954907149
 CapsuleCollider:
   m_ObjectHideFlags: 0
