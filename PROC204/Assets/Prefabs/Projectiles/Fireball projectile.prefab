@@ -29004,7 +29004,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 6
   moveSpeed: 20
-  maxDistance: 25
+  turnSpeed: 5
+  maxDistance: 100
   reloadTime: 1
   projectileColour: 1
   projectileFiredFX: {fileID: 1232470965182556, guid: 51bd01b23e91fda4bad128a9d11ac143,

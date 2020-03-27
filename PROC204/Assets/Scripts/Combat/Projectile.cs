@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     public int damage = 20;
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float turnSpeed = 1f;
     [SerializeField] float maxDistance = 1000f;
     [SerializeField] float reloadTime = 0.4f;
     [SerializeField] ColourValue projectileColour;
@@ -14,17 +15,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject projectileHitFX;
     [SerializeField] float seekingDistance = 20f;
 
-    Health targetEnemy;
+    Collider targetEnemy;
 
     public float ReloadTime => reloadTime;
 
     float distanceTravelled = 0f;
-    Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     private void Start()
     {
@@ -59,18 +54,18 @@ public class Projectile : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy"));
 
         float smallestDistance = Mathf.Infinity;
-        Health closestEnemy = null;
+        Collider closestEnemy = null;
 
         foreach (Collider collider in colliders)
         {
             Health health = collider.gameObject.GetComponent<Health>();
-            if (health == null) continue;
+            if (health == null || health.IsDead) continue;
 
             float distance = Vector3.Distance(collider.transform.position, transform.position);
 
             if (distance < smallestDistance)
             {
-                closestEnemy = health;
+                closestEnemy = collider;
                 smallestDistance = distance;
             }
         }
@@ -81,7 +76,8 @@ public class Projectile : MonoBehaviour
     {
         if (targetEnemy == null) return;
 
-        transform.LookAt(targetEnemy.transform);
+        Vector3 targetDir = targetEnemy.bounds.center - transform.position;
+        transform.forward = Vector3.RotateTowards(transform.forward, targetDir, turnSpeed * Time.deltaTime, 0f);
     }
 
     private void OnCollisionEnter(Collision other)
