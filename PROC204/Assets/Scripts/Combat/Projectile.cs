@@ -29,9 +29,7 @@ public class Projectile : MonoBehaviour
 
     public void AddForce(Vector2 dir)
     {
-        print(dir);
         transform.forward = dir;
-        print(transform.forward);
     }
 
     private void Update()
@@ -49,8 +47,6 @@ public class Projectile : MonoBehaviour
 
     private void FindClosestTarget()
     {
-        if (targetEnemy != null) return;
-
         Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy"));
 
         float smallestDistance = Mathf.Infinity;

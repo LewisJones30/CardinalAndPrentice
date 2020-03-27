@@ -28972,7 +28972,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 3
@@ -29002,7 +29002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75dbd8b518ad7b8489bcdb04c155bed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 6
+  damage: 1
   moveSpeed: 20
   turnSpeed: 5
   maxDistance: 100
@@ -29012,7 +29012,7 @@ MonoBehaviour:
     type: 3}
   projectileHitFX: {fileID: 1433295770268946, guid: 9f0ee939215f6df4babea8e4758a7079,
     type: 3}
-  seekingDistance: 10
+  seekingDistance: 15
 --- !u!1 &4179853906982552037
 GameObject:
   m_ObjectHideFlags: 0
