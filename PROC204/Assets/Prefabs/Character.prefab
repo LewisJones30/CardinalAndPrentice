@@ -92,7 +92,7 @@ MonoBehaviour:
   jumpForce: 25
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
-  slopeClimbBoost: 1
+  slopeClimbBoost: 2
   airAcceleration: 15
 --- !u!114 &6822585887371913590
 MonoBehaviour:
@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 6
   healthUI: {fileID: 0}
+  isDestroyed: 0
+  destroyDelay: 3
 --- !u!136 &1559433921456889768
 CapsuleCollider:
   m_ObjectHideFlags: 0
