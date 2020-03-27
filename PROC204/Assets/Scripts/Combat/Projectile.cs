@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] float maxDistance = 1000f;
     [SerializeField] float reloadTime = 0.4f;
     [SerializeField] ColourValue projectileColour;
+    [SerializeField] GameObject projectileFiredFX;
+    [SerializeField] GameObject projectileHitFX;
 
     public float ReloadTime => reloadTime;
 
@@ -18,6 +20,11 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        Instantiate(projectileFiredFX, transform.position, Quaternion.identity);
     }
 
     public void AddForce(Vector2 dir)
@@ -37,6 +44,8 @@ public class Projectile : MonoBehaviour
     {
         Health health = other.gameObject.GetComponentInParent<Health>();
         if (health != null) health.DealDamage(damage, projectileColour);
+
+        Instantiate(projectileHitFX, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }

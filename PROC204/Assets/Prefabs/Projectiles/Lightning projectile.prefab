@@ -19551,6 +19551,10 @@ MonoBehaviour:
   maxDistance: 25
   reloadTime: 1
   projectileColour: 0
+  projectileFiredFX: {fileID: 1237854105968354, guid: c4e4cce58d089d34a820acd185070f61,
+    type: 3}
+  projectileHitFX: {fileID: 1351045683517926, guid: f74dabd1cda930947a0337317b57e32c,
+    type: 3}
 --- !u!136 &1945184540533709097
 CapsuleCollider:
   m_ObjectHideFlags: 0

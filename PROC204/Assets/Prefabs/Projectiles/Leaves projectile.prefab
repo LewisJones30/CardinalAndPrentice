@@ -14542,11 +14542,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75dbd8b518ad7b8489bcdb04c155bed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 6
   moveSpeed: 15
   maxDistance: 25
   reloadTime: 1
   projectileColour: 2
+  projectileFiredFX: {fileID: 1453318106977052, guid: b297c584b05b8fb4c9c899c722277768,
+    type: 3}
+  projectileHitFX: {fileID: 1061481793025988, guid: 9834bc91787a8f945b7b94638dbb0e9c,
+    type: 3}
 --- !u!1 &4689775116560763197
 GameObject:
   m_ObjectHideFlags: 0
