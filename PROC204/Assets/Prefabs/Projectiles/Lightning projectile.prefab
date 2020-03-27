@@ -14674,9 +14674,9 @@ GameObject:
   - component: {fileID: 199561757109601946}
   - component: {fileID: 114106629700761540}
   - component: {fileID: 198302984453370694}
-  - component: {fileID: 65138394354385980}
   - component: {fileID: 54780134100305680}
   - component: {fileID: -3650573850797042174}
+  - component: {fileID: 1945184540533709097}
   m_Layer: 8
   m_Name: Lightning projectile
   m_TagString: Untagged
@@ -19518,19 +19518,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!65 &65138394354385980
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823173409967616}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.6, z: 0.6}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &54780134100305680
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19564,3 +19551,17 @@ MonoBehaviour:
   maxDistance: 25
   reloadTime: 1
   projectileColour: 0
+--- !u!136 &1945184540533709097
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823173409967616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

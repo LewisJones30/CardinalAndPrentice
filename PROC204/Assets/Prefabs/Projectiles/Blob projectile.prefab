@@ -14469,9 +14469,9 @@ GameObject:
   - component: {fileID: 4387073695559136}
   - component: {fileID: 199924835779171580}
   - component: {fileID: 198056607281063266}
-  - component: {fileID: 65019340949975606}
   - component: {fileID: 54151073696178080}
   - component: {fileID: -5327958510201944958}
+  - component: {fileID: 5576664934083725115}
   m_Layer: 8
   m_Name: Blob projectile
   m_TagString: Untagged
@@ -19240,19 +19240,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!65 &65019340949975606
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997882812359486}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &54151073696178080
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19286,3 +19273,17 @@ MonoBehaviour:
   maxDistance: 25
   reloadTime: 1
   projectileColour: 2
+--- !u!136 &5576664934083725115
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997882812359486}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

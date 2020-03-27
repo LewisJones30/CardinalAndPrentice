@@ -423,10 +423,10 @@ GameObject:
   - component: {fileID: 199081142237376256}
   - component: {fileID: 114788196361203330}
   - component: {fileID: 198638885496516166}
-  - component: {fileID: 65604217640661994}
   - component: {fileID: 54674166311131586}
   - component: {fileID: 111889018376725686}
   - component: {fileID: 7878976939068178231}
+  - component: {fileID: 5102595484954907149}
   m_Layer: 8
   m_Name: Ice projectile
   m_TagString: Untagged
@@ -5269,19 +5269,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!65 &65604217640661994
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607489160101874}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.27, z: 0.27}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &54674166311131586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5331,6 +5318,20 @@ MonoBehaviour:
   maxDistance: 25
   reloadTime: 1
   projectileColour: 3
+--- !u!136 &5102595484954907149
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607489160101874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1799161408891886
 GameObject:
   m_ObjectHideFlags: 0
