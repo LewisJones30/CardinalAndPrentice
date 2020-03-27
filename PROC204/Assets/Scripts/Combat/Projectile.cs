@@ -34,15 +34,17 @@ public class Projectile : MonoBehaviour
 
     public void AddForce(Vector2 dir)
     {
+        print(dir);
         transform.right = dir;
-        rb.AddForce(transform.right * moveSpeed, ForceMode.VelocityChange);
-
+        print(transform.right);
     }
 
     private void Update()
     {
         distanceTravelled += Time.deltaTime * moveSpeed;
-        
+
+        transform.Translate(transform.right * Time.deltaTime * moveSpeed, Space.World);
+
         FindClosestTarget();
         SteerTowardTarget();
 
@@ -58,8 +60,6 @@ public class Projectile : MonoBehaviour
 
         float smallestDistance = Mathf.Infinity;
         Health closestEnemy = null;
-
-        print(colliders.Length);
 
         foreach (Collider collider in colliders)
         {
