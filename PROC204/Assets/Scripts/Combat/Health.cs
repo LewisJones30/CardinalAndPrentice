@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
 {
     public int health = 50;
     [SerializeField] HealthUI healthUI;
+    [SerializeField] bool isDestroyed = false;
+    [SerializeField] float destroyDelay = 3f;
 
     Animator animator;
     ParticleSystem sleepParticle;
@@ -25,6 +27,7 @@ public class Health : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         sleepParticle = GetComponent<ParticleSystem>();
+
         if (this.gameObject.name == "Cardinal")
         {
             CardinalCombo = GetComponent<ComboSystem>();
@@ -62,9 +65,10 @@ public class Health : MonoBehaviour
             healthUI.gameOver();
         }
 
-        animator.SetTrigger("Die");
+        if (animator != null) animator.SetTrigger("Die");
+        if (sleepParticle != null) sleepParticle.Play();
 
-        sleepParticle.Play();
+        if (isDestroyed) Destroy(gameObject, destroyDelay);
     }
 
 }
