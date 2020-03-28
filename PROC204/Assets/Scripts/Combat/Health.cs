@@ -7,8 +7,6 @@ public class Health : MonoBehaviour
 {
     public int health = 50;
     [SerializeField] HealthUI healthUI;
-    [SerializeField] bool isDestroyed = false;
-    [SerializeField] float destroyDelay = 3f;
 
     Animator animator;
     ParticleSystem sleepParticle;
@@ -57,7 +55,7 @@ public class Health : MonoBehaviour
         DealDamage(damage);
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         IsDead = true;
         if (this.gameObject.name == "Cardinal")
@@ -67,8 +65,6 @@ public class Health : MonoBehaviour
 
         if (animator != null) animator.SetTrigger("Die");
         if (sleepParticle != null) sleepParticle.Play();
-
-        if (isDestroyed) Destroy(gameObject, destroyDelay);
     }
 
 }

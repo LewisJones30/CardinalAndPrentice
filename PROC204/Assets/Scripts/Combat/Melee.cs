@@ -64,6 +64,7 @@ public class Melee : MonoBehaviour
             {
                 comboSystem.increaseDamage();
             }
+
             if (health != null) health.DealDamage(damage);
         }
 
