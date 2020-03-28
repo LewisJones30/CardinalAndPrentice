@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class OldMover : MonoBehaviour
 {
     [SerializeField] PhysicMaterial stationaryMaterial;
     [SerializeField] float maxSpeed = 6f;
@@ -54,7 +54,21 @@ public class Mover : MonoBehaviour
         if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
         else SetStationary(false);
 
+        Vector3 charDirection = characterBody.TransformDirection(characterBody.forward);
+        Vector3 moveDir = groundCollider.CalculateGroundDirection(charDirection) * input;
 
+        Debug.DrawRay(characterBody.position, moveDir);
+
+        if (moveDir.y > 0) moveDir.y *= slopeClimbBoost;
+
+        Vector3 moveForce;
+
+        if (groundCollider.IsGrounded) moveForce = moveDir * acceleration;
+        else moveForce = moveDir * airAcceleration;
+
+        if ((input < 0f) && (rb.velocity.x < -modifedMaxSpeed) || ((input > 0f) && (rb.velocity.x > modifedMaxSpeed))) return;
+
+        rb.AddForce(moveForce, ForceMode.Acceleration);
 
         UpdateAnimator(input);
     }
