@@ -29004,7 +29004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   moveSpeed: 20
-  turnSpeed: 5
+  turnSpeed: 8
   maxDistance: 100
   reloadTime: 1
   projectileColour: 1
@@ -29012,7 +29012,7 @@ MonoBehaviour:
     type: 3}
   projectileHitFX: {fileID: 1433295770268946, guid: 9f0ee939215f6df4babea8e4758a7079,
     type: 3}
-  seekingDistance: 15
+  seekingDistance: 5
 --- !u!1 &4179853906982552037
 GameObject:
   m_ObjectHideFlags: 0
