@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 266465729}
-  m_IndirectSpecularColor: {r: 0.44985908, g: 0.49992234, b: 0.575583, a: 1}
+  m_IndirectSpecularColor: {r: 0.82107735, g: 0.911249, b: 0.90104085, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2848,7 +2848,7 @@ GameObject:
   - component: {fileID: 404405878}
   - component: {fileID: 404405877}
   - component: {fileID: 404405876}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4462,7 +4462,7 @@ GameObject:
   - component: {fileID: 1035616339}
   - component: {fileID: 1035616338}
   - component: {fileID: 1035616337}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5344,7 +5344,7 @@ GameObject:
   - component: {fileID: 1473911418}
   - component: {fileID: 1473911417}
   - component: {fileID: 1473911416}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5595,7 +5595,7 @@ GameObject:
   - component: {fileID: 1584282272}
   - component: {fileID: 1584282271}
   - component: {fileID: 1584282270}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5925,7 +5925,7 @@ GameObject:
   - component: {fileID: 1690898365}
   - component: {fileID: 1690898364}
   - component: {fileID: 1690898363}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6097,7 +6097,7 @@ GameObject:
   - component: {fileID: 1789804505}
   - component: {fileID: 1789804504}
   - component: {fileID: 1789804503}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
