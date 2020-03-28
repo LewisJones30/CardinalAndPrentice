@@ -47,7 +47,7 @@ public class Projectile : MonoBehaviour
 
     private void FindClosestTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy"));
+        Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy", "Target"));
 
         float smallestDistance = Mathf.Infinity;
         Collider closestEnemy = null;
