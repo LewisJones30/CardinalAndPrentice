@@ -5,29 +5,23 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] PhysicMaterial stationaryMaterial;
     [SerializeField] float maxSpeed = 6f;
-    [SerializeField] float acceleration = 500f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
-    [SerializeField] float slopeClimbBoost = 2f;
-    [SerializeField] float airAcceleration = 8f;
 
-    Rigidbody rb;
     Animator animator;
-    GroundCollider groundCollider;
+    CharacterController charController;
     Health health;
 
-    float modifedMaxSpeed;
+    bool isJumping = false;
     bool canRoll = true;
     string layerName;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        groundCollider = GetComponentInChildren<GroundCollider>();
         health = GetComponent<Health>();
 
         layerName = LayerMask.LayerToName(gameObject.layer);
@@ -35,7 +29,7 @@ public class Mover : MonoBehaviour
 
     private void Update()
     {
-        FallingAnimation(groundCollider.IsGrounded);
+        FallingAnimation(charController.isGrounded);
         RollInvulnerability();
     }
 
@@ -49,12 +43,18 @@ public class Mover : MonoBehaviour
 
     public void Move(float input, float speedFraction)
     {
-        modifedMaxSpeed = maxSpeed * speedFraction;
+        float modifedMaxSpeed = maxSpeed * speedFraction;
 
-        if (Mathf.Abs(input) < Mathf.Epsilon) SetStationary(true);
-        else SetStationary(false);
+        Vector3 movement = input * Vector3.right * modifedMaxSpeed;
+        movement.z = 0f;
 
+        if (isJumping)
+        {
+            if (charController.isGrounded) movement.y += jumpForce;
+            isJumping = false;
+        }
 
+        charController.SimpleMove(movement);
 
         UpdateAnimator(input);
     }
@@ -76,10 +76,9 @@ public class Mover : MonoBehaviour
 
     private void UpdateAnimator(float input)
     {
-        float speed = rb.velocity.x;
         Turn(input);
 
-        animator.SetFloat("forwardSpeed", Mathf.Abs(speed));
+        animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
     private void Turn(float input)
@@ -103,27 +102,16 @@ public class Mover : MonoBehaviour
 
     public void Jump()
     {
-        if (!groundCollider.IsGrounded) return;
+        if (isJumping) return;
+
+        isJumping = true;
 
         animator.SetTrigger("jumpTrigger");
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-    }
-
-    public void SetStationary(bool isStationary)
-    {
-        if (isStationary)
-        {
-            GetComponent<CapsuleCollider>().material = stationaryMaterial;
-        }
-        else
-        {
-            GetComponent<CapsuleCollider>().material = null;
-        }
-
+        charController.SimpleMove(Vector3.up * jumpForce * 1000);
     }
 
     public Vector3 GetVelocity()
     {
-        return rb.velocity;
+        return charController.velocity;
     }
 }

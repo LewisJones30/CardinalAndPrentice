@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlatformCollider : MonoBehaviour
 {
-    Rigidbody rb;
+    Mover mover;
     Collider pCollider;
 
     private void Awake()
     {
-        rb = GetComponentInParent<Rigidbody>();
+        mover = GetComponentInParent<Mover>();
         pCollider = GetComponent<Collider>();
     }
 
     private void Update()
     {
-        if (rb.velocity.y > 0) pCollider.isTrigger = true;
-        else pCollider.isTrigger = false;
+        if (mover.GetVelocity().y > 0) pCollider.enabled = true;
+        else pCollider.enabled = false;
     }
 }
