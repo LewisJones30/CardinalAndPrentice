@@ -20,6 +20,7 @@ public class Mover : MonoBehaviour
     bool isJumping = false;
     bool canRoll = true;
     string layerName;
+    Vector3 movement = Vector3.zero;
 
     private void Awake()
     {
@@ -32,11 +33,16 @@ public class Mover : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+        CalculateYVelocity();
+        print(movement.y);
+        charController.Move(movement * Time.deltaTime);
+        movement = Vector3.zero;
 
         RollInvulnerability();
         PassPlatforms();
         FallingAnimation(charController.isGrounded);
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     private void PassPlatforms()
@@ -62,13 +68,7 @@ public class Mover : MonoBehaviour
     {
         float moveSpeed = maxSpeed * speedFraction;
 
-        Vector3 movement = input * Vector3.right * moveSpeed;
-
-        CalculateYVelocity();
-        print(yVelocity);
-        movement.y = yVelocity;
-
-        charController.Move(movement * Time.deltaTime);
+        movement = input * Vector3.right * moveSpeed;
 
         UpdateAnimator(input);
     }
@@ -79,7 +79,7 @@ public class Mover : MonoBehaviour
 
         //Prevents character from falling at full fallspeed
         //when leaving the ground
-        if (charController.isGrounded) targetFallSpeed = 1;
+        if (charController.isGrounded) targetFallSpeed = maxFallSpeed * 0.1f;
         else targetFallSpeed = maxFallSpeed;
 
         if (charController.isGrounded && isJumping)
@@ -97,6 +97,8 @@ public class Mover : MonoBehaviour
         }
 
         isJumping = false;
+
+        movement.y = yVelocity;
     }
 
     public void ForwardRoll()

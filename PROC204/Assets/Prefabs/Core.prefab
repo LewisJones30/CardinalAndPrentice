@@ -830,11 +830,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash effect
       objectReference: {fileID: 0}
-    - target: {fileID: 7399632264235643804, guid: db53ccecd76169d44b03a3d5c633c555,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8071684230418285660, guid: db53ccecd76169d44b03a3d5c633c555,
         type: 3}
       propertyPath: healthUI

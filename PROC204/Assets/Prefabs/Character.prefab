@@ -74,7 +74,7 @@ MonoBehaviour:
   jumpForce: 30
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
-  maxFallSpeed: 100
+  maxFallSpeed: 50
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
