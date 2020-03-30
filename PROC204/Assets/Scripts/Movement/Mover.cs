@@ -6,13 +6,16 @@ using UnityEngine;
 public class Mover : MonoBehaviour
 {
     [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float gravity = 40f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
+    [SerializeField] float maxFallSpeed = 100f;
 
     Animator animator;
     CharacterController charController;
     Health health;
+    float yVelocity;
 
     bool isJumping = false;
     bool canRoll = true;
@@ -29,8 +32,11 @@ public class Mover : MonoBehaviour
 
     private void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+
         FallingAnimation(charController.isGrounded);
         RollInvulnerability();
+        CalculateYVelocity();
     }
 
     private void RollInvulnerability()
@@ -43,22 +49,30 @@ public class Mover : MonoBehaviour
 
     public void Move(float input, float speedFraction)
     {
-        float modifedMaxSpeed = maxSpeed * speedFraction;
+        float moveSpeed = maxSpeed * speedFraction;
 
-        Vector3 movement = input * Vector3.right * modifedMaxSpeed;
-        movement.z = 0f;
+        Vector3 movement = input * Vector3.right * moveSpeed;
+        movement.y = yVelocity;
 
-        if (isJumping)
-        {
-            if (charController.isGrounded) movement.y += jumpForce;
-            isJumping = false;
-        }
-
-        charController.SimpleMove(movement);
+        charController.Move(movement * Time.deltaTime);
 
         UpdateAnimator(input);
     }
 
+    private void CalculateYVelocity()
+    {
+        if (charController.isGrounded && isJumping)
+        {
+            yVelocity = jumpForce;
+            animator.SetTrigger("jumpTrigger");
+        }
+
+        isJumping = false;
+
+        if (yVelocity > -maxFallSpeed) yVelocity -= gravity * Time.deltaTime;
+
+        print(yVelocity);
+    }
 
     public void ForwardRoll()
     {
@@ -102,12 +116,7 @@ public class Mover : MonoBehaviour
 
     public void Jump()
     {
-        if (isJumping) return;
-
         isJumping = true;
-
-        animator.SetTrigger("jumpTrigger");
-        charController.SimpleMove(Vector3.up * jumpForce * 1000);
     }
 
     public Vector3 GetVelocity()

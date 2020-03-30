@@ -33,6 +33,8 @@ public class CardinalController : MonoBehaviour
         Jump(gamepad);
         MeleeAttack(gamepad);
         ForwardRoll(gamepad);
+
+        mover.Move(moveInput.x, 1f);
     }
 
     private void ForwardRoll(Gamepad gamepad)
@@ -88,12 +90,5 @@ public class CardinalController : MonoBehaviour
         {
             moveInput = Vector3.zero;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if (health.IsDead) return;
-
-        mover.Move(moveInput.x, 1f);
     }
 }

@@ -35,12 +35,6 @@ public class AIController : MonoBehaviour
         StartCoroutine(AIBrain());
     }
 
-    private void FixedUpdate()
-    {
-        if (health.IsDead) return;
-
-        if (!attackCollider.CanAttack && !isStationary) mover.Move(moveDirection, speedFraction);
-    }
     IEnumerator AIBrain()
     {
         while (true)
@@ -85,6 +79,8 @@ public class AIController : MonoBehaviour
     private void Update()
     {
         if (health.IsDead) return;
+
+        if (!attackCollider.CanAttack && !isStationary) mover.Move(moveDirection, speedFraction);
 
         if (currentTarget != null)
         {
