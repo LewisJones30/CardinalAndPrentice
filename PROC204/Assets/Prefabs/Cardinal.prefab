@@ -2287,11 +2287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slashFX
       value: 
-      objectReference: {fileID: 7399632264235643804}
+      objectReference: {fileID: 7362124987739198574}
     - target: {fileID: 4176649508806424554, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4176649508806424554, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
@@ -2420,11 +2420,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zweihander
       objectReference: {fileID: 0}
+    - target: {fileID: 4144341479420764706, guid: 9305cf53c346f30418a62cf56a4aa2a9,
+        type: 3}
+      propertyPath: m_Name
+      value: Slash effect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9305cf53c346f30418a62cf56a4aa2a9, type: 3}
---- !u!1 &7399632264235643804 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4144341479420764706, guid: 9305cf53c346f30418a62cf56a4aa2a9,
+--- !u!198 &7362124987739198574 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4114297071123203536, guid: 9305cf53c346f30418a62cf56a4aa2a9,
     type: 3}
   m_PrefabInstance: {fileID: 6859948466152559038}
   m_PrefabAsset: {fileID: 0}

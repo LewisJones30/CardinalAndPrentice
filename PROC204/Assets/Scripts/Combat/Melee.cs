@@ -12,7 +12,7 @@ public class Melee : MonoBehaviour
     [SerializeField] float attackHeight = 0.9f;
     [SerializeField] float attackRate = 1.2f;
     [SerializeField] int targetLayerIndex;
-    [SerializeField] GameObject slashFX;
+    [SerializeField] ParticleSystem slashFX;
     ComboSystem comboSystem;
     bool attackReset = true;
 
@@ -49,8 +49,9 @@ public class Melee : MonoBehaviour
 
         bool isAttacking = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
 
-        if (isAttacking) slashFX.SetActive(true);
-        else slashFX.SetActive(false);
+        var emission = slashFX.emission;
+        if (isAttacking) emission.enabled = true;
+        else emission.enabled = false;
     }
 
     public void Swing()

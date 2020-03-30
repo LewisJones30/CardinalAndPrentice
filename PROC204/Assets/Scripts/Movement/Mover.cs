@@ -34,16 +34,20 @@ public class Mover : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        FallingAnimation(charController.isGrounded);
         RollInvulnerability();
         PassPlatforms();
-        CalculateYVelocity();
+        FallingAnimation(charController.isGrounded);
     }
 
     private void PassPlatforms()
     {
-        if (charController.velocity.y > 0 && !charController.isGrounded) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
-        else Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
+        bool canPass;
+
+        //Can pass through platform when travelling up and not touching the ground
+        if (charController.velocity.y > 0 && !charController.isGrounded) canPass = true;
+        else canPass = false;
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer(layerName), LayerMask.NameToLayer("Platform"), canPass);
     }
 
     private void RollInvulnerability()
@@ -59,6 +63,9 @@ public class Mover : MonoBehaviour
         float moveSpeed = maxSpeed * speedFraction;
 
         Vector3 movement = input * Vector3.right * moveSpeed;
+
+        CalculateYVelocity();
+        print(yVelocity);
         movement.y = yVelocity;
 
         charController.Move(movement * Time.deltaTime);
@@ -68,17 +75,28 @@ public class Mover : MonoBehaviour
 
     private void CalculateYVelocity()
     {
+        float targetFallSpeed;
+
+        //Prevents character from falling at full fallspeed
+        //when leaving the ground
+        if (charController.isGrounded) targetFallSpeed = 1;
+        else targetFallSpeed = maxFallSpeed;
+
         if (charController.isGrounded && isJumping)
         {
             yVelocity = jumpForce;
             animator.SetTrigger("jumpTrigger");
         }
+        else if (yVelocity > -targetFallSpeed)
+        {
+            yVelocity -= gravity * Time.deltaTime;
+        }
+        else //Remain at fall speed limit
+        {
+            yVelocity = -targetFallSpeed;
+        }
 
         isJumping = false;
-
-        if (yVelocity > -maxFallSpeed) yVelocity -= gravity * Time.deltaTime;
-
-        print(yVelocity);
     }
 
     public void ForwardRoll()
