@@ -36,7 +36,14 @@ public class Mover : MonoBehaviour
 
         FallingAnimation(charController.isGrounded);
         RollInvulnerability();
+        PassPlatforms();
         CalculateYVelocity();
+    }
+
+    private void PassPlatforms()
+    {
+        if (charController.velocity.y > 0 && !charController.isGrounded) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
+        else Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
     }
 
     private void RollInvulnerability()
