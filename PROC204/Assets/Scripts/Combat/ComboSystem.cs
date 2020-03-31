@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ComboSystem : MonoBehaviour
 {
     //Variables declaration
-    RangedWeapon projectileScript;
+    PrenticeAttack projectileScript;
     int originalDamage;
     [SerializeField] int additionalDamagePerStack = 1;
     int stackCount = 0;
@@ -16,7 +16,7 @@ public class ComboSystem : MonoBehaviour
     void Start()
     {
         GameObject prentice = GameObject.Find("Prentice");
-        projectileScript = prentice.GetComponent<RangedWeapon>();
+        projectileScript = prentice.GetComponent<PrenticeAttack>();
         originalDamage = projectileScript.redProjectile.damage; //All default projectile damage is the same, so only needs to be obtained from one source.
         playerHealth = this.GetComponent<Health>();
     }

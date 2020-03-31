@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedWeapon : MonoBehaviour
+public class PrenticeAttack : MonoBehaviour
 {
     public Projectile yellowProjectile;
     public Projectile redProjectile;
@@ -35,7 +35,7 @@ public class RangedWeapon : MonoBehaviour
 
         Vector3 launchPos = new Vector3(transform.position.x, transform.position.y, 0f);
         Projectile projectile = Instantiate(loadedProjectile, launchPos, Quaternion.identity);
-        projectile.AddForce(currentAimDirection);
+        projectile.SetDirection(currentAimDirection);
         onFire?.Invoke();
         StartCoroutine(Reload());
     }

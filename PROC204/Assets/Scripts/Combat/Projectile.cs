@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         Destroy(instance, 10f);
     }
 
-    public void AddForce(Vector2 dir)
+    public void SetDirection(Vector2 dir)
     {
         transform.forward = dir;
     }

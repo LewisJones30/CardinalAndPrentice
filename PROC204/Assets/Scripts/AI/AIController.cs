@@ -15,8 +15,7 @@ public class AIController : MonoBehaviour
     float speedFraction = 1f;
 
     Mover mover;
-    Melee melee;
-    AttackCollider attackCollider;
+    Fighter fighter;
     Health health;
 
     float moveDirection = 1f;
@@ -25,9 +24,8 @@ public class AIController : MonoBehaviour
     private void Awake()
     {
         mover = GetComponent<Mover>();
-        melee = GetComponent<Melee>();
+        fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
-        attackCollider = GetComponentInChildren<AttackCollider>();
     }
 
     private void Start()
@@ -61,7 +59,7 @@ public class AIController : MonoBehaviour
             else return;
         }
 
-        Collider[] targets = Physics.OverlapSphere(transform.position, lineOfSight, melee.TargetLayerMask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, lineOfSight, fighter.TargetLayerMask);
 
         if (targets.Length < 1) return;
 
@@ -71,16 +69,16 @@ public class AIController : MonoBehaviour
 
     void Attack()
     {
-        if (!attackCollider.CanAttack) return;
+        if (!fighter.MeleeWeapon.CheckTargetInMeleeRange()) return;
 
-        melee.Swing();
+        fighter.Attack();
     }
 
     private void Update()
     {
         if (health.IsDead) return;
 
-        if (!attackCollider.CanAttack && !isStationary) mover.Move(moveDirection, speedFraction);
+        if (!fighter.MeleeWeapon.CheckTargetInMeleeRange() && !isStationary) mover.Move(moveDirection, speedFraction);
 
         if (currentTarget != null)
         {

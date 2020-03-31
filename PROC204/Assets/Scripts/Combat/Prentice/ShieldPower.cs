@@ -10,14 +10,14 @@ public class ShieldPower : MonoBehaviour
 
     GameObject currentShield;
     Transform cardinal;
-    RangedWeapon rangedWeapon;
+    PrenticeAttack rangedWeapon;
 
     float timeSinceWeaponFire = 0f;
 
     private void Awake()
     {
         cardinal = GameObject.FindWithTag("Player 1").transform;
-        rangedWeapon = GetComponent<RangedWeapon>();
+        rangedWeapon = GetComponent<PrenticeAttack>();
     }
     private void OnEnable()
     {

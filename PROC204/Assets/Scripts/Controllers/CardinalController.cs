@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CardinalController : MonoBehaviour
 {
     Mover mover;
-    Melee melee;
+    Fighter melee;
     Health health;
     Vector2 moveInput;
     bool jumpReset = true;
@@ -16,7 +16,7 @@ public class CardinalController : MonoBehaviour
     void Awake()
     {
         mover = GetComponent<Mover>();
-        melee = GetComponent<Melee>();
+        melee = GetComponent<Fighter>();
         health = GetComponent<Health>();
     }    
 
@@ -56,7 +56,7 @@ public class CardinalController : MonoBehaviour
         if ((gamepad.leftTrigger.IsPressed() || gamepad.rightTrigger.IsPressed()) && attackReset) //Player 1 melee button
         {
             attackReset = false;
-            melee.Swing();
+            melee.Attack();
         }
 
         if(!gamepad.leftTrigger.IsPressed() && !!gamepad.rightTrigger.IsPressed())
