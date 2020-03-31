@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     public int damage = 20;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float maxDistance = 1000f;
-    [SerializeField] float reloadTime = 0.4f;
+    public float reloadTime = 0.4f;
     [SerializeField] ColourValue projectileColour;
 
     public float ReloadTime => reloadTime;
