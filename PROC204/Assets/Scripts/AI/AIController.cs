@@ -90,7 +90,7 @@ public class AIController : MonoBehaviour
         {
             float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
 
-            if (targetDirection != moveDirection && canTurn) Turn();
+            if ((targetDirection != moveDirection) && canTurn) Turn();
         }
         else if (mover.GetVelocity().magnitude < 1f && canTurn)
         {

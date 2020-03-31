@@ -92,7 +92,7 @@ MonoBehaviour:
   jumpForce: 25
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
-  slopeClimbBoost: 1
+  slopeClimbBoost: 2
   airAcceleration: 15
 --- !u!114 &6822585887371913590
 MonoBehaviour:
@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 6
   healthUI: {fileID: 0}
+  isDestroyed: 0
+  destroyDelay: 3
 --- !u!136 &1559433921456889768
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4891,6 +4893,7 @@ Transform:
   m_Children:
   - {fileID: 4176649508806424554}
   - {fileID: 1335958735518719992}
+  - {fileID: 1338208529033356486}
   m_Father: {fileID: 1627716395190545764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -4905,7 +4908,7 @@ GameObject:
   - component: {fileID: 1335958735518719992}
   - component: {fileID: 7665769439500462809}
   - component: {fileID: 8325373084168222883}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Ground collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4953,6 +4956,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundRaycastPoint: {fileID: 1168818850600861523}
+--- !u!1 &7552022508221447404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1338208529033356486}
+  - component: {fileID: 3592263067034304177}
+  - component: {fileID: 1327382834737365368}
+  m_Layer: 14
+  m_Name: Platform collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1338208529033356486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552022508221447404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1118315093523149361}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3592263067034304177
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552022508221447404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.17, z: 0}
+--- !u!114 &1327382834737365368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552022508221447404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12d2325699e8e149a80fdf2942c4203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8358424483534653333
 GameObject:
   m_ObjectHideFlags: 0

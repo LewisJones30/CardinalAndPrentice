@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CardinalController : MonoBehaviour
 {
-    const int gamepadNum = 0;
-
     Mover mover;
     Melee melee;
     Health health;
@@ -24,33 +22,28 @@ public class CardinalController : MonoBehaviour
 
     private void Update()
     {
-        if (gamepadNum >= Gamepad.all.Count) return;
-
-        var gamepad = Gamepad.all[gamepadNum];
-        if (gamepad == null) return;
-
         if (health.IsDead) return;
+
+        if (Gamepad.all.Count < 1) return;
+
+        var gamepad = Gamepad.all[0];
+        if (gamepad == null) return;
 
         Move(gamepad);
         Jump(gamepad);
         MeleeAttack(gamepad);
         ForwardRoll(gamepad);
-
-        if (gamepad.buttonNorth.isPressed == true) //Y on Xbox, Triangle on PS4
-        {
-            //Code to be added
-        }
     }
 
     private void ForwardRoll(Gamepad gamepad)
     {
-        if (gamepad.buttonEast.isPressed && rollReset) //B on Xbox, Circle on PS4
+        if (gamepad.leftShoulder.IsPressed() && rollReset) //B on Xbox, Circle on PS4
         {
             rollReset = false;
             mover.ForwardRoll();
         }
 
-        if (!gamepad.buttonEast.isPressed)
+        if (!gamepad.leftShoulder.IsPressed())
         {
             rollReset = true;
         }
@@ -58,13 +51,13 @@ public class CardinalController : MonoBehaviour
 
     private void MeleeAttack(Gamepad gamepad)
     {
-        if (gamepad.buttonWest.isPressed && attackReset) //Player 1 melee button
+        if ((gamepad.leftTrigger.IsPressed() || gamepad.rightTrigger.IsPressed()) && attackReset) //Player 1 melee button
         {
             attackReset = false;
             melee.Swing();
         }
 
-        if(!gamepad.buttonWest.isPressed)
+        if(!gamepad.leftTrigger.IsPressed() && !!gamepad.rightTrigger.IsPressed())
         {
             attackReset = true;
         }
@@ -73,13 +66,13 @@ public class CardinalController : MonoBehaviour
 
     private void Jump(Gamepad gamepad)
     {
-        if (gamepad.buttonSouth.isPressed && jumpReset) //A on Xbox, X on PS4
+        if (gamepad.rightShoulder.IsPressed() && jumpReset) //A on Xbox, X on PS4
         {
             jumpReset = false;
             mover.Jump();
         }
 
-        if (!gamepad.buttonSouth.isPressed)
+        if (!gamepad.rightShoulder.IsPressed())
         {
             jumpReset = true;
         }

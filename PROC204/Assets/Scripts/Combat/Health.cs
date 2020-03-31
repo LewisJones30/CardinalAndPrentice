@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         sleepParticle = GetComponent<ParticleSystem>();
+
         if (this.gameObject.name == "Cardinal")
         {
             CardinalCombo = GetComponent<ComboSystem>();
@@ -37,16 +38,14 @@ public class Health : MonoBehaviour
 
         health -= damage;
 
-        if (gameObject.name == "Cardinal")
+        if (gameObject.tag == "Player 1")
         {
             healthUI.TakeHealthUpdate();
-            //health -= damage;
             CardinalCombo.decreaseDamage();
-
-            if (health < 1) Die();
-
-            onHealthChange?.Invoke();
         }
+
+        onHealthChange?.Invoke();
+        if (health < 1) Die();        
     }
 
     public void DealDamage(int damage, ColourValue colour)
@@ -56,7 +55,7 @@ public class Health : MonoBehaviour
         DealDamage(damage);
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         IsDead = true;
         if (this.gameObject.name == "Cardinal")
@@ -64,9 +63,8 @@ public class Health : MonoBehaviour
             healthUI.gameOver();
         }
 
-        animator.SetTrigger("Die");
-
-        sleepParticle.Play();
+        if (animator != null) animator.SetTrigger("Die");
+        if (sleepParticle != null) sleepParticle.Play();
     }
 
 }

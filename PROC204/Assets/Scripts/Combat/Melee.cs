@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Melee : MonoBehaviour
     [SerializeField] float attackHeight = 0.9f;
     [SerializeField] float attackRate = 1.2f;
     [SerializeField] int targetLayerIndex;
+    [SerializeField] GameObject slashFX;
     ComboSystem comboSystem;
     bool attackReset = true;
 
@@ -34,7 +36,21 @@ public class Melee : MonoBehaviour
         if (!Application.isPlaying)
         {
             attackPoint.position = transform.position + new Vector3(attackRange / 2, attackPoint.position.y, 0f);
+        }
+        else
+        {
+            SlashEffect();
         }        
+    }
+
+    private void SlashEffect()
+    {
+        if (slashFX == null) return;
+
+        bool isAttacking = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
+
+        if (isAttacking) slashFX.SetActive(true);
+        else slashFX.SetActive(false);
     }
 
     public void Swing()
@@ -64,6 +80,7 @@ public class Melee : MonoBehaviour
             {
                 comboSystem.increaseDamage();
             }
+
             if (health != null) health.DealDamage(damage);
         }
 

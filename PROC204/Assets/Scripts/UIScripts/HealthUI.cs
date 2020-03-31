@@ -66,11 +66,6 @@ public class HealthUI : MonoBehaviour
             currentSprite.overrideSprite = zeroHalfHearts;
             currentSprite.sprite = zeroHalfHearts;
         }
-        else
-        {
-            //Default case
-            Debug.Log("Error. Default case triggered in TakeHealthUpdate.");
-        }
     }
 
     public void AddHalfHeart() //This is if the player heals by half a heart.
