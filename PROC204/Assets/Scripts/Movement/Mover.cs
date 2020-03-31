@@ -34,7 +34,7 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         CalculateYVelocity();
-        print(movement.y);
+
         charController.Move(movement * Time.deltaTime);
         movement = Vector3.zero;
 
