@@ -135,7 +135,15 @@ public class Mover : MonoBehaviour
         }
 
     }
-
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Portal")
+        {
+            GameObject complete = GameObject.Find("LevelComplete");
+            LevelCompleteUI triggerLevelComplete = complete.GetComponent<LevelCompleteUI>();
+            triggerLevelComplete.LevelComplete();
+        }
+    }
     public Vector3 GetVelocity()
     {
         return rb.velocity;
