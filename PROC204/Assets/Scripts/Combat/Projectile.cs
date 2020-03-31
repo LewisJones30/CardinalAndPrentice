@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float turnSpeed = 1f;
     [SerializeField] float maxDistance = 1000f;
-    [SerializeField] float reloadTime = 0.4f;
+    public float reloadTime = 0.4f;
     [SerializeField] ColourValue projectileColour;
     [SerializeField] GameObject projectileFiredFX;
     [SerializeField] GameObject projectileHitFX;

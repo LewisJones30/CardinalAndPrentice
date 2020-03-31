@@ -7,7 +7,7 @@ public class ComboSystem : MonoBehaviour
 {
     //Variables declaration
     RangedWeapon projectileScript;
-    int originalDamage;
+    float originalReload;
     [SerializeField] int additionalDamagePerStack = 1;
     int stackCount = 0;
     [SerializeField] Text comboText;
@@ -17,7 +17,7 @@ public class ComboSystem : MonoBehaviour
     {
         GameObject prentice = GameObject.Find("Prentice");
         projectileScript = prentice.GetComponent<RangedWeapon>();
-        originalDamage = projectileScript.redProjectile.damage; //All default projectile damage is the same, so only needs to be obtained from one source.
+        originalReload = projectileScript.redProjectile.reloadTime; //All default projectile damage is the same, so only needs to be obtained from one source.
         playerHealth = this.GetComponent<Health>();
     }
 
@@ -31,11 +31,11 @@ public class ComboSystem : MonoBehaviour
     {
         stackCount = stackCount + 1; //Track how many times the player has comboed.
         //Increase the damage of each of the projectiles by the additional damage per stack variable. 
-        projectileScript.redProjectile.damage = projectileScript.redProjectile.damage + additionalDamagePerStack;
-        projectileScript.yellowProjectile.damage = projectileScript.yellowProjectile.damage + additionalDamagePerStack;
-        projectileScript.greenProjectile.damage = projectileScript.greenProjectile.damage + additionalDamagePerStack;
-        projectileScript.blueProjectile.damage = projectileScript.blueProjectile.damage + additionalDamagePerStack;
-        Debug.Log("Projectile damage:" + projectileScript.redProjectile.damage);
+        projectileScript.redProjectile.reloadTime = projectileScript.redProjectile.reloadTime - 0.05f;
+        projectileScript.yellowProjectile.reloadTime = projectileScript.yellowProjectile.reloadTime - 0.05f;
+        projectileScript.greenProjectile.reloadTime = projectileScript.greenProjectile.reloadTime - 0.05f;
+        projectileScript.blueProjectile.reloadTime = projectileScript.blueProjectile.reloadTime - 0.05f;
+        Debug.Log("Projectile damage:" + projectileScript.redProjectile.reloadTime);
         comboText.text = "Combo: " + stackCount;
         if (stackCount == 5)
         {
@@ -46,10 +46,10 @@ public class ComboSystem : MonoBehaviour
     public void decreaseDamage()
     {
         stackCount = 0; //Immediately reset the stack count to zero
-        projectileScript.redProjectile.damage = originalDamage;
-        projectileScript.yellowProjectile.damage = originalDamage;
-        projectileScript.greenProjectile.damage = originalDamage;
-        projectileScript.blueProjectile.damage = originalDamage;
+        projectileScript.redProjectile.reloadTime = originalReload;
+        projectileScript.yellowProjectile.reloadTime = originalReload;
+        projectileScript.greenProjectile.reloadTime = originalReload;
+        projectileScript.blueProjectile.reloadTime = originalReload;
         comboText.text = "Combo: " + stackCount;
     }
 }
