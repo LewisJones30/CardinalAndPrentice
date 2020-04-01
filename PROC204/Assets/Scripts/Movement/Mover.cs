@@ -12,6 +12,10 @@ public class Mover : MonoBehaviour
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float maxFallSpeed = 100f;
 
+    public float Direction { get; private set; } = 1;
+    public Vector3 Position { get => transform.TransformPoint(charController.center); }
+    public bool IsStuck { get; private set; } = false;
+    
     Animator animator;
     CharacterController charController;
     Health health;
@@ -35,12 +39,17 @@ public class Mover : MonoBehaviour
     {
         CalculateYVelocity();
 
-        charController.Move(movement * Time.deltaTime);
+        var flags = charController.Move(movement * Time.deltaTime);
+        if (flags.HasFlag(CollisionFlags.Sides)) IsStuck = true;
+        else IsStuck = false;
+
         movement = Vector3.zero;
 
         RollInvulnerability();
         PassPlatforms();
+
         FallingAnimation(charController.isGrounded);
+        MoveAnimation();
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
@@ -50,7 +59,7 @@ public class Mover : MonoBehaviour
         bool canPass;
 
         //Can pass through platform when travelling up and not touching the ground
-        if (charController.velocity.y > 0 && !charController.isGrounded) canPass = true;
+        if (tag == "Player 1" && charController.velocity.y > 0 && !charController.isGrounded) canPass = true;
         else canPass = false;
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer(layerName), LayerMask.NameToLayer("Platform"), canPass);
@@ -70,7 +79,7 @@ public class Mover : MonoBehaviour
 
         movement = input * Vector3.right * moveSpeed;
 
-        UpdateAnimator(input);
+        Turn(input);
     }
 
     private void CalculateYVelocity()
@@ -115,25 +124,25 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void UpdateAnimator(float input)
+    private void MoveAnimation()
     {
-        Turn(input);
-
         animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
-    private void Turn(float input)
+    public void Turn(float input)
     {
         if (Mathf.Abs(input) < 0.1f) return;
 
         if (input > 0)
         {
-            characterBody.forward = new Vector3(1, 0, 0);
+            Direction = 1;
         }
         else if (input < 0)
         {
-            characterBody.forward = new Vector3(-1, 0, 0);
+            Direction = -1;
         }
+
+        characterBody.forward = new Vector3(Direction, 0, 0);
     }
 
     private void FallingAnimation(bool isGrounded)
