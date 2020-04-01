@@ -133,7 +133,7 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponPrefab
       value: 
-      objectReference: {fileID: 8552561860039279395, guid: 8cc46db34f9cde242af564591c288b60,
+      objectReference: {fileID: 6002931336060852827, guid: a2507c82c04d43d4789a41e7f847d1dd,
         type: 3}
     - target: {fileID: 7070725424353124198, guid: e4ae797d6ca41c94ead44aa39ae71b41,
         type: 3}
