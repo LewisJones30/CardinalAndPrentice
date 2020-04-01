@@ -5281,7 +5281,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 3
@@ -5315,9 +5315,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   moveSpeed: 20
-  turnSpeed: 8
   maxDistance: 100
   reloadTime: 1
+  turnSpeed: 8
   projectileColour: 3
   projectileFiredFX: {fileID: 1463365761452998, guid: 658cb8ae4932a554c94e70096acb899c,
     type: 3}
@@ -5332,7 +5332,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607489160101874}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.4
   m_Height: 0

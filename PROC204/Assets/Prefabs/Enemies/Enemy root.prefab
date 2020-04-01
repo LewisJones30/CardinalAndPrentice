@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d363844029d620a428ff472f5b808d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStationary: 0
   patrolSpeedFraction: 0.5
   pursueSpeedFraction: 0.8
   turnRefreshRate: 0.5
   reactionTime: 0.2
-  lineOfSight: 10
+  spotTargetDistance: 10
+  loseTargetDistance: 15
 --- !u!114 &7382219467259757413
 MonoBehaviour:
   m_ObjectHideFlags: 0

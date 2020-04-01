@@ -60,7 +60,7 @@ public class PrenticeProjectile : Projectile
         transform.forward = Vector3.RotateTowards(transform.forward, targetDir, turnSpeed * Time.deltaTime, 0f);
     }
 
-    protected override void OnCollisionEnter(Collision other)
+    protected override void OnTriggerEnter(Collider other)
     {
         Health health = other.gameObject.GetComponentInParent<Health>();
         if (health != null) health.DealDamage(damage, projectileColour);

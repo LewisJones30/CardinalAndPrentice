@@ -11,7 +11,6 @@ public class Fighter : MonoBehaviour
 
     ComboSystem comboSystem;
     Animator animator;
-    bool attackReset = true;
 
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
@@ -22,6 +21,7 @@ public class Fighter : MonoBehaviour
         }
     }
 
+    public bool IsAttackReady { get; private set; } = true;
     public MeleeWeapon MeleeWeapon { get; private set; }
     public RangeWeapon RangeWeapon { get; private set; }
 
@@ -60,23 +60,18 @@ public class Fighter : MonoBehaviour
 
     public void Attack()
     {
-        if (!attackReset) return;
+        if (!IsAttackReady) return;
 
-        attackReset = false;
+        IsAttackReady = false;
 
         animator.SetTrigger("attackTrigger");
 
-        Invoke(nameof(ResetAttack), weaponPrefab.AttackRate);
+        Invoke(nameof(ReadyAttack), weaponPrefab.AttackRate);
     }
 
-    public void Aim(Vector2 input)
+    void ReadyAttack()
     {
-        if (RangeWeapon != null) RangeWeapon.SetAim(input);
-    }
-
-    void ResetAttack()
-    {
-        attackReset = true;
+        IsAttackReady = true;
     }  
     
     void Hit()

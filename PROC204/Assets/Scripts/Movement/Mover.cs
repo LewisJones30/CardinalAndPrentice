@@ -13,13 +13,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float maxFallSpeed = 100f;
 
     public float Direction { get; private set; } = 1;
-    public Vector3 MeleeStartPosition { get
-        {
-            Vector3 offset = Vector3.right * Direction * charController.radius;
-            return transform.TransformPoint(charController.center) + offset;
-        }
-    }
-    public float Height { get => charController.height; }
+    public Vector3 Position { get => transform.TransformPoint(charController.center); }
     
     Animator animator;
     CharacterController charController;
@@ -49,7 +43,9 @@ public class Mover : MonoBehaviour
 
         RollInvulnerability();
         PassPlatforms();
+
         FallingAnimation(charController.isGrounded);
+        MoveAnimation();
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
@@ -79,7 +75,7 @@ public class Mover : MonoBehaviour
 
         movement = input * Vector3.right * moveSpeed;
 
-        UpdateAnimator(input);
+        Turn(input);
     }
 
     private void CalculateYVelocity()
@@ -124,14 +120,12 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void UpdateAnimator(float input)
+    private void MoveAnimation()
     {
-        Turn(input);
-
         animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
-    private void Turn(float input)
+    public void Turn(float input)
     {
         if (Mathf.Abs(input) < 0.1f) return;
 

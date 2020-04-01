@@ -19252,10 +19252,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 8
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!114 &-5327958510201944958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19272,7 +19272,11 @@ MonoBehaviour:
   moveSpeed: 15
   maxDistance: 25
   reloadTime: 1
+  turnSpeed: 1
   projectileColour: 2
+  projectileFiredFX: {fileID: 0}
+  projectileHitFX: {fileID: 0}
+  seekingDistance: 20
 --- !u!136 &5576664934083725115
 CapsuleCollider:
   m_ObjectHideFlags: 0

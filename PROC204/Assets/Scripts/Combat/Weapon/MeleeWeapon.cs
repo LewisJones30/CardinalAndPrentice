@@ -12,12 +12,14 @@ public class MeleeWeapon : Weapon
     public override float AttackRate { get => attackRate; }
 
     Mover mover;
+    CharacterController charController;
 
     protected override void Awake()
     {
         base.Awake();
 
         mover = GetComponentInParent<Mover>();
+        charController = GetComponentInParent<CharacterController>();
     }
 
     private void Update()
@@ -38,12 +40,15 @@ public class MeleeWeapon : Weapon
 
     private Vector3 GetMeleeAttackCenter()
     {
-        return mover.MeleeStartPosition + (Vector3.right * mover.Direction * (attackRange / 2));
+        Vector3 offset = Vector3.right * mover.Direction * charController.radius;
+        Vector3 attackStartPos =  charController.transform.TransformPoint(charController.center) + offset;
+
+        return attackStartPos + (Vector3.right * mover.Direction * (attackRange / 2));
     }
 
     private Vector3 GetHitBox()
     {
-        return new Vector3(attackRange / 2, mover.Height / 2, 1f / 2);
+        return new Vector3(attackRange / 2, charController.height / 2, 1f / 2);
     }
 
     public void Hit()

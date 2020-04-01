@@ -26,8 +26,7 @@ public class Projectile : MonoBehaviour
         distanceTravelled += Time.deltaTime * moveSpeed;
         if (distanceTravelled > maxDistance) Destroy(gameObject);
     }
-
-    protected virtual void OnCollisionEnter(Collision other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         Health health = other.gameObject.GetComponentInParent<Health>();
         if (health != null) health.DealDamage(damage);
