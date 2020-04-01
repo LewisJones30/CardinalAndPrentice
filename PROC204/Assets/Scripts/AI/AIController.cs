@@ -20,6 +20,7 @@ public class AIController : MonoBehaviour
     Mover mover;
     Fighter fighter;
     Health health;
+    CharacterController charController;
 
     bool isStationary = false;
     float moveDir = 1f;
@@ -31,15 +32,16 @@ public class AIController : MonoBehaviour
         mover = GetComponent<Mover>();
         fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
+        charController = GetComponent<CharacterController>();
     }
 
     private void Start()
     {
         if (loseTargetDistance < spotTargetDistance) loseTargetDistance = spotTargetDistance;
-        preferredShootingRange = UnityEngine.Random.Range(spotTargetDistance, loseTargetDistance);
+        preferredShootingRange = (spotTargetDistance + loseTargetDistance) / 2;
 
         StartCoroutine(AIBrain());
-    }
+    }    
 
     IEnumerator AIBrain()
     {
@@ -69,8 +71,18 @@ public class AIController : MonoBehaviour
         }
         else if (Mathf.Abs(mover.GetVelocity().x) < 0.1f && canTurn && !isStationary)
         {
-            Turn();
+            TraverseObstacle();
         }
+    }
+
+    private void TraverseObstacle()
+    {
+        int enemyLayerMask = LayerMask.GetMask("Enemy");
+        bool isHit = Physics.Raycast(mover.Position, Vector3.right * mover.Direction, charController.radius * 2f, enemyLayerMask);
+
+        if (isHit) mover.ForwardRoll();
+        else if (canTurn) Turn();
+        else mover.Jump();
     }
 
     private void FindTarget()
