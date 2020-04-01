@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
         if (gameObject.tag == "Player 1")
         {
             healthUI.TakeHealthUpdate();
-            CardinalCombo.decreaseDamage();
+            CardinalCombo.BreakCombo();
         }
 
         onHealthChange?.Invoke();

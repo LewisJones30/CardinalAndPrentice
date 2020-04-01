@@ -12,13 +12,28 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] Text comboText;
     Health playerHealth;
     [SerializeField] HealthUI healthUI;
+
+    Fighter fighter;
+
+    private void Awake()
+    {
+        fighter = GetComponent<Fighter>();
+    }    
+
     void Start()
     {
         prenticeAttack = GetComponentInChildren<PrenticeAttack>();
         playerHealth = GetComponent<Health>();
+
+        fighter.MeleeWeapon.onDealDamage += BuildCombo;
     }
 
-    public void increaseDamage()
+    private void OnDisable()
+    {
+        fighter.MeleeWeapon.onDealDamage -= BuildCombo;
+    }
+
+    public void BuildCombo()
     {
         stackCount = stackCount + 1; //Track how many times the player has comboed.
 
@@ -35,7 +50,7 @@ public class ComboSystem : MonoBehaviour
             healthUI.AddOneHeart();
         }
     }
-    public void decreaseDamage()
+    public void BreakCombo()
     {
         stackCount = 0; //Immediately reset the stack count to zero
         prenticeAttack.ReloadReduction = 0;

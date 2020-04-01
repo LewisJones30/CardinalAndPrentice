@@ -14,6 +14,9 @@ public class MeleeWeapon : Weapon
     Mover mover;
     CharacterController charController;
 
+    public delegate void OnDealDamage();
+    public event OnDealDamage onDealDamage;
+
     protected override void Awake()
     {
         base.Awake();
@@ -58,7 +61,11 @@ public class MeleeWeapon : Weapon
         foreach (Collider collider in colliders)
         {
             Health health = collider.gameObject.GetComponent<Health>();
-            if (health != null) health.DealDamage(damage);
+            if (health != null)
+            {
+                health.DealDamage(damage);
+                onDealDamage?.Invoke();
+            }
         }
     }
 
