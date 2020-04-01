@@ -11,9 +11,11 @@ public class AIController : MonoBehaviour
     [SerializeField] float reactionTime = 0.5f;
     [SerializeField] float spotTargetDistance = 5f;
     [SerializeField] float loseTargetDistance = 10f;
+    [SerializeField] float maxWaitTime = 4f;
 
     Health currentTarget;
     float speedFraction = 1f;
+    float preferredShootingRange;
 
     Mover mover;
     Fighter fighter;
@@ -22,6 +24,7 @@ public class AIController : MonoBehaviour
     bool isStationary = false;
     float moveDir = 1f;
     bool canTurn = true;
+    float waitTime = Mathf.Infinity;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class AIController : MonoBehaviour
     private void Start()
     {
         if (loseTargetDistance < spotTargetDistance) loseTargetDistance = spotTargetDistance;
+        preferredShootingRange = UnityEngine.Random.Range(spotTargetDistance, loseTargetDistance);
 
         StartCoroutine(AIBrain());
     }
@@ -41,9 +45,12 @@ public class AIController : MonoBehaviour
     {
         while (!health.IsDead)
         {
-            FindTarget();
+            ValidateTarget();
+            FindTarget();            
             Movement();
             Attack();
+
+            if (currentTarget == null && waitTime < maxWaitTime) isStationary = true;
 
             yield return new WaitForSeconds(reactionTime);
         }
@@ -60,7 +67,7 @@ public class AIController : MonoBehaviour
 
             if ((targetDirection != moveDir) && canTurn) Turn();
         }
-        else if (mover.GetVelocity().x < 1f && canTurn)
+        else if (Mathf.Abs(mover.GetVelocity().x) < 0.1f && canTurn && !isStationary)
         {
             Turn();
         }
@@ -74,7 +81,14 @@ public class AIController : MonoBehaviour
 
         if (targets.Length < 1) return;
 
-        currentTarget = targets[0].gameObject.GetComponent<Health>();
+        foreach (var target in targets)
+        {
+            Health health = target.gameObject.GetComponentInParent<Health>();
+            if (health != null && !health.IsDead)
+            {
+                currentTarget = health;
+            }
+        }
     }
 
     void Attack()
@@ -107,11 +121,11 @@ public class AIController : MonoBehaviour
         Vector3 targetDir = targetPos - mover.Position;
 
         int shootLayerMask = LayerMask.GetMask("Player", "Default");
-        bool isHit = Physics.Raycast(mover.Position, targetDir, out RaycastHit hit, loseTargetDistance, shootLayerMask);
+        bool isHit = Physics.Raycast(mover.Position, targetDir, out RaycastHit hit, preferredShootingRange, shootLayerMask);
 
         if (!isHit) return false;
 
-        fighter.RangeWeapon.Aim(targetDir);
+        fighter.RangeWeapon.SetTarget(targetPos);
         fighter.Attack();
 
         return true;
@@ -120,9 +134,9 @@ public class AIController : MonoBehaviour
 
     private void Update()
     {
-        if (health.IsDead) return;
+        waitTime += Time.deltaTime;
 
-        ValidateTarget();
+        if (health.IsDead) return;
 
         if (!isStationary) mover.Move(moveDir, speedFraction);
     }
@@ -132,7 +146,12 @@ public class AIController : MonoBehaviour
         if (currentTarget == null) return;
         
         float targetDistance = Vector3.Distance(transform.position, currentTarget.transform.position);
-        if (targetDistance > loseTargetDistance || currentTarget.IsDead) currentTarget = null;
+
+        if (targetDistance > loseTargetDistance || currentTarget.IsDead)
+        {
+            currentTarget = null;
+            waitTime = 0f;
+        }
     }
 
     private void Turn()

@@ -7,20 +7,23 @@ public class RangeWeapon : Weapon
     [SerializeField] Transform shootPosition;
     [SerializeField] Projectile projectile;
 
-    Vector2 currentAim;
+    Vector3 targetPos;
 
     public override float AttackRate => projectile.ReloadTime;
 
-    public void Aim(Vector3 aim)
+    public void SetTarget(Vector3 targetPos)
     {
-        currentAim = new Vector2(aim.x, aim.y);
-        currentAim.Normalize();
+        this.targetPos = targetPos;
     }
 
     public void Shoot()
     {
         Vector3 launchPos = new Vector3(shootPosition.position.x, shootPosition.position.y, 0f);
         Projectile instance = Instantiate(projectile, launchPos, Quaternion.identity);
-        instance.SetDirection(currentAim);
+
+        Vector3 targetDir = targetPos - launchPos;
+        Vector2 aim = new Vector2(targetDir.x, targetDir.y);
+
+        instance.SetDirection(aim.normalized);
     }
 }
