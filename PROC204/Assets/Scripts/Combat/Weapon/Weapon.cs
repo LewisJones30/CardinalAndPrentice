@@ -10,9 +10,9 @@ public abstract class Weapon : MonoBehaviour
     public int TargetLayerMask { get; set; }
     public abstract float AttackRate { get; }
 
-    Animator animator;
+    protected Animator animator;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponentInParent<Animator>();
 

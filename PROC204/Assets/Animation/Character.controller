@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 685f155e179a82d4f9e5aca467ad4a0e, type: 3}
+  m_Motion: {fileID: 7400000, guid: 6f9d9b5dde069034282820e10db8b748, type: 3}
   m_Tag: 
   m_SpeedParameter: forwardSpeed
   m_MirrorParameter: isGrounded
@@ -35,7 +35,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack
-  m_Speed: 1.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8905553802405491363}
@@ -48,9 +48,9 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dce280ced5e006c4cb0eb0fab2f51b75, type: 3}
+  m_Motion: {fileID: 7400000, guid: 95dc4fbaa01379f4f908847fb44054d4, type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: forwardSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -122,7 +122,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: af325fd4fbf92f0458ca548353bddf90, type: 3}
+  m_Motion: {fileID: 7400000, guid: 8164d5f25ce079442917b5582dfdbf2b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -173,7 +173,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9757788373ec8734cb4f7a3db84aef2f, type: 3}
+  m_Motion: {fileID: 7400000, guid: 589a11892e95f834dbf23f9e1cc1f090, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -280,7 +280,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400002, guid: afd3b10eb71eaf54bb564f6cc703f2cc, type: 3}
+  m_Motion: {fileID: 7400000, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -431,7 +431,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 8370b4128ccb08c4a8944d3f0d66cebc, type: 3}
+    m_Motion: {fileID: 7400000, guid: b3b55707c080031498b4a73507227e0c, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

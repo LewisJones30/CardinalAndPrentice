@@ -112,5 +112,10 @@ PrefabInstance:
       propertyPath: entityColours.Array.data[3].colour
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8574353582570938657, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d43fc3a59a0db8d4e88852268b9cedcb, type: 3}

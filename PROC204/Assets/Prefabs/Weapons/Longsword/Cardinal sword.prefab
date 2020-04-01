@@ -4802,8 +4802,8 @@ MonoBehaviour:
     type: 2}
   isRightHanded: 1
   attackRate: 2
-  damage: 2
-  attackRange: 2
+  damage: 3
+  attackRange: 1.1
   slashEffect: {fileID: 6463977788295247005}
 --- !u!1 &3412345845588440592
 GameObject:

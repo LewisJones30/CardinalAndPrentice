@@ -11,17 +11,13 @@ public class MeleeWeapon : Weapon
 
     public override float AttackRate { get => attackRate; }
 
-    Animator animator;
-    CharacterController charController;
+    Mover mover;
 
-    Vector3 hitBox;
-
-    private void Awake()
+    protected override void Awake()
     {
-        animator = GetComponentInParent<Animator>();
-        charController = GetComponentInParent<CharacterController>();
+        base.Awake();
 
-        hitBox = new Vector3(attackRange / 2, charController.height / 2, 1f / 2);
+        mover = GetComponentInParent<Mover>();
     }
 
     private void Update()
@@ -31,6 +27,8 @@ public class MeleeWeapon : Weapon
 
     private void SlashEffect()
     {
+        if (slashEffect == null) return;
+
         bool isAttacking = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
 
         var emission = slashEffect.emission;
@@ -38,14 +36,19 @@ public class MeleeWeapon : Weapon
         else emission.enabled = false;
     }
 
-    private Vector3 GetMeleeAttackPosition()
+    private Vector3 GetMeleeAttackCenter()
     {
-        return charController.center + (Vector3.right * (attackRange / 2));
+        return mover.MeleeStartPosition + (Vector3.right * mover.Direction * (attackRange / 2));
+    }
+
+    private Vector3 GetHitBox()
+    {
+        return new Vector3(attackRange / 2, mover.Height / 2, 1f / 2);
     }
 
     public void Hit()
     {
-        Collider[] colliders = Physics.OverlapBox(GetMeleeAttackPosition(), hitBox, Quaternion.identity, TargetLayerMask);
+        Collider[] colliders = Physics.OverlapBox(GetMeleeAttackCenter(), GetHitBox(), Quaternion.identity, TargetLayerMask);
 
         foreach (Collider collider in colliders)
         {
@@ -56,7 +59,7 @@ public class MeleeWeapon : Weapon
 
     public bool CheckTargetInMeleeRange()
     {
-        Collider[] colliders = Physics.OverlapBox(GetMeleeAttackPosition(), hitBox, Quaternion.identity, TargetLayerMask);
+        Collider[] colliders = Physics.OverlapBox(GetMeleeAttackCenter(), GetHitBox(), Quaternion.identity, TargetLayerMask);
 
         foreach (Collider collider in colliders)
         {
@@ -64,5 +67,11 @@ public class MeleeWeapon : Weapon
             if (health != null && !health.IsDead) return true;
         }
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (mover == null) return;
+        Gizmos.DrawWireCube(GetMeleeAttackCenter(), GetHitBox() * 2);
     }
 }

@@ -12,6 +12,15 @@ public class Mover : MonoBehaviour
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float maxFallSpeed = 100f;
 
+    public float Direction { get; private set; } = 1;
+    public Vector3 MeleeStartPosition { get
+        {
+            Vector3 offset = Vector3.right * Direction * charController.radius;
+            return transform.TransformPoint(charController.center) + offset;
+        }
+    }
+    public float Height { get => charController.height; }
+    
     Animator animator;
     CharacterController charController;
     Health health;
@@ -128,12 +137,14 @@ public class Mover : MonoBehaviour
 
         if (input > 0)
         {
-            characterBody.forward = new Vector3(1, 0, 0);
+            Direction = 1;
         }
         else if (input < 0)
         {
-            characterBody.forward = new Vector3(-1, 0, 0);
+            Direction = -1;
         }
+
+        characterBody.forward = new Vector3(Direction, 0, 0);
     }
 
     private void FallingAnimation(bool isGrounded)
