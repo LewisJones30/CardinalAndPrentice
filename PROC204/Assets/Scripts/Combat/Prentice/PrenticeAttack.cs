@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PrenticeAttack : MonoBehaviour
 {
+    [SerializeField] float minReloadTime = 0.1f;
+
     public PrenticeProjectile yellowProjectile;
     public PrenticeProjectile redProjectile;
     public PrenticeProjectile greenProjectile;
@@ -18,7 +20,7 @@ public class PrenticeAttack : MonoBehaviour
     public delegate void OnFire();
     public event OnFire onFire;
 
-    public int DamageIncrease { get; set; } = 0;
+    public float ReloadReduction { get; set; } = 0;
 
     public void Aim(Vector2 input)
     {
@@ -38,7 +40,6 @@ public class PrenticeAttack : MonoBehaviour
         Vector3 launchPos = new Vector3(transform.position.x, transform.position.y, 0f);
         PrenticeProjectile projectile = Instantiate(loadedProjectile, launchPos, Quaternion.identity);
         projectile.SetDirection(currentAimDirection);
-        projectile.Damage += DamageIncrease;
         onFire?.Invoke();
         StartCoroutine(Reload());
     }
@@ -64,7 +65,10 @@ public class PrenticeAttack : MonoBehaviour
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(loadedProjectile.ReloadTime);
+        float reloadTime = loadedProjectile.ReloadTime - ReloadReduction;
+        if (reloadTime < minReloadTime) reloadTime = minReloadTime;
+
+        yield return new WaitForSeconds(reloadTime);
         isReloaded = true;
     }
 }
