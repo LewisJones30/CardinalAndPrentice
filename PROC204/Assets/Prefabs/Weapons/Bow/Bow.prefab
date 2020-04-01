@@ -78,7 +78,8 @@ MonoBehaviour:
     type: 2}
   isRightHanded: 0
   shootPosition: {fileID: 2264137511892800832}
-  projectile: {fileID: 0}
+  projectile: {fileID: -6736819174270927029, guid: c7f49c6920d49ba468b083941d79f2c0,
+    type: 3}
 --- !u!1 &9018568610269779125
 GameObject:
   m_ObjectHideFlags: 0

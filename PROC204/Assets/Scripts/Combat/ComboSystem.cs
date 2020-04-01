@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class ComboSystem : MonoBehaviour
 {
     //Variables declaration
-    PrenticeAttack projectileScript;
-    int originalDamage;
+    PrenticeAttack prenticeAttack;
     [SerializeField] int additionalDamagePerStack = 1;
     int stackCount = 0;
     [SerializeField] Text comboText;
@@ -15,28 +14,21 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] HealthUI healthUI;
     void Start()
     {
-        GameObject prentice = GameObject.Find("Prentice");
-        projectileScript = prentice.GetComponent<PrenticeAttack>();
-        originalDamage = projectileScript.redProjectile.damage; //All default projectile damage is the same, so only needs to be obtained from one source.
-        playerHealth = this.GetComponent<Health>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        prenticeAttack = GetComponentInChildren<PrenticeAttack>();
+        playerHealth = GetComponent<Health>();
     }
 
     public void increaseDamage()
     {
         stackCount = stackCount + 1; //Track how many times the player has comboed.
-        //Increase the damage of each of the projectiles by the additional damage per stack variable. 
-        projectileScript.redProjectile.damage = projectileScript.redProjectile.damage + additionalDamagePerStack;
-        projectileScript.yellowProjectile.damage = projectileScript.yellowProjectile.damage + additionalDamagePerStack;
-        projectileScript.greenProjectile.damage = projectileScript.greenProjectile.damage + additionalDamagePerStack;
-        projectileScript.blueProjectile.damage = projectileScript.blueProjectile.damage + additionalDamagePerStack;
-        Debug.Log("Projectile damage:" + projectileScript.redProjectile.damage);
+
+        //Increase the damage of all projectiles by the additional damage per stack variable. 
+        prenticeAttack.DamageIncrease += additionalDamagePerStack;
+
+        Debug.Log("Bonus projectle damage:" + prenticeAttack.DamageIncrease);
         comboText.text = "Combo: " + stackCount;
+
+        // When combo is 5 add 2 lives to Cardinal
         if (stackCount == 5)
         {
             playerHealth.health = playerHealth.health + 2;
@@ -46,10 +38,8 @@ public class ComboSystem : MonoBehaviour
     public void decreaseDamage()
     {
         stackCount = 0; //Immediately reset the stack count to zero
-        projectileScript.redProjectile.damage = originalDamage;
-        projectileScript.yellowProjectile.damage = originalDamage;
-        projectileScript.greenProjectile.damage = originalDamage;
-        projectileScript.blueProjectile.damage = originalDamage;
+        prenticeAttack.DamageIncrease = 0;
+
         comboText.text = "Combo: " + stackCount;
     }
 }

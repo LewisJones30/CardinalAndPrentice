@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class PrenticeAttack : MonoBehaviour
 {
-    public Projectile yellowProjectile;
-    public Projectile redProjectile;
-    public Projectile greenProjectile;
-    public Projectile blueProjectile;
+    public PrenticeProjectile yellowProjectile;
+    public PrenticeProjectile redProjectile;
+    public PrenticeProjectile greenProjectile;
+    public PrenticeProjectile blueProjectile;
 
-    Projectile loadedProjectile;
+    PrenticeProjectile loadedProjectile;
 
     bool isReloaded = true;
     Vector2 currentAimDirection;
 
     public delegate void OnFire();
     public event OnFire onFire;
+
+    public int DamageIncrease { get; set; } = 0;
 
     public void Aim(Vector2 input)
     {
@@ -34,8 +36,9 @@ public class PrenticeAttack : MonoBehaviour
         isReloaded = false;
 
         Vector3 launchPos = new Vector3(transform.position.x, transform.position.y, 0f);
-        Projectile projectile = Instantiate(loadedProjectile, launchPos, Quaternion.identity);
+        PrenticeProjectile projectile = Instantiate(loadedProjectile, launchPos, Quaternion.identity);
         projectile.SetDirection(currentAimDirection);
+        projectile.Damage += DamageIncrease;
         onFire?.Invoke();
         StartCoroutine(Reload());
     }
