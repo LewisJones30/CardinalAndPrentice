@@ -19,6 +19,7 @@ MonoBehaviour:
   spotTargetDistance: 10
   loseTargetDistance: 15
   maxWaitTime: 4
+  jumpChance: 0.2
 --- !u!114 &7382219467259757413
 MonoBehaviour:
   m_ObjectHideFlags: 0

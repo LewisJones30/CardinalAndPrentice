@@ -28,6 +28,11 @@ public class PrenticeProjectile : Projectile
         SteerTowardTarget();
     }
 
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
 
     private void FindClosestTarget()
     {

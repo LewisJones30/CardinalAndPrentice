@@ -12,6 +12,10 @@ public class AIController : MonoBehaviour
     [SerializeField] float spotTargetDistance = 5f;
     [SerializeField] float loseTargetDistance = 10f;
     [SerializeField] float maxWaitTime = 4f;
+    [Range(0f, 1f)]
+    [SerializeField] float jumpChance = 0.5f;
+    [Range(0f, 0.95f)]
+    [SerializeField] float randomness = 0.2f;
 
     Health currentTarget;
     float speedFraction = 1f;
@@ -41,21 +45,31 @@ public class AIController : MonoBehaviour
         preferredShootingRange = (spotTargetDistance + loseTargetDistance) / 2;
 
         StartCoroutine(AIBrain());
-    }    
+    }
+
+    private float GetRandomMultiplier()
+    {
+        return UnityEngine.Random.Range(1 - randomness, 1 + randomness);
+    }
 
     IEnumerator AIBrain()
     {
         while (!health.IsDead)
         {
             ValidateTarget();
-            FindTarget();            
+            FindTarget();
+            Wait();
             Movement();
             Attack();
 
-            if (currentTarget == null && waitTime < maxWaitTime) isStationary = true;
-
-            yield return new WaitForSeconds(reactionTime);
+            yield return new WaitForSeconds(reactionTime * GetRandomMultiplier());
         }
+    }
+
+    private void Wait()
+    {
+        if (currentTarget == null && waitTime < maxWaitTime) isStationary = true;
+        else isStationary = false;
     }
 
     private void Movement()
@@ -63,25 +77,36 @@ public class AIController : MonoBehaviour
         if (currentTarget == null) speedFraction = patrolSpeedFraction;
         else speedFraction = pursueSpeedFraction;
 
+        bool isChasingPlayer = false;
+
         if (currentTarget != null)
         {
+            isChasingPlayer = true;
+
             float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
 
             if ((targetDirection != moveDir) && canTurn) Turn();
         }
-        else if (Mathf.Abs(mover.GetVelocity().x) < 0.1f && canTurn && !isStationary)
+        
+        if (Mathf.Abs(mover.GetVelocity().x) < (patrolSpeedFraction / 2f) && mover.IsStuck)
         {
-            TraverseObstacle();
+            TraverseObstacle(isChasingPlayer);
         }
     }
 
-    private void TraverseObstacle()
+    private void TraverseObstacle(bool isChasingPlayer)
     {
+        if (UnityEngine.Random.value <= jumpChance * GetRandomMultiplier())
+        {
+            mover.Jump();
+            return;
+        }
+
         int enemyLayerMask = LayerMask.GetMask("Enemy");
         bool isHit = Physics.Raycast(mover.Position, Vector3.right * mover.Direction, charController.radius * 2f, enemyLayerMask);
 
         if (isHit) mover.ForwardRoll();
-        else if (canTurn) Turn();
+        else if (canTurn && !isChasingPlayer) Turn();
         else mover.Jump();
     }
 
@@ -104,7 +129,9 @@ public class AIController : MonoBehaviour
     }
 
     void Attack()
-    {        
+    {
+        if (currentTarget == null) return;
+
         if (fighter.IsMelee)
         {
             isStationary = MeleeAttack();
@@ -136,6 +163,9 @@ public class AIController : MonoBehaviour
         bool isHit = Physics.Raycast(mover.Position, targetDir, out RaycastHit hit, preferredShootingRange, shootLayerMask);
 
         if (!isHit) return false;
+
+        Health health = hit.collider.gameObject.GetComponent<Health>();
+        if (health == null) return false;
 
         fighter.RangeWeapon.SetTarget(targetPos);
         fighter.Attack();

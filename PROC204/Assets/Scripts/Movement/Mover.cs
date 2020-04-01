@@ -14,6 +14,7 @@ public class Mover : MonoBehaviour
 
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
+    public bool IsStuck { get; private set; } = false;
     
     Animator animator;
     CharacterController charController;
@@ -38,7 +39,10 @@ public class Mover : MonoBehaviour
     {
         CalculateYVelocity();
 
-        charController.Move(movement * Time.deltaTime);
+        var flags = charController.Move(movement * Time.deltaTime);
+        if (flags.HasFlag(CollisionFlags.Sides)) IsStuck = true;
+        else IsStuck = false;
+
         movement = Vector3.zero;
 
         RollInvulnerability();
@@ -55,7 +59,7 @@ public class Mover : MonoBehaviour
         bool canPass;
 
         //Can pass through platform when travelling up and not touching the ground
-        if (charController.velocity.y > 0 && !charController.isGrounded) canPass = true;
+        if (tag == "Player 1" && charController.velocity.y > 0 && !charController.isGrounded) canPass = true;
         else canPass = false;
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer(layerName), LayerMask.NameToLayer("Platform"), canPass);

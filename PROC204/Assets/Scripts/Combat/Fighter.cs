@@ -27,7 +27,6 @@ public class Fighter : MonoBehaviour
 
     private void Awake()
     {
-        //INCREASE DAMAGE OF PRENTICE WHEN COMBO WITH CARDINAL
         comboSystem = GetComponent<ComboSystem>();
         animator = GetComponent<Animator>();
 
