@@ -23,7 +23,7 @@ public class LevelCompleteUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     if (levelComplete == true)
+        if (levelComplete == true)
         {
             if (Gamepad.all[0].buttonSouth.isPressed == true)
             {
@@ -39,12 +39,23 @@ public class LevelCompleteUI : MonoBehaviour
             }
         }
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Hit!");
+        if (other.gameObject.name == "Cardinal")
+        {
+            LevelComplete();
+        }
+    }
+
     IEnumerator Fade()
     {
 
         while (fadecanvas.alpha < 1)
         {
-            fadecanvas.alpha += Time.fixedDeltaTime / 12;
+            fadecanvas.alpha += Time.fixedDeltaTime / 50;
             yield return null;
         }
         yield return new WaitForSeconds(1);
@@ -64,6 +75,7 @@ public class LevelCompleteUI : MonoBehaviour
 
     public void LevelComplete()
     {
+        
         GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
         mainCanvas.enabled = false;
         if (levelCompleteCanvas != null)
