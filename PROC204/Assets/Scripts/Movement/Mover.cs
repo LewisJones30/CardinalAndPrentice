@@ -13,6 +13,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float maxFallSpeed = 100f;
     [SerializeField] float dashSpeedMultiplier = 2f;
     [SerializeField] float dashAirSpeedMultiplier = 3f;
+    [SerializeField] float fallingAnimationDelay = 1f;
 
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
@@ -26,6 +27,8 @@ public class Mover : MonoBehaviour
 
     bool isJumpInput = false;
     bool canRoll = true;
+    float airTime = 0f;
+
     string layerName;
     Vector3 movement = Vector3.zero;
 
@@ -52,11 +55,9 @@ public class Mover : MonoBehaviour
 
         movement = Vector3.zero;
 
-        RollInvulnerability();
         PassPlatforms();
-
-        FallingAnimation(charController.isGrounded);
-        MoveAnimation();
+        FallingAnimation();
+        SetMoveAnimationSpeed();
 
         if (charController.isGrounded) hasJumped = false;
 
@@ -74,26 +75,27 @@ public class Mover : MonoBehaviour
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer(layerName), LayerMask.NameToLayer("Platform"), canPass);
     }
 
-    private void RollInvulnerability()
+    public void SetRolling(bool isRolling)
     {
-        bool isRolling = animator.GetCurrentAnimatorStateInfo(0).IsName("Roll");
-
-        if (isRolling || health.IsDead) gameObject.layer = LayerMask.NameToLayer("Passable");
-        else gameObject.layer = LayerMask.NameToLayer(layerName);
+        if (isRolling) gameObject.layer = LayerMask.NameToLayer("Passable");
+        else if (!health.IsDead) gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
     public void Move(float input, float speedFraction)
     {
+        if (Mathf.Abs(input) < Mathf.Epsilon) return;
+
         float moveSpeed = runSpeed * speedFraction;
 
-        if (IsDashing && charController.isGrounded) moveSpeed *= dashSpeedMultiplier;
-        else if (IsDashing && hasJumped) moveSpeed *= dashAirSpeedMultiplier;
+        if (IsDashing) input = Mathf.Sign(input);
+        
+        if (IsDashing && hasJumped) moveSpeed *= dashAirSpeedMultiplier;
+        else if (IsDashing) moveSpeed *= dashSpeedMultiplier;
 
         movement = input * Vector3.right * moveSpeed;
 
         Turn(input);
     }
-
     private void CalculateYVelocity()
     {
         float targetFallSpeed;
@@ -137,15 +139,14 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
-    private void MoveAnimation()
+    private void SetMoveAnimationSpeed()
     {
-        animator.SetBool("isDashing", IsDashing);
         animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
     public void Turn(float input)
     {
-        if (Mathf.Abs(input) < 0.1f) return;
+        if (Mathf.Abs(input) < Mathf.Epsilon) return;
 
         if (input > 0)
         {
@@ -159,9 +160,16 @@ public class Mover : MonoBehaviour
         characterBody.forward = new Vector3(Direction, 0, 0);
     }
 
-    private void FallingAnimation(bool isGrounded)
+    private void FallingAnimation()
     {
-        animator.SetBool("isGrounded", isGrounded);
+        if (charController.isGrounded) airTime = 0f;
+        else airTime += Time.deltaTime;
+
+        bool isFalling;
+        if (!charController.isGrounded && airTime > fallingAnimationDelay) isFalling = true;
+        else isFalling = false;
+
+        animator.SetBool("isGrounded", !isFalling);
     }
 
     public void Jump()

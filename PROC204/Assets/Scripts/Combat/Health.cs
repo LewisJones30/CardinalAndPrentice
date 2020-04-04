@@ -10,50 +10,31 @@ public class Health : MonoBehaviour
 
     Animator animator;
     ParticleSystem sleepParticle;
-    ComboSystem CardinalCombo;
 
     public delegate void OnHealthChange();
     public event OnHealthChange onHealthChange;
 
     public bool IsDead { get; private set; } = false;
     public int HealthPoints { get { return health; } }
-    public ColourValue ColourWeakness { get; set; } = ColourValue.None;
 
-    const int damageMultiplier = 3;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         sleepParticle = GetComponent<ParticleSystem>();
-
-        if (this.gameObject.name == "Cardinal")
-        {
-            CardinalCombo = GetComponent<ComboSystem>();
-        }
     }
 
-    public void DealDamage(int damage)
+    public void ChangeHealth(int value)
     {
         if (IsDead) return;
 
-        health -= damage;
+        health += value;
 
-        if (gameObject.tag == "Player 1")
-        {
-            healthUI.TakeHealthUpdate();
-            CardinalCombo.BreakCombo();
-        }
-
+        if (healthUI != null) healthUI.TakeHealthUpdate();
         onHealthChange?.Invoke();
+
         if (health < 1) Die();        
-    }
-
-    public void DealDamage(int damage, ColourValue colour)
-    {
-        if (ColourWeakness == colour) damage *= damageMultiplier;
-
-        DealDamage(damage);
-    }
+    }    
 
     protected virtual void Die()
     {

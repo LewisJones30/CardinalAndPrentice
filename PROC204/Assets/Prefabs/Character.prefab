@@ -77,7 +77,7 @@ MonoBehaviour:
   maxFallSpeed: 50
   dashSpeedMultiplier: 1.5
   dashAirSpeedMultiplier: 3
-  hasJumped: 0
+  fallingAnimationDelay: 0.2
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   leftHandTransform: {fileID: 0}
   rightHandTransform: {fileID: 0}
+  parryCooldown: 2
 --- !u!199 &8932751908371252696
 ParticleSystemRenderer:
   serializedVersion: 6

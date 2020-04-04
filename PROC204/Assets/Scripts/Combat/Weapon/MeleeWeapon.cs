@@ -34,7 +34,7 @@ public class MeleeWeapon : Weapon
     {
         if (slashEffect == null) return;
 
-        bool isAttacking = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
+        bool isAttacking = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.GetCurrentAnimatorStateInfo(0).IsName("Parry");
 
         var emission = slashEffect.emission;
         if (isAttacking) emission.enabled = true;
@@ -60,10 +60,10 @@ public class MeleeWeapon : Weapon
 
         foreach (Collider collider in colliders)
         {
-            Health health = collider.gameObject.GetComponent<Health>();
-            if (health != null)
+            Fighter fighter = collider.gameObject.GetComponent<Fighter>();
+            if (fighter != null)
             {
-                health.DealDamage(damage);
+                fighter.TakeDamage(damage, mover.Position);
                 onDealDamage?.Invoke();
             }
         }

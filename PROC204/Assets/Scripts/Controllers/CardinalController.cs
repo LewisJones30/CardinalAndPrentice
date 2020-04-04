@@ -7,18 +7,19 @@ using UnityEngine.InputSystem;
 public class CardinalController : MonoBehaviour
 {
     Mover mover;
-    Fighter melee;
+    Fighter fighter;
     Health health;
     Vector2 moveInput;
 
     bool jumpReset = true;
     bool rollReset = true;
+    bool parryReset = true;
     bool isOneController;
 
     void Awake()
     {
         mover = GetComponent<Mover>();
-        melee = GetComponent<Fighter>();
+        fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
     }    
 
@@ -39,8 +40,24 @@ public class CardinalController : MonoBehaviour
         MeleeAttack(gamepad);
         ForwardRoll(gamepad);
         Dash(gamepad);
+        Parry(gamepad);
 
         mover.Move(moveInput.x, 1f);
+    }
+
+    private void Parry(Gamepad gamepad)
+    {
+        bool isParry;
+        if (isOneController) isParry = gamepad.leftShoulder.IsPressed();
+        else isParry = gamepad.leftShoulder.IsPressed() || gamepad.buttonEast.IsPressed();
+
+        if (isParry && parryReset)
+        {
+            parryReset = false;
+            fighter.Parry();
+        }
+
+        if (!isParry) parryReset = true;
     }
 
     private void Dash(Gamepad gamepad)
@@ -79,7 +96,7 @@ public class CardinalController : MonoBehaviour
         if (isOneController) isAttack = gamepad.rightTrigger.IsPressed();
         else isAttack = gamepad.buttonWest.IsPressed() || gamepad.rightTrigger.IsPressed();
 
-        if (isAttack) melee.Attack();
+        if (isAttack) fighter.Attack();
     }
 
 

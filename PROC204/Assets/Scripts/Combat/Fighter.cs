@@ -8,9 +8,15 @@ public class Fighter : MonoBehaviour
     [SerializeField] Weapon weaponPrefab;
     [SerializeField] Transform leftHandTransform;
     [SerializeField] Transform rightHandTransform;
+    [SerializeField] float parryCooldown = 1f;
 
     ComboSystem comboSystem;
     Animator animator;
+    Health health;
+    Mover mover;
+
+    public ColourValue ColourWeakness { get; set; } = ColourValue.None;
+    const int weaknessDamageMultiplier = 3;
 
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
@@ -21,6 +27,9 @@ public class Fighter : MonoBehaviour
         }
     }
 
+    bool canParry = true;
+    public bool IsParrying { get; set; } = false;
+
     public bool IsAttackReady { get; private set; } = true;
     public MeleeWeapon MeleeWeapon { get; private set; }
     public RangeWeapon RangeWeapon { get; private set; }
@@ -29,6 +38,8 @@ public class Fighter : MonoBehaviour
     {
         comboSystem = GetComponent<ComboSystem>();
         animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
+        mover = GetComponent<Mover>();
 
         Setup();
     }    
@@ -66,6 +77,38 @@ public class Fighter : MonoBehaviour
         animator.SetTrigger("attackTrigger");
 
         Invoke(nameof(ReadyAttack), weaponPrefab.AttackRate);
+    }
+
+    public void TakeDamage(int damage, ColourValue colour, Vector3 attackPos)
+    {
+        if (ColourWeakness == colour) damage *= weaknessDamageMultiplier;
+
+        TakeDamage(damage, attackPos);
+    }
+
+    public void TakeDamage(int damage, Vector3 attackPos)
+    {
+        float targetDirection = Mathf.Sign(attackPos.x - transform.position.x);
+
+        if (targetDirection == mover.Direction && IsParrying) return;
+
+        health.ChangeHealth(-damage);
+
+        if (tag == "Player 1") comboSystem.BreakCombo();
+    }
+
+    public void Parry()
+    {
+        if (!canParry) return;
+
+        canParry = false;
+        animator.SetTrigger("parryTrigger");
+        Invoke(nameof(ResetParry), parryCooldown);
+    }
+
+    private void ResetParry()
+    {
+        canParry = true;
     }
 
     void ReadyAttack()
