@@ -69,12 +69,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5139425562de751409bca64276e51cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 6
+  runSpeed: 6
   gravity: 80
   jumpForce: 30
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
   maxFallSpeed: 50
+  dashSpeedMultiplier: 1.5
+  dashAirSpeedMultiplier: 3
+  hasJumped: 0
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0

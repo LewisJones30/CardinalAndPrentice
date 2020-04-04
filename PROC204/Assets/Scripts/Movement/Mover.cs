@@ -31,7 +31,7 @@ public class Mover : MonoBehaviour
 
     //Is true when the character is in the
     //air because of jumping
-    public bool hasJumped = false;
+    bool hasJumped = false;
 
     private void Awake()
     {
