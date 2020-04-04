@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,15 +38,28 @@ public class CardinalController : MonoBehaviour
         Jump(gamepad);
         MeleeAttack(gamepad);
         ForwardRoll(gamepad);
+        Dash(gamepad);
 
         mover.Move(moveInput.x, 1f);
+    }
+
+    private void Dash(Gamepad gamepad)
+    {
+        if (gamepad.leftTrigger.IsPressed())
+        {
+            mover.IsDashing = true;
+        }
+        else
+        {
+            mover.IsDashing = false;
+        }
     }
 
     private void ForwardRoll(Gamepad gamepad)
     {
         bool isRolling;
-        if (isOneController) isRolling = gamepad.leftShoulder.IsPressed();
-        else isRolling = gamepad.buttonNorth.IsPressed() || gamepad.leftShoulder.IsPressed();
+        if (isOneController) isRolling = gamepad.leftStickButton.IsPressed();
+        else isRolling = gamepad.buttonNorth.IsPressed() || gamepad.leftStickButton.IsPressed();
 
         if (isRolling && rollReset) //B on Xbox, Circle on PS4
         {

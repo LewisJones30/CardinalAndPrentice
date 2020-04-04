@@ -5,26 +5,33 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] float maxSpeed = 6f;
+    [SerializeField] float runSpeed = 6f;
     [SerializeField] float gravity = 40f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float maxFallSpeed = 100f;
+    [SerializeField] float dashSpeedMultiplier = 2f;
+    [SerializeField] float dashAirSpeedMultiplier = 3f;
 
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
     public bool IsStuck { get; private set; } = false;
+    public bool IsDashing { get; set; } = false;
     
     Animator animator;
     CharacterController charController;
     Health health;
     float yVelocity;
 
-    bool isJumping = false;
+    bool isJumpInput = false;
     bool canRoll = true;
     string layerName;
     Vector3 movement = Vector3.zero;
+
+    //Is true when the character is in the
+    //air because of jumping
+    public bool hasJumped = false;
 
     private void Awake()
     {
@@ -51,6 +58,8 @@ public class Mover : MonoBehaviour
         FallingAnimation(charController.isGrounded);
         MoveAnimation();
 
+        if (charController.isGrounded) hasJumped = false;
+
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
@@ -75,7 +84,10 @@ public class Mover : MonoBehaviour
 
     public void Move(float input, float speedFraction)
     {
-        float moveSpeed = maxSpeed * speedFraction;
+        float moveSpeed = runSpeed * speedFraction;
+
+        if (IsDashing && charController.isGrounded) moveSpeed *= dashSpeedMultiplier;
+        else if (IsDashing && hasJumped) moveSpeed *= dashAirSpeedMultiplier;
 
         movement = input * Vector3.right * moveSpeed;
 
@@ -91,9 +103,10 @@ public class Mover : MonoBehaviour
         if (charController.isGrounded) targetFallSpeed = maxFallSpeed * 0.1f;
         else targetFallSpeed = maxFallSpeed;
 
-        if (charController.isGrounded && isJumping)
+        if (charController.isGrounded && isJumpInput)
         {
             yVelocity = jumpForce;
+            hasJumped = true;
             animator.SetTrigger("jumpTrigger");
         }
         else if (yVelocity > -targetFallSpeed)
@@ -105,7 +118,7 @@ public class Mover : MonoBehaviour
             yVelocity = -targetFallSpeed;
         }
 
-        isJumping = false;
+        isJumpInput = false;
 
         movement.y = yVelocity;
     }
@@ -126,6 +139,7 @@ public class Mover : MonoBehaviour
 
     private void MoveAnimation()
     {
+        animator.SetBool("isDashing", IsDashing);
         animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
@@ -152,7 +166,7 @@ public class Mover : MonoBehaviour
 
     public void Jump()
     {
-        isJumping = true;
+        isJumpInput = true;
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -167,4 +181,7 @@ public class Mover : MonoBehaviour
     {
         return charController.velocity;
     }
+
+    void FootL() { }
+    void FootR() { }
 }
