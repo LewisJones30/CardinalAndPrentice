@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PrenticeController : MonoBehaviour
+public class PrenticeController : Controller
 {
     Health health;
     PrenticeAttack rangedWeapon;
@@ -19,7 +19,7 @@ public class PrenticeController : MonoBehaviour
 
     private void Update()
     {
-        if (health.IsDead) return;
+        if (isFrozen) return;
 
         if (Gamepad.all.Count < 1) return;
 

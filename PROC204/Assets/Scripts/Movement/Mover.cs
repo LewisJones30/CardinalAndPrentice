@@ -96,6 +96,12 @@ public class Mover : MonoBehaviour
 
         Turn(input);
     }
+
+    public void KnockBack(Vector2 direction, float force)
+    {
+        
+    }
+
     private void CalculateYVelocity()
     {
         float targetFallSpeed;

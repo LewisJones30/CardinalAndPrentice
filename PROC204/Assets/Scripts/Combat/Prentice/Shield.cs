@@ -6,11 +6,10 @@ public class Shield : MonoBehaviour
 {
     [SerializeField] float bounciness = 70f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Rigidbody victim = collision.gameObject.GetComponent<Rigidbody>();
+        Mover mover = other.gameObject.GetComponent<Mover>();
 
-        if (victim == null) return;
-        victim.AddForce(transform.right * bounciness, ForceMode.Impulse);
+        if (mover == null) return;
     }
 }

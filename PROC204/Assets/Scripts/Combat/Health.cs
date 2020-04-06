@@ -39,10 +39,14 @@ public class Health : MonoBehaviour
     protected virtual void Die()
     {
         IsDead = true;
+        BroadcastMessage("DeadUpdate", true);
+
         if (this.gameObject.name == "Cardinal")
         {
             healthUI.gameOver();
         }
+
+        gameObject.layer = LayerMask.NameToLayer("Passable");
 
         if (animator != null) animator.SetTrigger("Die");
         if (sleepParticle != null) sleepParticle.Play();

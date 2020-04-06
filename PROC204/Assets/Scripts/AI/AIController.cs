@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
+public class AIController : Controller
 {
     [SerializeField] float patrolSpeedFraction = 0.6f;
     [SerializeField] float pursueSpeedFraction = 0.8f;
@@ -54,15 +54,16 @@ public class AIController : MonoBehaviour
 
     IEnumerator AIBrain()
     {
-        while (!health.IsDead)
+        while (true)
         {
+            yield return new WaitForSeconds(reactionTime * GetRandomMultiplier());
+            if (isFrozen) continue;
+
             ValidateTarget();
             FindTarget();
             Wait();
             Movement();
             Attack();
-
-            yield return new WaitForSeconds(reactionTime * GetRandomMultiplier());
         }
     }
 
@@ -176,10 +177,9 @@ public class AIController : MonoBehaviour
 
     private void Update()
     {
+        if (isFrozen) return;
+
         waitTime += Time.deltaTime;
-
-        if (health.IsDead) return;
-
         if (!isStationary) mover.Move(moveDir, speedFraction);
     }
 

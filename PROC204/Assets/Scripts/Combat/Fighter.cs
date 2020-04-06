@@ -15,9 +15,12 @@ public class Fighter : MonoBehaviour
     Health health;
     Mover mover;
 
+    Coroutine stunProgress;
+    
     public ColourValue ColourWeakness { get; set; } = ColourValue.None;
     const int weaknessDamageMultiplier = 3;
 
+    public bool IsStunned { get; set; }
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
     public bool IsMelee { get
@@ -95,6 +98,30 @@ public class Fighter : MonoBehaviour
         health.ChangeHealth(-damage);
 
         if (tag == "Player 1") comboSystem.BreakCombo();
+    }
+
+    public void Knockback(float stunDuration)
+    {
+        Stun(stunDuration);
+    }
+
+    private void Stun(float duration)
+    {
+        if (stunProgress != null) StopCoroutine(stunProgress);
+
+        stunProgress = StartCoroutine(Stunned(duration));
+    }
+
+    IEnumerator Stunned(float duration)
+    {
+        BroadcastMessage("StunUpdate", true);
+        animator.SetTrigger("stunTrigger");
+        animator.SetBool("isStunned", true);
+
+        yield return new WaitForSeconds(duration);
+
+        animator.SetBool("isStunned", false);
+        BroadcastMessage("StunUpdate", false);
     }
 
     public void Parry()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CardinalController : MonoBehaviour
+public class CardinalController : Controller
 {
     Mover mover;
     Fighter fighter;
@@ -25,7 +25,7 @@ public class CardinalController : MonoBehaviour
 
     private void Update()
     {
-        if (health.IsDead) return;
+        if (isFrozen) return;
 
         if (Gamepad.all.Count < 1) return;
 
