@@ -14,6 +14,7 @@ public class Fighter : MonoBehaviour
     Animator animator;
     Health health;
     Mover mover;
+    CharacterPhysics charPhysics;
 
     Coroutine stunProgress;
     
@@ -43,6 +44,7 @@ public class Fighter : MonoBehaviour
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
         mover = GetComponent<Mover>();
+        charPhysics = GetComponent<CharacterPhysics>();
 
         Setup();
     }    
@@ -100,9 +102,10 @@ public class Fighter : MonoBehaviour
         if (tag == "Player 1") comboSystem.BreakCombo();
     }
 
-    public void Knockback(float stunDuration)
+    public void Knockback(Vector2 direction, float force, float duration)
     {
-        Stun(stunDuration);
+        charPhysics.KnockBack(direction, force, duration);
+        Stun(duration);
     }
 
     private void Stun(float duration)

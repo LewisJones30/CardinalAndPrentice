@@ -40918,7 +40918,7 @@ PrefabInstance:
     - target: {fileID: 810811458528725867, guid: 96ee658198897c04d96fa2a252afeada,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.16
+      value: 12.96
       objectReference: {fileID: 0}
     - target: {fileID: 810811458528725867, guid: 96ee658198897c04d96fa2a252afeada,
         type: 3}
@@ -40985,6 +40985,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3736551979646615647, guid: 96ee658198897c04d96fa2a252afeada,
+        type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 6002931336060852827, guid: a2507c82c04d43d4789a41e7f847d1dd,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96ee658198897c04d96fa2a252afeada, type: 3}
 --- !u!1001 &1144598613
@@ -53425,6 +53431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745614682866778411, guid: e3623dd012750114e9102ba359149ded,
+        type: 3}
+      propertyPath: horizontalDrag
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3623dd012750114e9102ba359149ded, type: 3}

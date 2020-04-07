@@ -8,8 +8,10 @@ public class Shield : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Mover mover = other.gameObject.GetComponent<Mover>();
+        Fighter fighter = other.gameObject.GetComponent<Fighter>();
 
-        if (mover == null) return;
+        if (fighter == null) return;
+
+        fighter.Knockback(transform.forward, 100f, 5f);
     }
 }

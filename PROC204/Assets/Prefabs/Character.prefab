@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8932751908371252696}
   - component: {fileID: 4486590088928642366}
   - component: {fileID: 3885078997353921273}
+  - component: {fileID: 3419964467281084948}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -70,14 +71,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 6
-  gravity: 80
   jumpForce: 30
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
-  maxFallSpeed: 50
   dashSpeedMultiplier: 1.5
   dashAirSpeedMultiplier: 3
-  fallingAnimationDelay: 0.2
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4848,6 +4846,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &3419964467281084948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627716395190545784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81afcd2c5e00d414290c5b7d2f06fbd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 80
+  maxFallSpeed: 50
+  fallingAnimationDelay: 0.2
+  horizontalDrag: 0.01
 --- !u!1 &2508065009959992339
 GameObject:
   m_ObjectHideFlags: 0
