@@ -100,32 +100,7 @@ public class Fighter : MonoBehaviour
         health.ChangeHealth(-damage);
 
         if (tag == "Player 1") comboSystem.BreakCombo();
-    }
-
-    public void Knockback(Vector2 direction, float force, float duration)
-    {
-        charPhysics.KnockBack(direction, force, duration);
-        Stun(duration);
-    }
-
-    private void Stun(float duration)
-    {
-        if (stunProgress != null) StopCoroutine(stunProgress);
-
-        stunProgress = StartCoroutine(Stunned(duration));
-    }
-
-    IEnumerator Stunned(float duration)
-    {
-        BroadcastMessage("StunUpdate", true);
-        animator.SetTrigger("stunTrigger");
-        animator.SetBool("isStunned", true);
-
-        yield return new WaitForSeconds(duration);
-
-        animator.SetBool("isStunned", false);
-        BroadcastMessage("StunUpdate", false);
-    }
+    }    
 
     public void Parry()
     {

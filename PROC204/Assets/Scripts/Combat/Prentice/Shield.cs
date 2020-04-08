@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    [SerializeField] float bounciness = 70f;
+    [SerializeField] float minBounce = 30f;
+    [SerializeField] float maxBounce = 50f;
 
     private void OnTriggerEnter(Collider other)
     {
-        Fighter fighter = other.gameObject.GetComponent<Fighter>();
+        CharacterPhysics charPhysics = other.gameObject.GetComponent<CharacterPhysics>();
 
-        if (fighter == null) return;
+        if (charPhysics == null) return;
 
-        fighter.Knockback(transform.right, 50f, 3f);
+        Vector3 dir = new Vector3(transform.right.x, transform.right.y + UnityEngine.Random.value, 0f);
+        Vector3 knockBackForce = dir.normalized * Random.Range(minBounce, maxBounce);
+        charPhysics.KnockBack(knockBackForce, 3f, Time.time);
     }
 }

@@ -12,11 +12,14 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] float horizontalDrag = 0.1f;
     [Range(0f, 1f)]
     [SerializeField] float groundFriction = 0.9f;
+    [SerializeField] float knockBackResistance = 20f;
+    [SerializeField] float knockBackDecay = 0.8f;
 
     CharacterController charController;
     Animator animator;
 
     float airTime = 0f;
+    float knockOutTimeRemaining = 0f;
 
     // Stores player movement for that frame
     Vector3 playerMovement;
@@ -26,6 +29,7 @@ public class CharacterPhysics : MonoBehaviour
 
     // Blocks player movement during knockback
     Coroutine knockBackProgress;
+    Coroutine stunProgress;
 
     public bool IsStuck { get; private set; } = false;
     public bool IsStoodOn { get; private set; } = false;
@@ -33,6 +37,8 @@ public class CharacterPhysics : MonoBehaviour
     //Is true when the character is in the
     //air because of jumping
     public bool HasJumped { get; private set; } = false;
+
+    public float KnockBackID { get; private set; }
 
     private void Awake()
     {
@@ -69,22 +75,29 @@ public class CharacterPhysics : MonoBehaviour
         else IsStoodOn = false;
     }
 
-    public void KnockBack(Vector2 direction, float force, float duration)
+    public void KnockBack(Vector3 force, float duration, float id)
     {
+        KnockBackID = id;
+        if (force.magnitude <= knockBackResistance) return;
+
         if (knockBackProgress != null) StopCoroutine(knockBackProgress);
-        knockBackProgress = StartCoroutine(KnockBackProgress(direction, force, duration));
+        knockBackProgress = StartCoroutine(KnockBackProgress(force, duration));
     }
 
-    IEnumerator KnockBackProgress(Vector3 direction, float force, float duration)
+    IEnumerator KnockBackProgress(Vector3 force, float duration)
     {
-        characterVelocity = force * direction;
+        characterVelocity = force;
 
         float time = 0f;
+        BroadcastMessage("StunUpdate", true);
+        animator.SetTrigger("stunTrigger");
+        animator.SetBool("isStunned", true);
 
         while (time < duration)
         {
 
             time += Time.deltaTime;
+            knockOutTimeRemaining = duration - time;
 
             ApplyGravity();
             ApplyDrag();
@@ -95,7 +108,29 @@ public class CharacterPhysics : MonoBehaviour
         }
 
         playerMovement = Vector3.zero;
+        animator.SetBool("isStunned", false);
+        BroadcastMessage("StunUpdate", false);
+
         knockBackProgress = null;
+    }
+    
+    private void Stun(float duration)
+    {
+        if (stunProgress != null) StopCoroutine(stunProgress);
+
+        stunProgress = StartCoroutine(Stunned(duration));
+    }
+
+    IEnumerator Stunned(float duration)
+    {
+        BroadcastMessage("StunUpdate", true);
+        animator.SetTrigger("stunTrigger");
+        animator.SetBool("isStunned", true);
+
+        yield return new WaitForSeconds(duration);
+
+        animator.SetBool("isStunned", false);
+        BroadcastMessage("StunUpdate", false);
     }
 
     private void ApplyDrag()
@@ -154,4 +189,14 @@ public class CharacterPhysics : MonoBehaviour
 
         animator.SetBool("isGrounded", !isFalling);
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit other)
+    {
+        if (knockBackProgress == null) return;
+        CharacterPhysics charPhysics = other.gameObject.GetComponent<CharacterPhysics>();
+        if (charPhysics == null || charPhysics.KnockBackID == KnockBackID) return;
+
+        charPhysics.KnockBack(characterVelocity * knockBackDecay, knockOutTimeRemaining * knockBackDecay, KnockBackID);
+    }
+
 }
