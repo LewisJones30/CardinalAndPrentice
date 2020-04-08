@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 public class PrenticeController : MonoBehaviour
 {
     Health health;
-    RangedWeapon rangedWeapon;
+    PrenticeAttack rangedWeapon;
     ShieldPower shield;
     
     void Awake()
     {
         health = GetComponentInParent<Health>();
-        rangedWeapon = GetComponent<RangedWeapon>();
+        rangedWeapon = GetComponent<PrenticeAttack>();
         shield = GetComponent<ShieldPower>();
     }
 

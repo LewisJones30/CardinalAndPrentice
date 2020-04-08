@@ -6,50 +6,55 @@ using UnityEngine.UI;
 public class ComboSystem : MonoBehaviour
 {
     //Variables declaration
-    RangedWeapon projectileScript;
-    float originalReload;
-    [SerializeField] int additionalDamagePerStack = 1;
+    PrenticeAttack prenticeAttack;
+    [SerializeField] float reloadReductionPerStack = 0.05f;
     int stackCount = 0;
     [SerializeField] Text comboText;
     Health playerHealth;
     [SerializeField] HealthUI healthUI;
+
+    Fighter fighter;
+
+    private void Awake()
+    {
+        fighter = GetComponent<Fighter>();
+    }    
+
     void Start()
     {
-        GameObject prentice = GameObject.Find("Prentice");
-        projectileScript = prentice.GetComponent<RangedWeapon>();
-        originalReload = projectileScript.redProjectile.reloadTime; //All default projectile damage is the same, so only needs to be obtained from one source.
-        playerHealth = this.GetComponent<Health>();
+        prenticeAttack = GetComponentInChildren<PrenticeAttack>();
+        playerHealth = GetComponent<Health>();
+
+        fighter.MeleeWeapon.onDealDamage += BuildCombo;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        fighter.MeleeWeapon.onDealDamage -= BuildCombo;
     }
 
-    public void increaseDamage()
+    public void BuildCombo()
     {
         stackCount = stackCount + 1; //Track how many times the player has comboed.
-        //Increase the damage of each of the projectiles by the additional damage per stack variable. 
-        projectileScript.redProjectile.reloadTime = projectileScript.redProjectile.reloadTime - 0.05f;
-        projectileScript.yellowProjectile.reloadTime = projectileScript.yellowProjectile.reloadTime - 0.05f;
-        projectileScript.greenProjectile.reloadTime = projectileScript.greenProjectile.reloadTime - 0.05f;
-        projectileScript.blueProjectile.reloadTime = projectileScript.blueProjectile.reloadTime - 0.05f;
-        Debug.Log("Projectile damage:" + projectileScript.redProjectile.reloadTime);
+
+        //Increase the damage of all projectiles by the additional damage per stack variable. 
+        prenticeAttack.ReloadReduction += reloadReductionPerStack;
+
+        Debug.Log("Projectile reload reduction: -" + prenticeAttack.ReloadReduction);
         comboText.text = "Combo: " + stackCount;
+
+        // When combo is 5 add 2 lives to Cardinal
         if (stackCount == 5)
         {
             playerHealth.health = playerHealth.health + 2;
             healthUI.AddOneHeart();
         }
     }
-    public void decreaseDamage()
+    public void BreakCombo()
     {
         stackCount = 0; //Immediately reset the stack count to zero
-        projectileScript.redProjectile.reloadTime = originalReload;
-        projectileScript.yellowProjectile.reloadTime = originalReload;
-        projectileScript.greenProjectile.reloadTime = originalReload;
-        projectileScript.blueProjectile.reloadTime = originalReload;
+        prenticeAttack.ReloadReduction = 0;
+
         comboText.text = "Combo: " + stackCount;
     }
 }
