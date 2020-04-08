@@ -53,6 +53,22 @@ public class SubtitlesUI : MonoBehaviour
         StartCoroutine("GameStartSubtitle");
 
     }
+    public void TargetTutorial()
+    {
+        StartCoroutine("TargetTutorialSubtitles");
+    }
+    public void EnemyTutorial()
+    {
+        StartCoroutine("EnemyTutorialSubtitles");
+    }
+    public void BlueEnemies()
+    {
+        StartCoroutine("BlueEnemiesSubtitles");
+    }
+    public void LevelOneComplete()
+    {
+        StartCoroutine("EndOfLevelOneSubtitles");
+    }
     IEnumerator DisplaySubtitle()
     {
         //First, enable the canvas
@@ -155,9 +171,8 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitleNumber = currentSubtitleNumber + 1;
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(0.4f);
-        StartCoroutine("TargetTutorialSubtitles");
-
+        yield return new WaitForSeconds(1.2f);
+        currentSubtitle.enabled = false;
     }
 
     IEnumerator TargetTutorialSubtitles()
@@ -185,7 +200,6 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(4.2f);
-        StartCoroutine("EnemyTutorialSubtitles");
     }
 
     IEnumerator EnemyTutorialSubtitles()
@@ -207,7 +221,6 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(2f);
-        StartCoroutine("BlueEnemiesSubtitles");
     }
 
     IEnumerator BlueEnemiesSubtitles()
@@ -236,7 +249,6 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(2f);
-        StartCoroutine("EndOfLevelOneSubtitles");
     }
 
     IEnumerator EndOfLevelOneSubtitles()
