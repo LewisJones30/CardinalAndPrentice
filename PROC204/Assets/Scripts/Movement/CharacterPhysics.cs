@@ -10,6 +10,8 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] float fallingAnimationDelay = 0.2f;
     [Range(0f, 0.95f)]
     [SerializeField] float horizontalDrag = 0.1f;
+    [Range(0f, 1f)]
+    [SerializeField] float groundFriction = 0.9f;
 
     CharacterController charController;
     Animator animator;
@@ -81,7 +83,6 @@ public class CharacterPhysics : MonoBehaviour
 
         while (time < duration)
         {
-            print("knocking back!!!!!");
 
             time += Time.deltaTime;
 
@@ -100,6 +101,7 @@ public class CharacterPhysics : MonoBehaviour
     private void ApplyDrag()
     {
         characterVelocity.x *= 1 - horizontalDrag;
+        if (charController.isGrounded) characterVelocity.x *= 1 - groundFriction;
     }
 
     public void PlayerMove(Vector3 playerMovement)

@@ -4862,6 +4862,7 @@ MonoBehaviour:
   maxFallSpeed: 50
   fallingAnimationDelay: 0.2
   horizontalDrag: 0.01
+  groundFriction: 0.05
 --- !u!1 &2508065009959992339
 GameObject:
   m_ObjectHideFlags: 0

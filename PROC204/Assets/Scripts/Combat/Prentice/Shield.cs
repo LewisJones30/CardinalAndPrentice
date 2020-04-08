@@ -12,6 +12,6 @@ public class Shield : MonoBehaviour
 
         if (fighter == null) return;
 
-        fighter.Knockback(transform.forward, 100f, 5f);
+        fighter.Knockback(transform.right, 50f, 3f);
     }
 }
