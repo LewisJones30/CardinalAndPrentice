@@ -9,7 +9,8 @@ public class Fighter : MonoBehaviour
     [SerializeField] Transform leftHandTransform;
     [SerializeField] Transform rightHandTransform;
 
-    Animator animator;  
+    Animator animator;
+    Health health;
 
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
@@ -27,6 +28,7 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
 
         Setup();
     }    
@@ -73,11 +75,13 @@ public class Fighter : MonoBehaviour
     
     void Hit()
     {
+        if (health.IsDead) return;
         MeleeWeapon.Hit();
     }
 
     void Shoot()
     {
+        if (health.IsDead) return;
         RangeWeapon.Shoot();
     }
 }
