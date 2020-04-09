@@ -67,8 +67,8 @@ public class PrenticeProjectile : Projectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Fighter fighter = other.gameObject.GetComponentInParent<Fighter>();
-        if (fighter != null) fighter.TakeDamage(damage, projectileColour, transform.position);
+        CombatTarget combatTarget = other.gameObject.GetComponentInParent<CombatTarget>();
+        if (combatTarget != null) combatTarget.TakeDamage(damage, projectileColour, transform.position);
 
         GameObject instance = Instantiate(projectileHitFX, transform.position, Quaternion.identity);
         Destroy(instance, 10f);

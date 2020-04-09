@@ -13,7 +13,6 @@ public class MeleeWeapon : Weapon
     public override float AttackRate { get => attackRate; }
 
     Mover mover;
-    CharacterPhysics charPhysics;
     CharacterController charController;
 
     public delegate void OnDealDamage();
@@ -24,7 +23,6 @@ public class MeleeWeapon : Weapon
         base.Awake();
 
         mover = GetComponentInParent<Mover>();
-        charPhysics = GetComponentInParent<CharacterPhysics>();
         charController = GetComponentInParent<CharacterController>();
     }
 
@@ -63,13 +61,13 @@ public class MeleeWeapon : Weapon
 
         foreach (Collider collider in colliders)
         {
-            Fighter fighter = collider.gameObject.GetComponent<Fighter>();
-            if (fighter != null)
+            CombatTarget combatTarget = collider.gameObject.GetComponent<CombatTarget>();
+            if (combatTarget != null)
             {
-                bool success = fighter.TakeDamage(damage, mover.Position);
+                bool success = combatTarget.TakeDamage(damage, mover.Position);
 
                 if (success) onDealDamage?.Invoke();
-                else charPhysics.Stun(stunTimeWhenParried);
+                else combatTarget.Stun(stunTimeWhenParried);
             }
         }
     }

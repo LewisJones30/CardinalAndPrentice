@@ -8,20 +8,9 @@ public class Fighter : MonoBehaviour
     [SerializeField] Weapon weaponPrefab;
     [SerializeField] Transform leftHandTransform;
     [SerializeField] Transform rightHandTransform;
-    [SerializeField] float parryCooldown = 1f;
 
-    ComboSystem comboSystem;
-    Animator animator;
-    Health health;
-    Mover mover;
-    CharacterPhysics charPhysics;
+    Animator animator;  
 
-    Coroutine stunProgress;
-    
-    public ColourValue ColourWeakness { get; set; } = ColourValue.None;
-    const int weaknessDamageMultiplier = 3;
-
-    public bool IsStunned { get; set; }
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
     public bool IsMelee { get
@@ -31,20 +20,13 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    bool canParry = true;
-    public bool IsParrying { get; set; } = false;
-
     public bool IsAttackReady { get; private set; } = true;
     public MeleeWeapon MeleeWeapon { get; private set; }
     public RangeWeapon RangeWeapon { get; private set; }
 
     private void Awake()
     {
-        comboSystem = GetComponent<ComboSystem>();
         animator = GetComponent<Animator>();
-        health = GetComponent<Health>();
-        mover = GetComponent<Mover>();
-        charPhysics = GetComponent<CharacterPhysics>();
 
         Setup();
     }    
@@ -82,42 +64,6 @@ public class Fighter : MonoBehaviour
         animator.SetTrigger("attackTrigger");
 
         Invoke(nameof(ReadyAttack), weaponPrefab.AttackRate);
-    }
-
-    public bool TakeDamage(int damage, ColourValue colour, Vector3 attackPos)
-    {
-        if (ColourWeakness == colour) damage *= weaknessDamageMultiplier;
-
-        return TakeDamage(damage, attackPos);
-    }
-
-    public bool TakeDamage(int damage, Vector3 attackPos)
-    {
-        if (IsParrying)
-        {
-            float targetDirection = Mathf.Sign(attackPos.x - transform.position.x);
-            if (targetDirection == mover.Direction) return false;
-        }
-
-        health.ChangeHealth(-damage);
-
-        if (tag == "Player 1") comboSystem.BreakCombo();
-
-        return true;
-    }    
-
-    public void Parry()
-    {
-        if (!canParry) return;
-
-        canParry = false;
-        animator.SetTrigger("parryTrigger");
-        Invoke(nameof(ResetParry), parryCooldown);
-    }
-
-    private void ResetParry()
-    {
-        canParry = true;
     }
 
     void ReadyAttack()

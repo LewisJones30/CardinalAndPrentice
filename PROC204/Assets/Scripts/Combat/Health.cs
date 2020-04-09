@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
     protected virtual void Die()
     {
         IsDead = true;
-        BroadcastMessage("DeadUpdate", true);
+        BroadcastMessage("DeadUpdate", true, SendMessageOptions.DontRequireReceiver);
 
         if (this.gameObject.name == "Cardinal")
         {

@@ -26,8 +26,8 @@ public class Projectile : MonoBehaviour
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Fighter fighter = other.gameObject.GetComponent<Fighter>();
-        if (fighter != null) fighter.TakeDamage(damage, transform.position);
+        CombatTarget combatTarget = other.gameObject.GetComponent<CombatTarget>();
+        if (combatTarget != null) combatTarget.TakeDamage(damage, transform.position);
 
         Destroy(gameObject);
     }

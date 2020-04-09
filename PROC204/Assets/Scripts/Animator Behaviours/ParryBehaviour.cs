@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ParryBehaviour : StateMachineBehaviour
 {
-    Fighter fighter;
+    CombatTarget combatTarget;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        fighter = animator.GetComponent<Fighter>();
-        fighter.IsParrying = true;
+        combatTarget = animator.GetComponent<CombatTarget>();
+        combatTarget.IsParrying = true;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        fighter.IsParrying = false;
+        combatTarget.IsParrying = false;
     }
 }

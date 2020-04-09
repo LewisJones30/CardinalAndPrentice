@@ -9,6 +9,7 @@ public class CardinalController : Controller
     Mover mover;
     Fighter fighter;
     Health health;
+    CombatTarget combatTarget;
     Vector2 moveInput;
 
     bool jumpReset = true;
@@ -21,6 +22,7 @@ public class CardinalController : Controller
         mover = GetComponent<Mover>();
         fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
+        combatTarget = GetComponent<CombatTarget>();
     }    
 
     private void Update()
@@ -54,7 +56,7 @@ public class CardinalController : Controller
         if (isParry && parryReset)
         {
             parryReset = false;
-            fighter.Parry();
+            combatTarget.Parry();
         }
 
         if (!isParry) parryReset = true;
