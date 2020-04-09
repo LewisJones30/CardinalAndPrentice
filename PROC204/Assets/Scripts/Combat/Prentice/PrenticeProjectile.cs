@@ -70,7 +70,7 @@ public class PrenticeProjectile : Projectile
         CombatTarget combatTarget = other.gameObject.GetComponentInParent<CombatTarget>();
         if (combatTarget != null) combatTarget.TakeDamage(damage, projectileColour, transform.position);
 
-        GameObject instance = Instantiate(projectileHitFX, transform.position, Quaternion.identity);
+        GameObject instance = Instantiate(projectileHitFX, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         Destroy(instance, 10f);
 
         Destroy(gameObject);

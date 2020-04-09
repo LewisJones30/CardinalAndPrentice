@@ -16,6 +16,7 @@ public class Mover : MonoBehaviour
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
     public bool IsDashing { get; set; } = false;
     public bool IsStuck { get => charPhysics.IsStuck; }
+    public bool IsStoodOn { get => charPhysics.IsStoodOn; }
     
     Animator animator;
     CharacterController charController;
