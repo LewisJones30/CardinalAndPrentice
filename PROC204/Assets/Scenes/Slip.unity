@@ -149,6 +149,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1467547160}
     m_Modifications:
+    - target: {fileID: 428966648305775895, guid: 96ee658198897c04d96fa2a252afeada,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 810811458528725867, guid: 96ee658198897c04d96fa2a252afeada,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16440,6 +16445,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5440845539050713767, guid: 62d0f28b3e9f6814592ad77ff4746bdb,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7624664427659827126, guid: 62d0f28b3e9f6814592ad77ff4746bdb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -16722,6 +16732,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1467547160}
     m_Modifications:
+    - target: {fileID: 428966648305775895, guid: 96ee658198897c04d96fa2a252afeada,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 810811458528725867, guid: 96ee658198897c04d96fa2a252afeada,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19446,6 +19461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267299654952264599, guid: f99de628602dbb040b6d1c3c992cb416,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99de628602dbb040b6d1c3c992cb416, type: 3}
@@ -30012,6 +30032,11 @@ PrefabInstance:
       propertyPath: pursueSpeedFraction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3267299654952264599, guid: f99de628602dbb040b6d1c3c992cb416,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99de628602dbb040b6d1c3c992cb416, type: 3}
 --- !u!1001 &686920923
@@ -30989,6 +31014,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2843060565220844213, guid: 77b264518c7eac24da21a62e2e7932ec,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3010655080815942857, guid: 77b264518c7eac24da21a62e2e7932ec,
         type: 3}
@@ -35027,6 +35057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440845539050713767, guid: 62d0f28b3e9f6814592ad77ff4746bdb,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7624664427659827126, guid: 62d0f28b3e9f6814592ad77ff4746bdb,
         type: 3}
@@ -46413,6 +46448,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1467547160}
     m_Modifications:
+    - target: {fileID: 428966648305775895, guid: 96ee658198897c04d96fa2a252afeada,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 810811458528725867, guid: 96ee658198897c04d96fa2a252afeada,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -49389,6 +49429,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2843060565220844213, guid: 77b264518c7eac24da21a62e2e7932ec,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3010655080815942857, guid: 77b264518c7eac24da21a62e2e7932ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -50088,6 +50133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2843060565220844213, guid: 77b264518c7eac24da21a62e2e7932ec,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3010655080815942857, guid: 77b264518c7eac24da21a62e2e7932ec,
         type: 3}
@@ -53247,7 +53297,7 @@ PrefabInstance:
     - target: {fileID: 4765809591744801353, guid: e3623dd012750114e9102ba359149ded,
         type: 3}
       propertyPath: health
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3623dd012750114e9102ba359149ded, type: 3}
@@ -54552,6 +54602,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267299654952264599, guid: f99de628602dbb040b6d1c3c992cb416,
+        type: 3}
+      propertyPath: reactionTime
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99de628602dbb040b6d1c3c992cb416, type: 3}

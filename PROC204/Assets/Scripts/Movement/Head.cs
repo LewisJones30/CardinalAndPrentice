@@ -6,9 +6,12 @@ public class Head : MonoBehaviour
 {
     [SerializeField] float slipSpeed = 5f;
     float heightOffset;
+
+    CharacterController charController;
     private void Awake()
     {
-        heightOffset = GetComponentInParent<CharacterController>().height / 2f;
+        charController = GetComponentInParent<CharacterController>();
+        heightOffset = charController.height / 2f;
     }
 
     private void OnTriggerStay(Collider other)
@@ -23,7 +26,7 @@ public class Head : MonoBehaviour
 
         if (otherHeight < headHeight) return;
 
-        charPhysics.SlipMove(slipSpeed);
+        charPhysics.SlipMove(slipSpeed + charController.velocity.x);
     }
 
     private void OnTriggerExit(Collider other)

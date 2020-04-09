@@ -7,7 +7,8 @@ public class AIController : Controller
 {
     [SerializeField] float patrolSpeedFraction = 0.6f;
     [SerializeField] float pursueSpeedFraction = 0.8f;
-    [SerializeField] float turnRefreshRate = 1f;
+    [SerializeField] float minSpeedFraction = 0.3f;
+    [SerializeField] float traverseRefreshRate = 1f;
     [SerializeField] float reactionTime = 0.5f;
     [SerializeField] float spotTargetDistance = 5f;
     [SerializeField] float loseTargetDistance = 10f;
@@ -28,7 +29,7 @@ public class AIController : Controller
 
     bool isStationary = false;
     float moveDir = 1f;
-    bool canTurn = true;
+    bool canTraverse = true;
     float waitTime = Mathf.Infinity;
 
     private void Awake()
@@ -75,28 +76,32 @@ public class AIController : Controller
 
     private void Movement()
     {
-        bool isChasingPlayer = false;
-
-        if (currentTarget != null)
-        {
-            isChasingPlayer = true;
-
-            float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
-
-            if ((targetDirection != moveDir) && canTurn) Turn();
-        }
+        FaceTarget();
 
         if (currentTarget == null) speedFraction = patrolSpeedFraction;
         else speedFraction = pursueSpeedFraction;
-                
-        if (Mathf.Abs(mover.GetVelocity().x) < (patrolSpeedFraction / 2f) && mover.IsStuck && !isStationary)
-        {
-            TraverseObstacle(isChasingPlayer);
-        }
+
+        // AI either jumps, rolls or turns when moving,  moving below a certain threshold
+        // and touching obstacles to either the left or right to prevent them from getting stuck
+        if (Mathf.Abs(mover.GetVelocity().x) < (minSpeedFraction * mover.MaxSpeed) && 
+            mover.IsStuck && !isStationary) TraverseObstacle();
     }
 
-    private void TraverseObstacle(bool isChasingPlayer)
+    private void FaceTarget()
     {
+        if (currentTarget == null) return;
+
+        float targetDirection = Mathf.Sign(currentTarget.transform.position.x - transform.position.x);
+        if (targetDirection != moveDir) Turn();
+    }
+
+    private void TraverseObstacle()
+    {
+        if (!canTraverse) return;
+
+        canTraverse = false;
+        Invoke(nameof(RefreshTraverse), traverseRefreshRate);
+
         if (UnityEngine.Random.value <= jumpChance * GetRandomMultiplier())
         {
             mover.Jump();
@@ -107,7 +112,7 @@ public class AIController : Controller
         bool isHit = Physics.Raycast(mover.Position, Vector3.right * mover.Direction, charController.radius * 2f, enemyLayerMask);
 
         if (isHit) mover.ForwardRoll();
-        else if (canTurn && !isChasingPlayer) Turn();
+        else if (currentTarget == null) Turn();
         else mover.Jump();
     }
 
@@ -198,15 +203,13 @@ public class AIController : Controller
 
     private void Turn()
     {
-        canTurn = false;
         moveDir *= -1;
         mover.Turn(moveDir);
-        Invoke(nameof(RefreshTurn), turnRefreshRate);
     }
 
-    private void RefreshTurn()
+    private void RefreshTraverse()
     {
-        canTurn = true;
+        canTraverse = true;
     }
 
     private void OnDrawGizmosSelected()

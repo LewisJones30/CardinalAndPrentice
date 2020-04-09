@@ -67,6 +67,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medieval root
       objectReference: {fileID: 0}
+    - target: {fileID: 2624713528523199912, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624713528523199912, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
         type: 3}
       propertyPath: entityColours.Array.size

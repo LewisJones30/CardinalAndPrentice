@@ -33,7 +33,6 @@ public class CharacterPhysics : MonoBehaviour
     Coroutine knockBackProgress;
 
     public bool IsStuck { get; private set; } = false;
-    bool isSquished;
 
     //Is true when the character is in the
     //air because of jumping
@@ -64,8 +63,6 @@ public class CharacterPhysics : MonoBehaviour
 
         playerMovement.y = characterVelocity.y;
 
-        if (isSquished) playerMovement.x = 0f;
-
         var flags = charController.Move(playerMovement * Time.deltaTime);
         ProcessFlags(flags);
 
@@ -79,8 +76,6 @@ public class CharacterPhysics : MonoBehaviour
     {
         if (flags.HasFlag(CollisionFlags.Sides)) IsStuck = true;
         else IsStuck = false;
-        if (flags.HasFlag(CollisionFlags.Above)) isSquished = true;
-        else isSquished = false;
     }
 
     public void KnockBack(Vector3 force, float duration, float id)
