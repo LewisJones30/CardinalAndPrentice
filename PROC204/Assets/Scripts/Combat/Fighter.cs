@@ -84,22 +84,26 @@ public class Fighter : MonoBehaviour
         Invoke(nameof(ReadyAttack), weaponPrefab.AttackRate);
     }
 
-    public void TakeDamage(int damage, ColourValue colour, Vector3 attackPos)
+    public bool TakeDamage(int damage, ColourValue colour, Vector3 attackPos)
     {
         if (ColourWeakness == colour) damage *= weaknessDamageMultiplier;
 
-        TakeDamage(damage, attackPos);
+        return TakeDamage(damage, attackPos);
     }
 
-    public void TakeDamage(int damage, Vector3 attackPos)
+    public bool TakeDamage(int damage, Vector3 attackPos)
     {
-        float targetDirection = Mathf.Sign(attackPos.x - transform.position.x);
-
-        if (targetDirection == mover.Direction && IsParrying) return;
+        if (IsParrying)
+        {
+            float targetDirection = Mathf.Sign(attackPos.x - transform.position.x);
+            if (targetDirection == mover.Direction) return false;
+        }
 
         health.ChangeHealth(-damage);
 
         if (tag == "Player 1") comboSystem.BreakCombo();
+
+        return true;
     }    
 
     public void Parry()

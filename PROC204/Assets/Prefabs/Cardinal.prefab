@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d36a057223224478c714541a8e105c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minReloadTime: 0.1
   yellowProjectile: {fileID: -3650573850797042174, guid: 1608c3f9bcd1e9746b09dcb49a56fea9,
     type: 3}
   redProjectile: {fileID: -3579212382191866586, guid: eca1ff6741def5a468081e17839fc91e,
@@ -379,10 +380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a1db5d09cd8434d8aa1f4212178c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldPrefab: {fileID: 1938091783385296150, guid: dc54569f729608a4db19c4f8988f7bc3,
+  shieldPrefab: {fileID: 7349032184248651916, guid: dc54569f729608a4db19c4f8988f7bc3,
     type: 3}
   shieldDistance: 3
   shieldDelayAfterWeaponFire: 2
+  shieldRefresh: 0.5
 --- !u!114 &1510930190455841584
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ public class CharacterPhysics : MonoBehaviour
 
     float airTime = 0f;
     float knockOutTimeRemaining = 0f;
+    float stunTimeRemaining = 0f;
+    bool isStunned = false;
 
     // Stores player movement for that frame
     Vector3 playerMovement;
@@ -49,9 +51,40 @@ public class CharacterPhysics : MonoBehaviour
     private void LateUpdate()
     {
         ApplyPlayerMovement();
-        CheckFalling();
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+    }
+
+    private void Update()
+    {
+        CheckFalling();
+        CheckStunned();
+    }
+
+    private void CheckStunned()
+    {
+        if (stunTimeRemaining > 0f)
+        {
+            stunTimeRemaining -= Time.deltaTime;
+            if (!isStunned)
+            {
+                isStunned = true;
+                BroadcastMessage("StunUpdate", true);
+                animator.SetTrigger("stunTrigger");
+                animator.SetBool("isStunned", true);
+            }
+        }
+        else if (isStunned)
+        {
+            animator.SetBool("isStunned", false);
+            BroadcastMessage("StunUpdate", false);
+            isStunned = false;
+        }
+    }
+
+    public void Stun(float duration)
+    {
+        stunTimeRemaining += duration;
     }
 
     private void ApplyPlayerMovement()
@@ -82,6 +115,7 @@ public class CharacterPhysics : MonoBehaviour
 
         if (knockBackProgress != null) StopCoroutine(knockBackProgress);
         knockBackProgress = StartCoroutine(KnockBackProgress(force, duration));
+        Stun(duration);
     }
 
     IEnumerator KnockBackProgress(Vector3 force, float duration)
@@ -89,13 +123,9 @@ public class CharacterPhysics : MonoBehaviour
         characterVelocity = force;
 
         float time = 0f;
-        BroadcastMessage("StunUpdate", true);
-        animator.SetTrigger("stunTrigger");
-        animator.SetBool("isStunned", true);
 
         while (time < duration)
         {
-
             time += Time.deltaTime;
             knockOutTimeRemaining = duration - time;
 
@@ -108,29 +138,8 @@ public class CharacterPhysics : MonoBehaviour
         }
 
         playerMovement = Vector3.zero;
-        animator.SetBool("isStunned", false);
-        BroadcastMessage("StunUpdate", false);
 
         knockBackProgress = null;
-    }
-    
-    private void Stun(float duration)
-    {
-        if (stunProgress != null) StopCoroutine(stunProgress);
-
-        stunProgress = StartCoroutine(Stunned(duration));
-    }
-
-    IEnumerator Stunned(float duration)
-    {
-        BroadcastMessage("StunUpdate", true);
-        animator.SetTrigger("stunTrigger");
-        animator.SetBool("isStunned", true);
-
-        yield return new WaitForSeconds(duration);
-
-        animator.SetBool("isStunned", false);
-        BroadcastMessage("StunUpdate", false);
     }
 
     private void ApplyDrag()

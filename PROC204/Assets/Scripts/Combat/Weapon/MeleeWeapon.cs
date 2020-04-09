@@ -8,10 +8,12 @@ public class MeleeWeapon : Weapon
     [SerializeField] int damage;
     [SerializeField] float attackRange;
     [SerializeField] ParticleSystem slashEffect;
+    [SerializeField] float stunTimeWhenParried = 2f;
 
     public override float AttackRate { get => attackRate; }
 
     Mover mover;
+    CharacterPhysics charPhysics;
     CharacterController charController;
 
     public delegate void OnDealDamage();
@@ -22,6 +24,7 @@ public class MeleeWeapon : Weapon
         base.Awake();
 
         mover = GetComponentInParent<Mover>();
+        charPhysics = GetComponentInParent<CharacterPhysics>();
         charController = GetComponentInParent<CharacterController>();
     }
 
@@ -63,8 +66,10 @@ public class MeleeWeapon : Weapon
             Fighter fighter = collider.gameObject.GetComponent<Fighter>();
             if (fighter != null)
             {
-                fighter.TakeDamage(damage, mover.Position);
-                onDealDamage?.Invoke();
+                bool success = fighter.TakeDamage(damage, mover.Position);
+
+                if (success) onDealDamage?.Invoke();
+                else charPhysics.Stun(stunTimeWhenParried);
             }
         }
     }
