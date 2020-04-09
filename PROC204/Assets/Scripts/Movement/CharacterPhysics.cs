@@ -21,6 +21,7 @@ public class CharacterPhysics : MonoBehaviour
 
     float airTime = 0f;
     float knockOutTimeRemaining = 0f;
+    bool isSlipping = false;
 
     // Stores player movement for that frame
     Vector3 playerMovement;
@@ -30,10 +31,9 @@ public class CharacterPhysics : MonoBehaviour
 
     // Blocks player movement during knockback
     Coroutine knockBackProgress;
-    Coroutine stunProgress;
 
     public bool IsStuck { get; private set; } = false;
-    public bool IsStoodOn { get; private set; } = false;
+    bool isSquished;
 
     //Is true when the character is in the
     //air because of jumping
@@ -61,10 +61,16 @@ public class CharacterPhysics : MonoBehaviour
         if (knockBackProgress != null) return;
 
         ApplyGravity();
+
         playerMovement.y = characterVelocity.y;
+
+        if (isSquished) playerMovement.x = 0f;
 
         var flags = charController.Move(playerMovement * Time.deltaTime);
         ProcessFlags(flags);
+
+        if (!isSlipping) animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
+        else animator.SetFloat("forwardSpeed", 0f);
 
         playerMovement = Vector3.zero;
     }
@@ -73,8 +79,8 @@ public class CharacterPhysics : MonoBehaviour
     {
         if (flags.HasFlag(CollisionFlags.Sides)) IsStuck = true;
         else IsStuck = false;
-        if (flags.HasFlag(CollisionFlags.Above)) IsStoodOn = true;
-        else IsStoodOn = false;
+        if (flags.HasFlag(CollisionFlags.Above)) isSquished = true;
+        else isSquished = false;
     }
 
     public void KnockBack(Vector3 force, float duration, float id)
@@ -113,15 +119,28 @@ public class CharacterPhysics : MonoBehaviour
 
     private void ApplyDrag()
     {
+        if (isSlipping) return;
         characterVelocity.x *= 1 - horizontalDrag;
         if (charController.isGrounded) characterVelocity.x *= 1 - groundFriction;
     }
 
-    public void PlayerMove(Vector3 playerMovement)
+    public bool PlayerMove(Vector3 playerMovement)
     {
-        if (knockBackProgress != null) return;
+        if (knockBackProgress != null || isSlipping) return false;
         this.playerMovement = playerMovement;
+        return true;
     }    
+
+    public void SlipMove(float horizontalForce)
+    {
+        isSlipping = true;
+        playerMovement.x = horizontalForce;
+    }
+
+    public void FinishSlip()
+    {
+        isSlipping = false;
+    }
 
     // Applies gravity
     private void ApplyGravity()

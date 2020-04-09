@@ -16,7 +16,6 @@ public class Mover : MonoBehaviour
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
     public bool IsDashing { get; set; } = false;
     public bool IsStuck { get => charPhysics.IsStuck; }
-    public bool IsStoodOn { get => charPhysics.IsStoodOn; }
     
     Animator animator;
     CharacterController charController;
@@ -41,7 +40,6 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         PassPlatforms();
-        SetMoveAnimationSpeed();
     }
 
     private void PassPlatforms()
@@ -91,11 +89,6 @@ public class Mover : MonoBehaviour
     private void EnableRoll()
     {
         canRoll = true;
-    }
-
-    private void SetMoveAnimationSpeed()
-    {
-        animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
     }
 
     public void Turn(float input)

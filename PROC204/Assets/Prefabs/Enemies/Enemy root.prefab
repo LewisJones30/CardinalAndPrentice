@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeedFraction: 0.5
   pursueSpeedFraction: 0.8
-  turnRefreshRate: 0.5
+  traverseRefreshRate: 0.5
   reactionTime: 0.2
   spotTargetDistance: 10
   loseTargetDistance: 15
   maxWaitTime: 4
   jumpChance: 0.2
+  randomness: 0.2
 --- !u!114 &7382219467259757413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,6 +498,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567089165147041024, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3166315991581963353, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}

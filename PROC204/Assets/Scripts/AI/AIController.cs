@@ -75,9 +75,6 @@ public class AIController : Controller
 
     private void Movement()
     {
-        if (currentTarget == null) speedFraction = patrolSpeedFraction;
-        else speedFraction = pursueSpeedFraction;
-
         bool isChasingPlayer = false;
 
         if (currentTarget != null)
@@ -88,8 +85,11 @@ public class AIController : Controller
 
             if ((targetDirection != moveDir) && canTurn) Turn();
         }
-        
-        if (Mathf.Abs(mover.GetVelocity().x) < (patrolSpeedFraction / 2f) && mover.IsStuck)
+
+        if (currentTarget == null) speedFraction = patrolSpeedFraction;
+        else speedFraction = pursueSpeedFraction;
+                
+        if (Mathf.Abs(mover.GetVelocity().x) < (patrolSpeedFraction / 2f) && mover.IsStuck && !isStationary)
         {
             TraverseObstacle(isChasingPlayer);
         }
