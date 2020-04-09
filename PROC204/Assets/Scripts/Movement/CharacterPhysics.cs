@@ -51,15 +51,10 @@ public class CharacterPhysics : MonoBehaviour
     private void LateUpdate()
     {
         ApplyPlayerMovement();
+        CheckFalling();
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
-
-    private void Update()
-    {
-        CheckFalling();
-    }
-
 
     private void ApplyPlayerMovement()
     {

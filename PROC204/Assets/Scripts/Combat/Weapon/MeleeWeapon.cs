@@ -14,6 +14,7 @@ public class MeleeWeapon : Weapon
 
     Mover mover;
     CharacterController charController;
+    CombatTarget combatTarget;
 
     public delegate void OnDealDamage();
     public event OnDealDamage onDealDamage;
@@ -24,6 +25,7 @@ public class MeleeWeapon : Weapon
 
         mover = GetComponentInParent<Mover>();
         charController = GetComponentInParent<CharacterController>();
+        combatTarget = GetComponentInParent<CombatTarget>();
     }
 
     private void Update()
@@ -61,10 +63,10 @@ public class MeleeWeapon : Weapon
 
         foreach (Collider collider in colliders)
         {
-            CombatTarget combatTarget = collider.gameObject.GetComponent<CombatTarget>();
-            if (combatTarget != null)
+            CombatTarget enemy = collider.gameObject.GetComponent<CombatTarget>();
+            if (enemy != null)
             {
-                bool success = combatTarget.TakeDamage(damage, mover.Position);
+                bool success = enemy.TakeDamage(damage, mover.Position);
 
                 if (success) onDealDamage?.Invoke();
                 else combatTarget.Stun(stunTimeWhenParried);
