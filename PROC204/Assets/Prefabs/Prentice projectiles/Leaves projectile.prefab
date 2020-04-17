@@ -14477,7 +14477,7 @@ GameObject:
   - component: {fileID: 4362355530620112}
   - component: {fileID: 54813845547034192}
   - component: {fileID: 136757934063241816}
-  - component: {fileID: -1388049781045630868}
+  - component: {fileID: 4083139045770281751}
   m_Layer: 8
   m_Name: Leaves projectile
   m_TagString: Untagged
@@ -14530,7 +14530,7 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1388049781045630868
+--- !u!114 &4083139045770281751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14539,7 +14539,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746672929845058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75dbd8b518ad7b8489bcdb04c155bed4, type: 3}
+  m_Script: {fileID: 11500000, guid: 51f1705209f9d444fb252a1419f5b46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
@@ -14553,6 +14553,7 @@ MonoBehaviour:
   projectileHitFX: {fileID: 1061481793025988, guid: 9834bc91787a8f945b7b94638dbb0e9c,
     type: 3}
   seekingDistance: 5
+  cactusPrefab: {fileID: 114448, guid: 2e8188a5341fdfa4bb21095f115aed86, type: 3}
 --- !u!1 &4689775116560763197
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,12 +6,13 @@ using UnityEngine;
 public class PrenticeProjectile : Projectile
 {    
     [SerializeField] float turnSpeed = 1f;
-    [SerializeField] ColourValue projectileColour;
+    [SerializeField] protected ColourValue projectileColour;
     [SerializeField] GameObject projectileFiredFX;
-    [SerializeField] GameObject projectileHitFX;
+    [SerializeField] protected GameObject projectileHitFX;
     [SerializeField] float seekingDistance = 20f;
 
     Collider targetEnemy;
+    protected bool isHoming = true;
 
     private void Start()
     {
@@ -23,6 +24,8 @@ public class PrenticeProjectile : Projectile
     protected override void Update()
     {
         base.Update();
+
+        if (!isHoming) return;
 
         FindClosestTarget();
         SteerTowardTarget();

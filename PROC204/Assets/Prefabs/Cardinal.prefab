@@ -364,7 +364,7 @@ MonoBehaviour:
     type: 3}
   redProjectile: {fileID: -3579212382191866586, guid: eca1ff6741def5a468081e17839fc91e,
     type: 3}
-  greenProjectile: {fileID: -1388049781045630868, guid: f44a3d27c7c4d174794ed789ee4333bc,
+  greenProjectile: {fileID: 4083139045770281751, guid: f44a3d27c7c4d174794ed789ee4333bc,
     type: 3}
   blueProjectile: {fileID: 7878976939068178231, guid: 1220774a6e4cd454aa215fc9dfec7f4a,
     type: 3}
