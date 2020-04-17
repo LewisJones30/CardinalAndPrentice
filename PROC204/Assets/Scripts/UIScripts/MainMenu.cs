@@ -16,6 +16,9 @@ public class MainMenu : MonoBehaviour
 
     public Button logo;
 
+    public GameObject menuButtons;
+
+    public GameObject levelSelect;
 
 
     void Start()
@@ -24,6 +27,8 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        menuButtons.SetActive(false);
+        levelSelect.SetActive(false);
     }
 
 
@@ -42,28 +47,6 @@ public class MainMenu : MonoBehaviour
 
     }
 
-
-    public void level2()
-    {
-
-        SceneManager.LoadScene(3);
-
-    }
-    
-    public void level3()
-    {
-
-        SceneManager.LoadScene(4);
-
-    }
-    
-    public void level4()
-    {
-
-        SceneManager.LoadScene(5);
-
-    }
-
     
     public void playClicked()
     {
@@ -76,20 +59,39 @@ public class MainMenu : MonoBehaviour
     public void backClicked()
     {
 
+
+        menuButtons.SetActive(true);
         levelScreen.SetTrigger("Back Clicked");
+
+        Invoke("deactivateLevelSelect", 1.1f); 
 
     }
 
     public void levelSelectClicked()
     {
 
+        levelSelect.SetActive(true);
         levelScreen.SetTrigger("Level Screen Click");
 
+        Invoke("deactivateMenu", 1.3f);
 
     }
 
-    
-    public void quitClicked()
+
+    public void deactivateMenu()
+    {
+        menuButtons.SetActive(false);
+    }
+
+    public void deactivateLevelSelect()
+    {
+        levelSelect.SetActive(false);
+    }
+
+
+
+
+        public void quitClicked()
     {
 
         Application.Quit();
@@ -99,8 +101,8 @@ public class MainMenu : MonoBehaviour
 
     public void LogoClicked()
     {
+        menuButtons.SetActive(true);
 
-        
         logoMove.SetTrigger("Logo Click");
 
         buttonMove.SetTrigger("Logo Click");
