@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class MainMenu : MonoBehaviour
 
     public GameObject levelSelect;
 
+    bool logoPressed = false;
+
+    bool mainMenuChoice = false;
+
+    bool levelSelectBool = false;
+
+    bool buttonPressed = false;
+
 
     void Start()
     {
@@ -30,7 +39,52 @@ public class MainMenu : MonoBehaviour
         menuButtons.SetActive(false);
         levelSelect.SetActive(false);
     }
-
+    void Update()
+    {
+        if (!Gamepad.all[0].buttonSouth.isPressed == true && !Gamepad.all[0].buttonNorth.isPressed == true && !Gamepad.all[0].buttonWest.isPressed == true && !Gamepad.all[0].buttonNorth.isPressed == true)
+        {
+            buttonPressed = false;
+        }
+        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == false && buttonPressed == false)
+        {
+            LogoClicked();
+            logoPressed = true;
+            buttonPressed = true;
+            
+        }
+        if (Gamepad.all[0].buttonWest.isPressed == true && buttonPressed == false && mainMenuChoice == false)
+        {
+            quitClicked();
+        }
+        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false) 
+        {
+            tutorial();
+            LogoClicked();
+            logoPressed = true;
+            buttonPressed = true;
+        }
+        else if (Gamepad.all[0].buttonWest.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false)
+        {
+            levelSelectClicked();
+            LogoClicked();
+            mainMenuChoice = true;
+            levelSelectBool = true; //Boolean to activate level select page
+        }
+        else if (Gamepad.all[0].leftShoulder.isPressed == true && logoPressed == true && levelSelectBool == true)
+        {
+            tutorial();
+        }
+        else if (Gamepad.all[0].rightShoulder.isPressed == true && logoPressed == true && levelSelectBool == true)
+        {
+            level1();
+        }
+        else if (Gamepad.all[0].buttonEast.isPressed == true && logoPressed == true && levelSelectBool == true)
+        {
+            backClicked();
+            levelSelectBool = false;
+            mainMenuChoice = false;
+        }
+    }
 
     public void tutorial()
     {
