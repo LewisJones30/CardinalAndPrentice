@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterPhysics : MonoBehaviour
 {
+    [SerializeField] bool isFlying = false;
     [SerializeField] float gravity = 80f;
     [SerializeField] float maxFallSpeed = 50f;
     [SerializeField] float fallingAnimationDelay = 0.2f;
@@ -61,6 +62,7 @@ public class CharacterPhysics : MonoBehaviour
 
         ApplyGravity();
 
+        characterVelocity.y += playerMovement.y;
         playerMovement.y = characterVelocity.y;
 
         var flags = charController.Move(playerMovement * Time.deltaTime);
@@ -119,10 +121,13 @@ public class CharacterPhysics : MonoBehaviour
         if (charController.isGrounded) characterVelocity.x *= 1 - groundFriction;
     }
 
-    public bool PlayerMove(Vector3 playerMovement)
+    public bool PlayerMove(Vector3 movement)
     {
         if (knockBackProgress != null || isSlipping) return false;
-        this.playerMovement = playerMovement;
+
+        playerMovement = movement;
+        if (!isFlying) playerMovement.y = 0f;
+        
         return true;
     }    
 

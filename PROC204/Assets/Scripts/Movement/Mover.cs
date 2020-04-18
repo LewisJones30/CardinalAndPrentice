@@ -11,6 +11,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float dashSpeedMultiplier = 2f;
     [SerializeField] float dashAirSpeedMultiplier = 3f;
+    [SerializeField] float flySpeed = 10f;
 
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
@@ -60,27 +61,28 @@ public class Mover : MonoBehaviour
         else if (!health.IsDead) gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
-    public void Move(float input, float speedFraction)
+    public void Move(Vector3 input, float speedFraction)
     {
-        if (Mathf.Abs(input) < Mathf.Epsilon) return;
+        if (Mathf.Abs(input.x) < Mathf.Epsilon && Mathf.Abs(input.y) < Mathf.Epsilon) return;
 
         float moveSpeed = runSpeed * speedFraction;
 
-        if (IsDashing) input = Mathf.Sign(input);
+        if (IsDashing) input.x = Mathf.Sign(input.x);
         
         if (IsDashing && charPhysics.HasJumped) moveSpeed *= dashAirSpeedMultiplier;
         else if (IsDashing) moveSpeed *= dashSpeedMultiplier;
 
-        Vector3 movement = input * Vector3.right * moveSpeed;
-        charPhysics.PlayerMove(movement);
+        input.x *= moveSpeed;
+        input.y *= flySpeed;
 
-        Turn(input);
-    }
-    
+        charPhysics.PlayerMove(input);
+
+        Turn(input.x);
+    }    
 
     public void ForwardRoll()
     {
-        if (!canRoll) return;
+        if (!canRoll || !charController.isGrounded) return;
 
         canRoll = false;
         animator.SetTrigger("rollTrigger");        

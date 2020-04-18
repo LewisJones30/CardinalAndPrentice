@@ -47,7 +47,7 @@ public class CardinalController : Controller
         Dash(gamepad);
         Parry(gamepad);
 
-        mover.Move(moveInput.x, 1f);
+        mover.Move(moveInput, 1f);
     }
 
     private void Dead(Gamepad gamepad)

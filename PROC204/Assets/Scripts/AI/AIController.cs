@@ -21,6 +21,8 @@ public class AIController : Controller
     Health currentTarget;
     float speedFraction = 1f;
     float preferredShootingRange;
+    float preferredHeight;
+    float yMovement = 0f;
 
     Mover mover;
     Fighter fighter;
@@ -44,6 +46,7 @@ public class AIController : Controller
     {
         if (loseTargetDistance < spotTargetDistance) loseTargetDistance = spotTargetDistance;
         preferredShootingRange = (spotTargetDistance + loseTargetDistance) / 2;
+        preferredHeight = mover.Position.y;
 
         StartCoroutine(AIBrain());
     }
@@ -170,7 +173,7 @@ public class AIController : Controller
 
         if (!isHit) return false;
 
-        Health health = hit.collider.gameObject.GetComponent<Health>();
+        Health health = hit.collider.gameObject.GetComponentInParent<Health>();
         if (health == null) return false;
 
         fighter.RangeWeapon.SetTarget(targetPos);
@@ -185,7 +188,12 @@ public class AIController : Controller
         if (isFrozen) return;
 
         waitTime += Time.deltaTime;
-        if (!isStationary) mover.Move(moveDir, speedFraction);
+
+        if (mover.Position.y < preferredHeight) yMovement = 1f;
+        else yMovement = 0f;
+
+        if (!isStationary) mover.Move(new Vector3(moveDir, yMovement, 0f), speedFraction);
+        else mover.Move(new Vector3(0f, yMovement, 0f), speedFraction);
     }
 
     private void ValidateTarget()

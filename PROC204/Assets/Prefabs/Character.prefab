@@ -137,6 +137,7 @@ MonoBehaviour:
   rollCooldown: 3
   dashSpeedMultiplier: 1.5
   dashAirSpeedMultiplier: 3
+  flySpeed: 0.1
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
-  healthUI: {fileID: 0}
 --- !u!114 &3318235847993337424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4918,6 +4918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81afcd2c5e00d414290c5b7d2f06fbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFlying: 0
   gravity: 80
   maxFallSpeed: 50
   fallingAnimationDelay: 0.2
