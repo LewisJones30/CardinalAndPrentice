@@ -13,6 +13,7 @@ public class CombatTarget : MonoBehaviour
 
     public ColourValue ColourWeakness { get; set; } = ColourValue.None;
     public bool IsParrying { get; set; } = false;
+    public bool IsDead { get => health.IsDead; }
 
     Coroutine stunProgress;
     bool canParry = true;

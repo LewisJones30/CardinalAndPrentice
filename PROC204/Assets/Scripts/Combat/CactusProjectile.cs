@@ -6,6 +6,8 @@ using UnityEngine;
 public class CactusProjectile : PrenticeProjectile
 {
     [SerializeField] GameObject cactusPrefab;
+    [SerializeField] int maxCacti = 3;
+    bool spawnedCactus = false;
 
     private void Awake()
     {
@@ -26,6 +28,8 @@ public class CactusProjectile : PrenticeProjectile
 
     private void SpawnCactus(Vector3 spawnPos)
     {
+        if (spawnedCactus || Cactus.cactiCount >= maxCacti) return;
+        spawnedCactus = true;
         Instantiate(cactusPrefab, spawnPos, Quaternion.identity);
     }
 }
