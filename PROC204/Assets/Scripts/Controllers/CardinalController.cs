@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CardinalController : Controller
 {
@@ -27,8 +28,6 @@ public class CardinalController : Controller
 
     private void Update()
     {
-        if (isFrozen) return;
-
         if (Gamepad.all.Count < 1) return;
 
         if (Gamepad.all.Count == 1) isOneController = true;
@@ -36,6 +35,10 @@ public class CardinalController : Controller
 
         var gamepad = Gamepad.all[0];
         if (gamepad == null) return;
+
+        Dead(gamepad);
+
+        if (isFrozen) return;
 
         Move(gamepad);
         Jump(gamepad);
@@ -45,6 +48,20 @@ public class CardinalController : Controller
         Parry(gamepad);
 
         mover.Move(moveInput.x, 1f);
+    }
+
+    private void Dead(Gamepad gamepad)
+    {
+        if (!health.IsDead) return;
+
+        if (gamepad.buttonSouth.IsPressed())
+        {
+            SceneManager.LoadScene("Level 1");
+        }
+        else if (gamepad.startButton.IsPressed())
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
     }
 
     private void Parry(Gamepad gamepad)

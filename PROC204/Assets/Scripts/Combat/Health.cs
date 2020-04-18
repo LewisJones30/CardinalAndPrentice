@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
-    public int health = 50;
-    [SerializeField] HealthUI healthUI;
+    [SerializeField] int health = 50;
 
     Animator animator;
     ParticleSystem sleepParticle;
@@ -29,8 +28,7 @@ public class Health : MonoBehaviour
         if (IsDead) return;
 
         health += value;
-
-        if (healthUI != null) healthUI.TakeHealthUpdate();
+        
         onHealthChange?.Invoke();
 
         if (health < 1) Die();        
@@ -40,11 +38,6 @@ public class Health : MonoBehaviour
     {
         IsDead = true;
         BroadcastMessage("DeadUpdate", true, SendMessageOptions.DontRequireReceiver);
-
-        if (this.gameObject.name == "Cardinal")
-        {
-            healthUI.gameOver();
-        }
 
         gameObject.layer = LayerMask.NameToLayer("Passable");
 

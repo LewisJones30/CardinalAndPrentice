@@ -46,8 +46,7 @@ public class ComboSystem : MonoBehaviour
         // When combo is 5 add 2 lives to Cardinal
         if (stackCount == 5)
         {
-            playerHealth.health = playerHealth.health + 2;
-            healthUI.AddOneHeart();
+            playerHealth.ChangeHealth(2);
         }
     }
     public void BreakCombo()

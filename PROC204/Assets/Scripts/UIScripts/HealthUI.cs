@@ -7,147 +7,124 @@ using UnityEngine.SceneManagement;
 
 public class HealthUI : MonoBehaviour
 {
+    [SerializeField] Canvas gameOverCanvas;
+    [SerializeField] HeartUI heartPrefab;
 
-    public Sprite threeHearts, twoHearts, oneHeart, twoHalfHearts, oneHalfHearts, zeroHalfHearts;
-    bool playerDead = false; //Used to detect if the player is dead, for the canvas to appear.
-    public Image currentSprite;
-    public string currentSpriteName;
-    // Start is called before the first frame update
-    void Start()
+    Health cardinalHealth;
+
+    int displayedHealth = 0;
+
+    List<HeartUI> hearts = new List<HeartUI>();
+
+    private void Awake()
     {
-        currentSprite = GetComponent<Image>();
-        currentSpriteName = currentSprite.sprite.name;
+        cardinalHealth = GameObject.FindGameObjectWithTag("Player 1").GetComponent<Health>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (playerDead == true)
+        UpdateDisplay();
+    }
+
+    private void OnEnable()
+    {
+        cardinalHealth.onHealthChange += UpdateDisplay;
+    }
+
+    private void OnDisable()
+    {
+        cardinalHealth.onHealthChange -= UpdateDisplay;
+    }
+
+    private void UpdateDisplay()
+    {
+        int newHealth = cardinalHealth.HealthPoints;
+        if (newHealth < 0) newHealth = 0;
+
+        int change = newHealth - displayedHealth;
+
+        if (change < 0) DecreaseHearts(Mathf.Abs(change));
+        else if (change > 0) IncreaseHearts(change);
+
+        displayedHealth = newHealth;
+
+        if (displayedHealth < 1) GameOver();
+    }
+
+    private void DecreaseHearts(int removeCount)
+    {
+        while (removeCount != 0)
         {
-            if (Gamepad.all[0].buttonSouth.isPressed == true)
+            HeartUI lastHeart = hearts[hearts.Count - 1];
+
+            if (removeCount > 1)
             {
-                SceneManager.LoadScene("Level 1");
-                //Restart the scene
+                if (lastHeart.IsFleshHeart) removeCount -= 1;
+                else removeCount -= 2;
+
+                DestroyHeart(lastHeart);
             }
-            else if (Gamepad.all[0].startButton.isPressed == true)
-            { 
-                //Transport to the main menu, currently not available as this is not a scene.
+            else if (removeCount == 1)
+            {
+                if (lastHeart.IsFleshHeart) DestroyHeart(lastHeart);
+                else lastHeart.IsFleshHeart = true;
+
+                removeCount = 0;
             }
         }
     }
 
-
-    public void TakeHealthUpdate()
+    private void IncreaseHearts(int addCount)
     {
-        currentSpriteName = currentSprite.sprite.name;
+        while (addCount != 0)
+        {
+            if (hearts.Count < 1)
+            {
+                AddHeart(true);
+                addCount -= 1;
+            }
 
-        if (currentSpriteName.ToString() == "threeHearts")
-        {
-            currentSprite.overrideSprite = twoHalfHearts;
-            currentSprite.sprite = twoHalfHearts;
-        }
-        else if (currentSpriteName.ToString() == "twoHalfHearts")
-        {
-            currentSprite.overrideSprite = twoHearts;
-            currentSprite.sprite = twoHearts;
-        }
-        else if (currentSpriteName.ToString() == "twoHearts")
-        {
-            currentSprite.overrideSprite = oneHalfHearts;
-            currentSprite.sprite = oneHalfHearts;
-        }
-        else if (currentSpriteName.ToString() == "oneHalfHearts")
-        {
-            currentSprite.overrideSprite = oneHeart;
-            currentSprite.sprite = oneHeart;
-        }
-        else if (currentSpriteName.ToString() == "oneHeart")
-        {
-            currentSprite.overrideSprite = zeroHalfHearts;
-            currentSprite.sprite = zeroHalfHearts;
+            HeartUI lastHeart = hearts[hearts.Count - 1];
+
+            if (addCount > 1)
+            {
+                if (lastHeart.IsFleshHeart)
+                {
+                    lastHeart.IsFleshHeart = false;
+                    addCount -= 1;
+                }
+                else
+                {
+                    AddHeart(false);
+                    addCount -= 2;
+                }
+            }
+            else if (addCount == 1)
+            {
+                if (lastHeart.IsFleshHeart) lastHeart.IsFleshHeart = false;
+                else AddHeart(true);
+
+                addCount = 0;
+            }
+
         }
     }
 
-    public void AddHalfHeart() //This is if the player heals by half a heart.
+    private void DestroyHeart(HeartUI heart)
     {
-        if (currentSpriteName.ToString() == "threeHearts")
-        {
-            //No healing takes place, player is at maximum health.
-        }
-        else if (currentSpriteName.ToString() == "twoHalfHearts")
-        {
-            currentSprite.overrideSprite = threeHearts;
-            currentSprite.sprite = threeHearts;
-        }
-        else if (currentSpriteName.ToString() == "twoHearts")
-        {
-            currentSprite.overrideSprite = twoHalfHearts;
-            currentSprite.sprite = twoHalfHearts;
-        }
-        else if (currentSpriteName.ToString() == "oneHalfHearts")
-        {
-            currentSprite.overrideSprite = twoHearts;
-            currentSprite.sprite = twoHearts;
-        }
-        else if (currentSpriteName.ToString() == "oneHeart")
-        {
-            currentSprite.overrideSprite = oneHalfHearts;
-            currentSprite.sprite = oneHalfHearts;
-        }
-        else if (currentSpriteName.ToString() == "zeroHalfHearts")
-        {
-            currentSprite.overrideSprite = oneHeart;
-            currentSprite.sprite = oneHeart;
-        }
-        else
-        {
-            //Default case
-            Debug.Log("Error. Default case triggered in AddHalfHeart.");
-        }
+        hearts.Remove(heart);
+        Destroy(heart.gameObject);
     }
-    public void AddOneHeart() //This method is used if the player heals 1 heart. The cap is currently 3 hearts.
-    {
-        if (currentSpriteName.ToString() == "threeHearts")
-        {
-            //No healing takes place, player is at maximum health.
-        }
-        else if (currentSpriteName.ToString() == "twoHalfHearts")
-        {
-            //Player can only go to three hearts. Therefore this still only adds half a heart.
-            currentSprite.overrideSprite = threeHearts;
-            currentSprite.sprite = threeHearts;
-        }
-        else if (currentSpriteName.ToString() == "twoHearts")
-        {
-            currentSprite.overrideSprite = threeHearts;
-            currentSprite.sprite = threeHearts;
-        }
-        else if (currentSpriteName.ToString() == "oneHalfHearts")
-        {
-            currentSprite.overrideSprite = twoHalfHearts;
-            currentSprite.sprite = twoHalfHearts;
-        }
-        else if (currentSpriteName.ToString() == "oneHeart")
-        {
-            currentSprite.overrideSprite = twoHearts;
-            currentSprite.sprite = twoHearts;
-        }
-        else if (currentSpriteName.ToString() == "zeroHalfHearts")
-        {
-            currentSprite.overrideSprite = oneHalfHearts;
-            currentSprite.sprite = oneHalfHearts;
-        }
-        else
-        {
-            //Default case
-            Debug.Log("Error. Default case triggered in AddHalfHeart.");
-        }
-    }
-    public void gameOver() //Called by health if cardinal dies
-    { 
-        GameObject gameoverCanvas = GameObject.Find("GameOver Canvas");
-        gameoverCanvas.GetComponent<Canvas>().enabled = true; //Set the gameover canvas to be true
-        playerDead = true;
 
+    private void AddHeart(bool isFleshHeart)
+    {
+        HeartUI newHeart = Instantiate(heartPrefab, transform);
+        hearts.Add(newHeart);
+        newHeart.IsFleshHeart = isFleshHeart;
+    }    
+
+    private void GameOver() //Called by health if cardinal dies
+    {
+        gameOverCanvas.enabled = true; //Set the gameover canvas to be true
     }
 }
