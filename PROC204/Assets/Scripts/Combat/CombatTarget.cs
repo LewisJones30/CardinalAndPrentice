@@ -51,6 +51,8 @@ public class CombatTarget : MonoBehaviour
 
         health.ChangeHealth(-damage);
 
+        if (!IsDead) animator.SetTrigger("damagedTrigger");
+
         if (tag == "Player 1") comboSystem.BreakCombo();
 
         return true;
