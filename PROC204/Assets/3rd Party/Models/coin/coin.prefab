@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6967272354778086308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640816224854350615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478805142211ea44e87dad8a3bb49fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsCollected: 0
+--- !u!65 &7345523715637018686
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640816224854350615}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.1573405, y: 6.9290843, z: 1.3545684}
+  m_Center: {x: 0.0330165, y: 0.08859123, z: -0.17728417}
 --- !u!1001 &1812783279451095582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,7 +146,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: e299d8e3c448de342bfbb1097775b02b,
         type: 3}
       propertyPath: m_Name
-      value: coin Variant
+      value: coin
       objectReference: {fileID: 0}
     - target: {fileID: -239555428307642338, guid: e299d8e3c448de342bfbb1097775b02b,
         type: 3}
@@ -174,3 +200,9 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c79c6f912e6656f49a9331612c87f272, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e299d8e3c448de342bfbb1097775b02b, type: 3}
+--- !u!1 &7640816224854350615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: e299d8e3c448de342bfbb1097775b02b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1812783279451095582}
+  m_PrefabAsset: {fileID: 0}
