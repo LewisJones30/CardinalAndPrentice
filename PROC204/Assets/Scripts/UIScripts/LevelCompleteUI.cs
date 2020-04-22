@@ -12,6 +12,7 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] Canvas fadeCanvas;
     CanvasGroup fadecanvas;
     Canvas mainCanvas;
+    Canvas LevelCompleteCanvas;
     bool endUnlocked;
     void Start()
     {
@@ -19,6 +20,9 @@ public class LevelCompleteUI : MonoBehaviour
         fadecanvas = fadeCanvas.GetComponent<CanvasGroup>();
         GameObject canvas = GameObject.Find("Main Canvas");
         mainCanvas = canvas.GetComponent<Canvas>(); //Get the canvas from the Main Canvas (contains the game UI).
+        GameObject LevelCompleteCanvasObj = GameObject.Find("LevelCompUI Canvas");
+        LevelCompleteCanvas = LevelCompleteCanvasObj.GetComponent<Canvas>();
+        LevelCompleteCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -26,17 +30,18 @@ public class LevelCompleteUI : MonoBehaviour
     {
         if (levelComplete == true)
         {
+            LevelCompleteCanvas.enabled = true;
             if (Gamepad.all[0].buttonSouth.isPressed == true)
             {
                 StartCoroutine("Fade"); //Starts coroutine for the fading animation
                 PlayerPrefs.SetInt("Level1Completed", 1); //1 for level complete, 0 is for when they have not started level
-                //SceneManager.LoadScene("Level 2");
+                SceneManager.LoadScene("Level 2");
             }
             else if (Gamepad.all[0].startButton.isPressed == true)
             {
                 //Transport to the main menu, currently not available as this is not a scene.
                 StartCoroutine("FadeMainMenu"); //Fade to the main menu
-                SceneManager.LoadScene("Level 1"); //Temporary, change text when main menu is created
+                SceneManager.LoadScene("Main Menu"); //Temporary, change text when main menu is created
             }
         }
     }
