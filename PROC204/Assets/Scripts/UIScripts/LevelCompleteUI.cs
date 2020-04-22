@@ -12,9 +12,10 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] Canvas fadeCanvas;
     CanvasGroup fadecanvas;
     Canvas mainCanvas;
+    bool endUnlocked;
     void Start()
     {
-
+        endUnlocked = false;
         fadecanvas = fadeCanvas.GetComponent<CanvasGroup>();
         GameObject canvas = GameObject.Find("Main Canvas");
         mainCanvas = canvas.GetComponent<Canvas>(); //Get the canvas from the Main Canvas (contains the game UI).
@@ -74,15 +75,27 @@ public class LevelCompleteUI : MonoBehaviour
 
     public void LevelComplete()
     {
-        
-        GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
-        mainCanvas.enabled = false;
-        if (levelCompleteCanvas != null)
+        if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
         {
-            levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
-            levelComplete = true;
+            GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
+            mainCanvas.enabled = false;
+            if (levelCompleteCanvas != null)
+            {
+                levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
+                levelComplete = true;
 
+            }
         }
+        else
+
+        {
+            //Code to display the "Not enough coins" prompt.
+            GameObject NotEnoughCoins = GameObject.Find("NotEnoughCoins");
+            Text text = NotEnoughCoins.GetComponent<Text>();
+            text.enabled = true;
+      
+        }
+
     }
 
 }
