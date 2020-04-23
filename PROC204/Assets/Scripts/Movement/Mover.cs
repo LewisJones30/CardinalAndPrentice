@@ -10,7 +10,8 @@ public class Mover : MonoBehaviour
     [SerializeField] Transform characterBody;
     [SerializeField] float rollCooldown = 1.5f;
     [SerializeField] float dashSpeedMultiplier = 2f;
-    [SerializeField] float dashAirSpeedMultiplier = 3f;
+    [SerializeField] float dashAirSpeedMultiplier = 2.5f;
+    [SerializeField] float normalAirSpeedMultiplier = 1.5f;
     [SerializeField] float flySpeed = 10f;
 
     public float Direction { get; private set; } = 1;
@@ -68,9 +69,10 @@ public class Mover : MonoBehaviour
         float moveSpeed = runSpeed * speedFraction;
 
         if (IsDashing) input.x = Mathf.Sign(input.x);
-        
+
         if (IsDashing && charPhysics.HasJumped) moveSpeed *= dashAirSpeedMultiplier;
         else if (IsDashing) moveSpeed *= dashSpeedMultiplier;
+        else if (charPhysics.HasJumped) moveSpeed *= normalAirSpeedMultiplier;
 
         input.x *= moveSpeed;
         input.y *= flySpeed;

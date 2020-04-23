@@ -1099,6 +1099,17 @@ PrefabInstance:
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 8420279005296712935, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: aimLine
+      value: 
+      objectReference: {fileID: 6443878084080415284, guid: 9a18d3b5df9851a489e6483d13c7e1b0,
+        type: 3}
+    - target: {fileID: 9050173092880031997, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: dashAirSpeedMultiplier
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db53ccecd76169d44b03a3d5c633c555, type: 3}
 --- !u!1 &728439968440331847 stripped

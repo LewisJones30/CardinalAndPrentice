@@ -136,7 +136,8 @@ MonoBehaviour:
   characterBody: {fileID: 1118315093523149361}
   rollCooldown: 3
   dashSpeedMultiplier: 1.5
-  dashAirSpeedMultiplier: 3
+  dashAirSpeedMultiplier: 2.5
+  normalAirSpeedMultiplier: 1.5
   flySpeed: 0.1
 --- !u!114 &6822585887371913590
 MonoBehaviour:

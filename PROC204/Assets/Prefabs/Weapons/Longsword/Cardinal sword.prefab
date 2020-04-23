@@ -4805,6 +4805,7 @@ MonoBehaviour:
   damage: 3
   attackRange: 1.1
   slashEffect: {fileID: 6463977788295247005}
+  stunTimeWhenParried: 2
 --- !u!1 &3412345845588440592
 GameObject:
   m_ObjectHideFlags: 0
