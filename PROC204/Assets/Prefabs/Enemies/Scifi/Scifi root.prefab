@@ -65,7 +65,47 @@ PrefabInstance:
     - target: {fileID: 616512146565058265, guid: d43fc3a59a0db8d4e88852268b9cedcb,
         type: 3}
       propertyPath: m_Name
-      value: Enemy root
+      value: Scifi root
       objectReference: {fileID: 0}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[1].colour
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[2].colour
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[3].colour
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[0].colourMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 21725250130c12a438fcf19768f301d0, type: 2}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[1].colourMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ba0d272f9299b04e8ea257cf18f53ef, type: 2}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[2].colourMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7dac9240680804149a35159f42bd5de1, type: 2}
+    - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
+        type: 3}
+      propertyPath: entityColours.Array.data[3].colourMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 989d8dee27e740748ad538650cb4f6c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d43fc3a59a0db8d4e88852268b9cedcb, type: 3}

@@ -40,9 +40,6 @@ public class ComboSystem : MonoBehaviour
         //Increase the damage of all projectiles by the additional damage per stack variable. 
         prenticeAttack.ReloadReduction += reloadReductionPerStack;
 
-        Debug.Log("Projectile reload reduction: -" + prenticeAttack.ReloadReduction);
-        comboText.text = "Combo: " + stackCount;
-
         // When combo is 5 add 2 lives to Cardinal
         if (stackCount == 5)
         {
