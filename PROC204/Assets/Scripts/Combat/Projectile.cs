@@ -7,10 +7,18 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected int damage = 1;
     [SerializeField] protected float moveSpeed = 10f;
     [SerializeField] protected float maxDistance = 1000f;
-    [SerializeField] protected float reloadTime = 0.4f;
-    public float ReloadTime => reloadTime;
+    [SerializeField] GameObject projectileFiredFX;
+    [SerializeField] protected GameObject projectileHitFX;
 
     float distanceTravelled = 0f;
+
+    private void Start()
+    {
+        if (projectileFiredFX == null) return;
+
+        GameObject instance = Instantiate(projectileFiredFX, transform.position, Quaternion.identity);
+        Destroy(instance, 10f);
+    }
 
     public void SetDirection(Vector2 dir)
     {
@@ -28,6 +36,12 @@ public class Projectile : MonoBehaviour
     {
         CombatTarget combatTarget = other.gameObject.GetComponent<CombatTarget>();
         if (combatTarget != null) combatTarget.TakeDamage(damage, transform.position);
+
+        if (projectileHitFX != null)
+        {
+            GameObject instance = Instantiate(projectileHitFX, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+            Destroy(instance, 10f);
+        }       
 
         Destroy(gameObject);
     }

@@ -7,19 +7,13 @@ public class PrenticeProjectile : Projectile
 {    
     [SerializeField] float turnSpeed = 1f;
     [SerializeField] protected ColourValue projectileColour;
-    [SerializeField] GameObject projectileFiredFX;
-    [SerializeField] protected GameObject projectileHitFX;
     [SerializeField] float seekingDistance = 20f;
+    [SerializeField] float reload = 1f;
 
     Collider targetEnemy;
     protected bool isHoming = true;
 
-    private void Start()
-    {
-        GameObject instance = Instantiate(projectileFiredFX, transform.position, Quaternion.identity);
-        Destroy(instance, 10f);
-    }
-
+    public float Reload { get => reload; }
 
     protected override void Update()
     {

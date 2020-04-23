@@ -9,7 +9,6 @@ public class Fighter : MonoBehaviour
     [SerializeField] Transform leftHandTransform;
     [SerializeField] Transform rightHandTransform;
 
-    Animator animator;
     Health health;
 
     public int TargetLayerIndex { get; private set; }
@@ -21,13 +20,11 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    public bool IsAttackReady { get; private set; } = true;
     public MeleeWeapon MeleeWeapon { get; private set; }
     public RangeWeapon RangeWeapon { get; private set; }
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         health = GetComponent<Health>();
 
         Setup();
@@ -59,19 +56,9 @@ public class Fighter : MonoBehaviour
 
     public void Attack()
     {
-        if (!IsAttackReady) return;
-
-        IsAttackReady = false;
-
-        animator.SetTrigger("attackTrigger");
-
-        Invoke(nameof(ReadyAttack), weaponPrefab.AttackRate);
+        if (IsMelee) MeleeWeapon.UseWeapon();
+        else RangeWeapon.UseWeapon();
     }
-
-    void ReadyAttack()
-    {
-        IsAttackReady = true;
-    }  
     
     void Hit()
     {

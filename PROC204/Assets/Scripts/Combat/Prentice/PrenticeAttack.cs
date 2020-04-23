@@ -65,7 +65,7 @@ public class PrenticeAttack : MonoBehaviour
 
     IEnumerator Reload()
     {
-        float reloadTime = loadedProjectile.ReloadTime - ReloadReduction;
+        float reloadTime = loadedProjectile.Reload - ReloadReduction;
         if (reloadTime < minReloadTime) reloadTime = minReloadTime;
 
         yield return new WaitForSeconds(reloadTime);

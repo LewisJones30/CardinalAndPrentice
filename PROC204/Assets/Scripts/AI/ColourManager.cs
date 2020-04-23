@@ -13,6 +13,7 @@ public class ColourManager : MonoBehaviour
 
     private void Awake()
     {
+        if (entityColours == null || entityColours.Length < 1) return;
         SetColour();
 
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -23,6 +24,7 @@ public class ColourManager : MonoBehaviour
 
     private void SetColour()
     {
+
         int randomIndex = UnityEngine.Random.Range(0, entityColours.Length);
         entityColour = entityColours[randomIndex];
     }
