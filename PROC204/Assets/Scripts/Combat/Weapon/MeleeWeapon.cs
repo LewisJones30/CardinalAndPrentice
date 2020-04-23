@@ -71,7 +71,7 @@ public class MeleeWeapon : Weapon
                 if (success) onDealDamage?.Invoke();
                 else combatTarget.Stun(stunTimeWhenParried);
             }
-        }
+        }        
     }
 
     public bool CheckTargetInMeleeRange()
@@ -90,5 +90,15 @@ public class MeleeWeapon : Weapon
     {
         if (mover == null) return;
         Gizmos.DrawWireCube(GetMeleeAttackCenter(), GetHitBox() * 2);
+    }
+    public override void UseWeapon()
+    {
+        if (!isReady) return;
+
+        isReady = false;
+
+        animator.SetTrigger("attackTrigger");
+
+        Invoke(nameof(WeaponReady), attackRate);
     }
 }

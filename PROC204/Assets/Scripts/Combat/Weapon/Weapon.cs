@@ -10,6 +10,8 @@ public abstract class Weapon : MonoBehaviour
     public int TargetLayerMask { get; set; }
     public abstract float AttackRate { get; }
 
+    protected bool isReady = true;
+
     protected Animator animator;
 
     protected virtual void Awake()
@@ -25,5 +27,12 @@ public abstract class Weapon : MonoBehaviour
         {
             animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
         }
+    }
+
+    public abstract void UseWeapon();
+
+    protected void WeaponReady()
+    {
+        isReady = true;
     }
 }
