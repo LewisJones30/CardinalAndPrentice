@@ -4803,7 +4803,7 @@ MonoBehaviour:
   isRightHanded: 1
   attackRate: 2
   damage: 3
-  attackRange: 2
+  attackRange: 2.4
   slashEffect: {fileID: 6463977788295247005}
   stunTimeWhenParried: 2
 --- !u!1 &3412345845588440592
@@ -9678,8 +9678,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4907598265373403884}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.047, y: 0.04, z: 0.016}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 0.047, y: 0.04, z: -0.066}
+  m_LocalScale: {x: 1.5, y: 1.8, z: 1.5}
   m_Children:
   - {fileID: 4845239780250402}
   m_Father: {fileID: 762322076918097649}

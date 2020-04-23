@@ -36,7 +36,6 @@ public class ShieldPower : MonoBehaviour
 
     public void Protect(Vector2 dir)
     {
-        print(dir);
         DisplayAim(dir);
 
         if (dir.Equals(Vector2.zero) || 

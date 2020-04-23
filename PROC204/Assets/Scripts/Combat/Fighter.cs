@@ -8,6 +8,7 @@ public class Fighter : MonoBehaviour
     [SerializeField] Weapon weaponPrefab;
     [SerializeField] Transform leftHandTransform;
     [SerializeField] Transform rightHandTransform;
+    [SerializeField] float attackAnimationSpeedMult = 1f;
 
     Health health;
 
@@ -26,6 +27,8 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         health = GetComponent<Health>();
+
+        GetComponent<Animator>().SetFloat("attackSpeed", attackAnimationSpeedMult);
 
         Setup();
     }    
