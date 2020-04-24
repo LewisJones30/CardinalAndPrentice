@@ -53,7 +53,16 @@ public class PrenticeController : Controller
 
         if (gamepad.buttonNorth.isPressed) //Y button on Xbox controller, Triangle on PS4
         {
-            rangedWeapon.Fire(ColourValue.Yellow);
+            if (PlayerPrefs.GetInt("Level1Completed") == 1) //Requires level 1 to be complete to use.
+            {
+                rangedWeapon.Fire(ColourValue.Yellow);
+            }
+            else
+
+            {
+                Debug.Log("This attack is currently locked.");
+            }
+
         }
 
         if (gamepad.buttonWest.isPressed) //X button on Xbox controller
