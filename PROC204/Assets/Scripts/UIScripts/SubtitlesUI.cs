@@ -24,7 +24,7 @@ public class SubtitlesUI : MonoBehaviour
         SubtitlesCanvas = this.gameObject.GetComponent<Canvas>();
         currentSubtitle = SubtitlesCanvas.GetComponentInChildren<Image>();
         UpdateImage();
-        SubtitlesCanvas.enabled = false;
+        GameStart();
     }
 
     // Update is called once per frame
@@ -50,7 +50,6 @@ public class SubtitlesUI : MonoBehaviour
     }
     public void GameStart()
     {
-        SubtitlesCanvas.enabled = true;
         StartCoroutine("GameStartSubtitle");
 
     }
@@ -173,15 +172,14 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(1.2f);
-        currentSubtitle.enabled = true;
-        Destroy(GameObject.Find("DiaTriggerTargetBlock"));
+        currentSubtitle.enabled = false;
     }
 
     IEnumerator TargetTutorialSubtitles()
     {
         //Element 11 and onwards required, gamestart uses 0-10. (Sprites)
         //For clips, start at element 3.
-        currentSubtitleNumber = 10;
+
         //Element 11 - Gate Locked sprite
         audio.PlayOneShot(subtitleClips[3]);
         currentSubtitleNumber = currentSubtitleNumber + 1;
@@ -202,14 +200,13 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(4.2f);
-        Destroy(GameObject.Find("DiaTriggerBlueBlock"));
     }
 
     IEnumerator EnemyTutorialSubtitles()
     {
         //Element 14 and onwards required. 0-13 used by TargetTutorial and gameStartSubtitles.
         //For clips, starts at element 4.
-        currentSubtitleNumber = 13;
+
         //Element 14 - Evil Knights
 
         audio.PlayOneShot(subtitleClips[4]);
@@ -231,7 +228,7 @@ public class SubtitlesUI : MonoBehaviour
         //Element 16 and onwards required.
         //Clips start at element 5.
 
-        currentSubtitleNumber = 15;
+
         //Element 16
         audio.PlayOneShot(subtitleClips[5]);
         currentSubtitleNumber = currentSubtitleNumber + 1;
@@ -251,8 +248,7 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitleNumber = currentSubtitleNumber + 1;
         currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(2f); 
-        Destroy(GameObject.Find("DiaTriggerEndBlock"));
+        yield return new WaitForSeconds(2f);
     }
 
     IEnumerator EndOfLevelOneSubtitles()
@@ -260,7 +256,7 @@ public class SubtitlesUI : MonoBehaviour
         //Starts at Element 19.
         //Clips start at element 7
 
-        currentSubtitleNumber = 18;
+
         //Element 19
         audio.PlayOneShot(subtitleClips[7]);
         currentSubtitleNumber = currentSubtitleNumber + 1;
