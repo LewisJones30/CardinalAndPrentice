@@ -82,6 +82,7 @@ public class LevelCompleteUI : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
         {
+            PlayerPrefs.SetInt("Level1Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
             mainCanvas.enabled = false;
             if (levelCompleteCanvas != null)
