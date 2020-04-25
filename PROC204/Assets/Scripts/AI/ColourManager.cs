@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ColourManager : MonoBehaviour
 {
+    [SerializeField] ColourValue presetColour = ColourValue.None;
     [SerializeField] ColourContainer[] entityColours;
 
     ColourContainer entityColour;
@@ -24,9 +25,22 @@ public class ColourManager : MonoBehaviour
 
     private void SetColour()
     {
-
-        int randomIndex = UnityEngine.Random.Range(0, entityColours.Length);
-        entityColour = entityColours[randomIndex];
+        if (presetColour != ColourValue.None) //Colour chosen by user is set
+        {
+            foreach (var container in entityColours)
+            {
+                if (container.colour == presetColour)
+                {
+                    entityColour = container;
+                    break;
+                }
+            }
+        }
+        else //Otherwise by default choose random colour
+        {
+            int randomIndex = UnityEngine.Random.Range(0, entityColours.Length);
+            entityColour = entityColours[randomIndex];
+        }        
     }
 
     [System.Serializable]

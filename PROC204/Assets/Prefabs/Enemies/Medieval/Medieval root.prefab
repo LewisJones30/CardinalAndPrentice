@@ -80,7 +80,7 @@ PrefabInstance:
     - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
         type: 3}
       propertyPath: entityColours.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7382219467259757413, guid: d43fc3a59a0db8d4e88852268b9cedcb,
         type: 3}
