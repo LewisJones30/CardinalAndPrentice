@@ -6,25 +6,31 @@ using UnityEngine.UI;
 public class ComboSystem : MonoBehaviour
 {
     //Variables declaration
-    PrenticeAttack prenticeAttack;
     [SerializeField] float reloadReductionPerStack = 0.05f;
-    int stackCount = 0;
     [SerializeField] Text comboText;
-    Health playerHealth;
     [SerializeField] HealthUI healthUI;
 
+    //CACHE REFERENCES
+
     Fighter fighter;
+    PrenticeAttack prenticeAttack;
+    Health playerHealth;
+
+    //STATES
+
+    //Combo counter
+    int stackCount = 0;
 
     private void Awake()
     {
-        fighter = GetComponent<Fighter>();
+        fighter = GetComponent<Fighter>(); 
+        prenticeAttack = GetComponentInChildren<PrenticeAttack>();
+        playerHealth = GetComponent<Health>();
     }    
 
     void Start()
     {
-        prenticeAttack = GetComponentInChildren<PrenticeAttack>();
-        playerHealth = GetComponent<Health>();
-
+        //build combo when damage dealt
         fighter.MeleeWeapon.onDealDamage += BuildCombo;
     }
 

@@ -10,7 +10,12 @@ public class PrenticeProjectile : Projectile
     [SerializeField] float seekingDistance = 20f;
     [SerializeField] float reload = 1f;
 
+    //STATES
+
+    //Used when homing in on targets
     Collider targetEnemy;
+
+    //Reserved for Prentice projectiles to help with aiming
     protected bool isHoming = true;
 
     public float Reload { get => reload; }
@@ -25,12 +30,14 @@ public class PrenticeProjectile : Projectile
         SteerTowardTarget();
     }
 
+    //Destroys projectile when not in view by camera
+    //Prevents enemies from being killed offscreen
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
     }
 
-
+    //Projectile finds closest available target within seeking range
     private void FindClosestTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, seekingDistance, LayerMask.GetMask("Enemy", "Target"));
@@ -54,6 +61,8 @@ public class PrenticeProjectile : Projectile
 
         targetEnemy = closestEnemy;
     }
+
+    //If target is set then steer the projectile toward the target
     private void SteerTowardTarget()
     {
         if (targetEnemy == null) return;
@@ -62,13 +71,14 @@ public class PrenticeProjectile : Projectile
         transform.forward = Vector3.RotateTowards(transform.forward, targetDir, turnSpeed * Time.deltaTime, 0f);
     }
 
+    //Deal damage if hit enemy and apply colour bonus 
     protected override void OnTriggerEnter(Collider other)
     {
         CombatTarget combatTarget = other.gameObject.GetComponentInParent<CombatTarget>();
         if (combatTarget != null) combatTarget.TakeDamage(damage, projectileColour, transform.position);
 
         GameObject instance = Instantiate(projectileHitFX, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
-        Destroy(instance, 10f);
+        Destroy(instance, 10f); //Destroy hit effect after alloted time
 
         Destroy(gameObject);
     }

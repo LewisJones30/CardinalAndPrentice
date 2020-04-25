@@ -10,13 +10,16 @@ public class Fighter : MonoBehaviour
     [SerializeField] Transform rightHandTransform;
     [SerializeField] float attackAnimationSpeedMult = 1f;
 
+    //CACHE REFERENCES
+
     Health health;
 
+    //PROPERTIES
     public int TargetLayerIndex { get; private set; }
     public int TargetLayerMask { get { return 1 << TargetLayerIndex; } }
     public bool IsMelee { get
         {
-            if (weaponPrefab is MeleeWeapon) return true;
+            if (weaponPrefab is MeleeWeapon) return true; //Check weapon type
             else return false;
         }
     }
@@ -28,11 +31,13 @@ public class Fighter : MonoBehaviour
     {
         health = GetComponent<Health>();
 
+        //Modify attack animation speed
         GetComponent<Animator>().SetFloat("attackSpeed", attackAnimationSpeedMult);
 
         Setup();
     }    
 
+    //Set target layer so weapons damage enemies of this entity
     private void Setup()
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
@@ -44,10 +49,11 @@ public class Fighter : MonoBehaviour
         AttachWeapon();
     }
 
+    //Instantiates weapon prefab to correct hand on the character
     private void AttachWeapon()
     {
-        Transform weaponParent;
-        if (weaponPrefab.IsRightHanded) weaponParent = rightHandTransform;
+        Transform weaponParent; //Weapon parented to hand
+        if (weaponPrefab.IsRightHanded) weaponParent = rightHandTransform; 
         else weaponParent = leftHandTransform;
 
         Weapon weaponInstance = Instantiate(weaponPrefab, weaponParent);
@@ -63,12 +69,14 @@ public class Fighter : MonoBehaviour
         else RangeWeapon.UseWeapon();
     }
     
+    //Called by attack animation event
     void Hit()
     {
-        if (health.IsDead) return;
+        if (health.IsDead) return; //Must be alive to cause damage
         MeleeWeapon.Hit();
     }
 
+    //Called by attack animation event
     void Shoot()
     {
         if (health.IsDead) return;

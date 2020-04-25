@@ -7,12 +7,14 @@ public class PrenticeAttack : MonoBehaviour
 {
     [SerializeField] float minReloadTime = 0.1f;
 
-    public PrenticeProjectile yellowProjectile;
-    public PrenticeProjectile redProjectile;
-    public PrenticeProjectile greenProjectile;
-    public PrenticeProjectile blueProjectile;
+    [SerializeField] PrenticeProjectile yellowProjectile;
+    [SerializeField] PrenticeProjectile redProjectile;
+    [SerializeField] PrenticeProjectile greenProjectile;
+    [SerializeField] PrenticeProjectile blueProjectile;
 
     PrenticeProjectile loadedProjectile;
+
+    //STATES
 
     bool isReloaded = true;
     Vector2 currentAimDirection;
@@ -22,6 +24,7 @@ public class PrenticeAttack : MonoBehaviour
 
     public float ReloadReduction { get; set; } = 0;
 
+    //Takes input from thumb stick and sets direction
     public void Aim(Vector2 input)
     {
         currentAimDirection = input;
@@ -30,6 +33,7 @@ public class PrenticeAttack : MonoBehaviour
         Debug.DrawRay(transform.position, input);
     }
 
+    //Fires colour projectile when aiming and reloaded
     public void Fire(ColourValue colour)
     {
         ChangeProjectile(colour);
@@ -44,6 +48,7 @@ public class PrenticeAttack : MonoBehaviour
         StartCoroutine(Reload());
     }
 
+    //Loads projectile based on colour parameter
     private void ChangeProjectile(ColourValue colour)
     {
         switch (colour)
@@ -63,6 +68,7 @@ public class PrenticeAttack : MonoBehaviour
         }
     }
 
+    //Reload range attackto fire again
     IEnumerator Reload()
     {
         float reloadTime = loadedProjectile.Reload - ReloadReduction;

@@ -11,11 +11,16 @@ public class ShieldPower : MonoBehaviour
     [SerializeField] float shieldDelayAfterWeaponFire = 2f;
     [SerializeField] float shieldRefresh = 0.5f;
 
+    //CACHE REFERENCES
+
     Shield currentShield;
     GameObject currentAimLine;
     Transform cardinal;
     PrenticeAttack rangedWeapon;
 
+    //STATES
+
+    //Determines shield refresh
     float timeSinceWeaponFire = Mathf.Infinity;
     float timeSinceShieldDestroyed = Mathf.Infinity;
 
@@ -24,6 +29,7 @@ public class ShieldPower : MonoBehaviour
         cardinal = GameObject.FindWithTag("Player 1").transform;
         rangedWeapon = GetComponent<PrenticeAttack>();
     }
+
     private void OnEnable()
     {
         rangedWeapon.onFire += ResetWeaponFireTimer;
@@ -34,14 +40,15 @@ public class ShieldPower : MonoBehaviour
         rangedWeapon.onFire -= ResetWeaponFireTimer;
     }
 
+    //Put up shield
     public void Protect(Vector2 dir)
     {
-        DisplayAim(dir);
+        DisplayAim(dir); 
 
         if (dir.Equals(Vector2.zero) || 
-            timeSinceWeaponFire < shieldDelayAfterWeaponFire)
+            timeSinceWeaponFire < shieldDelayAfterWeaponFire) //Shield removed when not aiming or recently fired
         {
-            if (currentShield != null)
+            if (currentShield != null) 
             {
                 currentShield.onDestroy -= DestroyShield;
                 Destroy(currentShield.gameObject);
@@ -49,18 +56,19 @@ public class ShieldPower : MonoBehaviour
             return;
         }
 
-        if (currentShield == null && timeSinceShieldDestroyed > shieldRefresh)
+        if (currentShield == null && timeSinceShieldDestroyed > shieldRefresh) // Instantiate shield
         {
             currentShield = Instantiate(shieldPrefab, cardinal);
-            currentShield.onDestroy += DestroyShield;
+            currentShield.onDestroy += DestroyShield; //Track if shield is destroyed by touching enemy
         }
 
         PositionShield(dir);
     }
 
+    //Displays faint aim line
     private void DisplayAim(Vector2 dir)
     {
-        if (dir.Equals(Vector2.zero) || currentShield != null)
+        if (dir.Equals(Vector2.zero) || currentShield != null) //Remove if shield present or not aiming
         {
             if (currentAimLine != null) Destroy(currentAimLine);
         }
@@ -75,6 +83,7 @@ public class ShieldPower : MonoBehaviour
         PositionAimLine(dir);
     }
 
+    //Position current aim line (same as shield)
     private void PositionAimLine(Vector2 dir)
     {
         if (currentAimLine == null) return;
@@ -85,16 +94,18 @@ public class ShieldPower : MonoBehaviour
         currentAimLine.transform.right = dir;
     }
 
+    //Positions current shield 
     private void PositionShield(Vector2 dir)
     {
         if (currentShield == null) return;
 
-        Vector3 v3Dir = new Vector3(dir.x, dir.y, 0f);
-        Vector3 shieldPos = cardinal.position + v3Dir * shieldDistance;
-        currentShield.transform.position = shieldPos;
-        currentShield.transform.right = dir;
+        Vector3 v3Dir = new Vector3(dir.x, dir.y, 0f); 
+        Vector3 shieldPos = cardinal.position + v3Dir * shieldDistance; 
+        currentShield.transform.position = shieldPos; //Position shield in pointed direction
+        currentShield.transform.right = dir; //Rotate shield to face pointed direction
     }
     
+    //Called when event for weapon fire triggered
     private void ResetWeaponFireTimer()
     {
         timeSinceWeaponFire = 0f;
