@@ -49,9 +49,17 @@ public class LevelCompleteUI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Cardinal")
+        if (other.gameObject.name == "Cardinal" || other.gameObject.name == "Head")
         {
-            LevelComplete();
+            if (this.gameObject.name == "LevelCompleteObject")
+            {
+                CheckCoins();
+            }
+            else
+            {
+                LevelComplete();
+            }
+
         }
     }
 
@@ -80,7 +88,6 @@ public class LevelCompleteUI : MonoBehaviour
 
     public void LevelComplete()
     {
-        if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
         {
             PlayerPrefs.SetInt("Level1Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
@@ -89,19 +96,26 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
                 levelComplete = true;
-
+                //Disable the controller inputs to "freeze" the player as such
+                CardinalController cardinalController = (CardinalController)GameObject.FindObjectOfType(typeof(CardinalController));
+                cardinalController.BlockInput = true;
+                PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
+                prenticeController.BlockInput = true;
             }
+
+        }
+    }
+    void CheckCoins()
+    {
+        if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
+        {
+            Destroy(this.gameObject);
         }
         else
-
         {
-            //Code to display the "Not enough coins" prompt.
             GameObject NotEnoughCoins = GameObject.Find("NotEnoughCoins");
             Text text = NotEnoughCoins.GetComponent<Text>();
             text.enabled = true;
-      
         }
-
     }
-
 }
