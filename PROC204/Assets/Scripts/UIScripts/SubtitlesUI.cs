@@ -52,18 +52,22 @@ public class SubtitlesUI : MonoBehaviour
     }
     public void TargetTutorial()
     {
+        SubtitlesCanvas.enabled = true;
         StartCoroutine("TargetTutorialSubtitles");
     }
     public void EnemyTutorial()
     {
+        SubtitlesCanvas.enabled = true;
         StartCoroutine("EnemyTutorialSubtitles");
     }
     public void BlueEnemies()
     {
+        SubtitlesCanvas.enabled = true;
         StartCoroutine("BlueEnemiesSubtitles");
     }
     public void LevelOneComplete()
     {
+        SubtitlesCanvas.enabled = true;
         StartCoroutine("EndOfLevelOneSubtitles");
     }
     IEnumerator DisplaySubtitle()

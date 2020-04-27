@@ -14,6 +14,7 @@ public class LevelCompleteUI : MonoBehaviour
     Canvas mainCanvas;
     Canvas LevelCompleteCanvas;
     bool endUnlocked;
+    bool level1 = false;
     void Start()
     {
         endUnlocked = false;
@@ -23,6 +24,10 @@ public class LevelCompleteUI : MonoBehaviour
         GameObject LevelCompleteCanvasObj = GameObject.Find("LevelCompUI Canvas");
         LevelCompleteCanvas = LevelCompleteCanvasObj.GetComponent<Canvas>();
         LevelCompleteCanvas.enabled = false;
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            level1 = true;
+        }
     }
 
     // Update is called once per frame
@@ -31,7 +36,7 @@ public class LevelCompleteUI : MonoBehaviour
         if (levelComplete == true)
         {
             LevelCompleteCanvas.enabled = true;
-            if (Gamepad.all[0].buttonSouth.isPressed == true)
+            if (Gamepad.all[0].buttonSouth.isPressed == true && level1 == true)
             {
                 StartCoroutine("Fade"); //Starts coroutine for the fading animation
                 PlayerPrefs.SetInt("Level1Completed", 1); //1 for level complete, 0 is for when they have not started level
@@ -49,9 +54,21 @@ public class LevelCompleteUI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Cardinal")
+        if (other.gameObject.name == "Cardinal" || other.gameObject.name == "Head")
         {
-            LevelComplete();
+            if (this.gameObject.name == "LevelCompleteObject")
+            {
+                CheckCoins();
+            }
+            else if (this.gameObject.name == "Level2CompleteObject")
+            {
+                CheckCoinsL2();
+            }
+            else
+            {
+                LevelComplete();
+            }
+            
         }
     }
 
@@ -80,7 +97,6 @@ public class LevelCompleteUI : MonoBehaviour
 
     public void LevelComplete()
     {
-        if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
         {
             PlayerPrefs.SetInt("Level1Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
@@ -89,19 +105,39 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
                 levelComplete = true;
-
+                //Disable the controller inputs to "freeze" the player as such
+                CardinalController cardinalController = (CardinalController)GameObject.FindObjectOfType(typeof(CardinalController));
+                cardinalController.BlockInput = true;
+                PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
+                prenticeController.BlockInput = true;
             }
+
+        }
+    }
+    void CheckCoins()
+    {
+        if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
+        {
+            Destroy(this.gameObject);
         }
         else
-
         {
-            //Code to display the "Not enough coins" prompt.
             GameObject NotEnoughCoins = GameObject.Find("NotEnoughCoins");
             Text text = NotEnoughCoins.GetComponent<Text>();
             text.enabled = true;
-      
         }
-
     }
-
+    void CheckCoinsL2()
+    {
+        if (PlayerPrefs.GetInt("Level2EndUnlocked") == 1)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            GameObject NotEnoughCoins = GameObject.Find("NotEnoughCoins");
+            Text text = NotEnoughCoins.GetComponent<Text>();
+            text.enabled = true;
+        }
+    }
 }
