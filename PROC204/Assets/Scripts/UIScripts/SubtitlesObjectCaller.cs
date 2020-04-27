@@ -7,9 +7,22 @@ public class SubtitlesObjectCaller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("DiaTriggerStartPlayed", 0);
-        PlayerPrefs.SetInt("DiaTriggerTargetPlayed", 0);
-        PlayerPrefs.SetInt("DiaTriggerBluePlayed", 0);
+        if (PlayerPrefs.GetInt("DiaTriggerStartPlayed") == 1)
+        {
+            Debug.Log("Tutorial Start already triggered before!");
+            Destroy(GameObject.Find("DiaTriggerStart"));
+            Destroy(GameObject.Find("DiaTriggerTargetBlock"));
+        }
+        if (PlayerPrefs.GetInt("DiaTriggerTargetPlayed") == 1)
+        {
+            Destroy(GameObject.Find("DiaTriggerTarget"));
+            Destroy(GameObject.Find("DiaTriggerTargetBlock"));
+        }
+        if (PlayerPrefs.GetInt("DiaTriggerBluePlayed") == 1)
+        {
+            Destroy(GameObject.Find("DiaTriggerBlue"));
+            Destroy(GameObject.Find("DiaTriggerBlueBlock"));
+        }
     }
 
     // Update is called once per frame
@@ -26,13 +39,6 @@ public class SubtitlesObjectCaller : MonoBehaviour
         AudioSource audio = UI.GetComponent<AudioSource>();
         if (this.gameObject.name == "DiaTriggerStart")
         {
-            if (PlayerPrefs.GetInt("DiaTriggerStartPlayed") == 1)
-            {
-                Debug.Log("Tutorial Start already triggered before!");
-                Destroy(this.gameObject);
-                Destroy(GameObject.Find("DiaTriggerTargetBlock"));
-            }
-            else
             {
                 Destroy(this.gameObject);
                 subtitles.StopAllCoroutines();
@@ -45,38 +51,22 @@ public class SubtitlesObjectCaller : MonoBehaviour
         }
         else if (this.gameObject.name == "DiaTriggerTarget")
         {
-            if (PlayerPrefs.GetInt("DiaTriggerTargetPlayed") == 1)
-            {
-                Debug.Log("Tutorial Target already triggered before!");
-                Destroy(this.gameObject);
-                Destroy(GameObject.Find("DiaTriggerBlueBlock"));
-            }
-            else
-            {
+            
                 subtitles.StopAllCoroutines();
                 audio.Stop();
                 PlayerPrefs.SetInt("DiaTriggerTargetPlayed", 1);
                 subtitles.TargetTutorial();
                 Destroy(this.gameObject);
-            }
+            
 
         }
         else if (this.gameObject.name == "DiaTriggerBlue")
         {
-            if (PlayerPrefs.GetInt("DiaTriggerBluePlayed") == 1)
-            {
-                Debug.Log("Tutorial Blue already triggered before!");
-                Destroy(this.gameObject);
-                Destroy(GameObject.Find("DiaTriggerEndBlock"));
-            }
-            else
-            {
-                subtitles.StopAllCoroutines();
-                audio.Stop();
-                PlayerPrefs.SetInt("DiaTriggerBluePlayed", 1);
-                subtitles.BlueEnemies();
-                Destroy(this.gameObject);
-            }
+        subtitles.StopAllCoroutines();
+        audio.Stop();
+        PlayerPrefs.SetInt("DiaTriggerBluePlayed", 1);
+        subtitles.BlueEnemies();
+        Destroy(this.gameObject);
 
         }
         else if (this.gameObject.name == "DiaTriggerEndL1" && other.gameObject.transform.parent.name == "Cardinal" )

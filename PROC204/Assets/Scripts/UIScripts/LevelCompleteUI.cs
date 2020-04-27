@@ -14,6 +14,7 @@ public class LevelCompleteUI : MonoBehaviour
     Canvas mainCanvas;
     Canvas LevelCompleteCanvas;
     bool endUnlocked;
+    bool level1 = false;
     void Start()
     {
         endUnlocked = false;
@@ -23,6 +24,10 @@ public class LevelCompleteUI : MonoBehaviour
         GameObject LevelCompleteCanvasObj = GameObject.Find("LevelCompUI Canvas");
         LevelCompleteCanvas = LevelCompleteCanvasObj.GetComponent<Canvas>();
         LevelCompleteCanvas.enabled = false;
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            level1 = true;
+        }
     }
 
     // Update is called once per frame
@@ -31,7 +36,7 @@ public class LevelCompleteUI : MonoBehaviour
         if (levelComplete == true)
         {
             LevelCompleteCanvas.enabled = true;
-            if (Gamepad.all[0].buttonSouth.isPressed == true)
+            if (Gamepad.all[0].buttonSouth.isPressed == true && level1 == true)
             {
                 StartCoroutine("Fade"); //Starts coroutine for the fading animation
                 PlayerPrefs.SetInt("Level1Completed", 1); //1 for level complete, 0 is for when they have not started level
