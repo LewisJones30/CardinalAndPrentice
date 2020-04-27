@@ -55,11 +55,15 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 CheckCoins();
             }
+            else if (this.gameObject.name == "Level2CompleteObject")
+            {
+                CheckCoinsL2();
+            }
             else
             {
                 LevelComplete();
             }
-
+            
         }
     }
 
@@ -108,6 +112,19 @@ public class LevelCompleteUI : MonoBehaviour
     void CheckCoins()
     {
         if (PlayerPrefs.GetInt("LevelEndUnlocked") == 1)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            GameObject NotEnoughCoins = GameObject.Find("NotEnoughCoins");
+            Text text = NotEnoughCoins.GetComponent<Text>();
+            text.enabled = true;
+        }
+    }
+    void CheckCoinsL2()
+    {
+        if (PlayerPrefs.GetInt("Level2EndUnlocked") == 1)
         {
             Destroy(this.gameObject);
         }
