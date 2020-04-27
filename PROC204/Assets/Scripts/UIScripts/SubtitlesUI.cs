@@ -16,9 +16,6 @@ public class SubtitlesUI : MonoBehaviour
     float subtitleDuration = 0f;
     public int currentAudioClipNumber = -1;
     public AudioSource audio;
-
-
-
     void Start()
     {
         SubtitlesCanvas = this.gameObject.GetComponent<Canvas>();
@@ -30,7 +27,6 @@ public class SubtitlesUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
 

@@ -14,20 +14,24 @@ public class Mover : MonoBehaviour
     [SerializeField] float normalAirSpeedMultiplier = 1.5f;
     [SerializeField] float flySpeed = 10f;
 
+    //PROPERTIES
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
     public bool IsDashing { get; set; } = false;
     public bool IsStuck { get => charPhysics.IsStuck; }
     public float MaxSpeed { get => runSpeed; }
-    
+
+    //CACHE REFERENCES    
     Animator animator;
     CharacterController charController;
     CharacterPhysics charPhysics;
     Health health;
 
+    //STATES
     bool isJumpInput = false;
     bool canRoll = true;
 
+    //Used when setting layer back to default 
     string layerName;
 
     private void Awake()
@@ -45,6 +49,8 @@ public class Mover : MonoBehaviour
         PassPlatforms();
     }
 
+    //Swaps layers so character can pass through platforms when jumping from under them
+    //Reserved for Cardinal only
     private void PassPlatforms()
     {
         bool canPass;
@@ -56,28 +62,32 @@ public class Mover : MonoBehaviour
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer(layerName), LayerMask.NameToLayer("Platform"), canPass);
     }
 
+    //Rolling allows character to pass through other character colliders
+    //and dodge incoming projectiles
     public void SetRolling(bool isRolling)
     {
         if (isRolling) gameObject.layer = LayerMask.NameToLayer("Passable");
+
+        //Layer should remain passable if character dies
         else if (!health.IsDead) gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 
     public void Move(Vector3 input, float speedFraction)
     {
-        if (Mathf.Abs(input.x) < Mathf.Epsilon && Mathf.Abs(input.y) < Mathf.Epsilon) return;
+        if (Mathf.Abs(input.x) < Mathf.Epsilon && Mathf.Abs(input.y) < Mathf.Epsilon) return; //No input?
 
-        float moveSpeed = runSpeed * speedFraction;
+        float moveSpeed = runSpeed * speedFraction; //Speed fraction used by AI to set walk / run speed etc.
 
-        if (IsDashing) input.x = Mathf.Sign(input.x);
+        if (IsDashing) input.x = Mathf.Sign(input.x); //Running speed is constant irrespective of smaller input values
 
-        if (IsDashing && charPhysics.HasJumped) moveSpeed *= dashAirSpeedMultiplier;
-        else if (IsDashing) moveSpeed *= dashSpeedMultiplier;
-        else if (charPhysics.HasJumped) moveSpeed *= normalAirSpeedMultiplier;
+        if (IsDashing && charPhysics.HasJumped) moveSpeed *= dashAirSpeedMultiplier; //Running and in the air
+        else if (IsDashing) moveSpeed *= dashSpeedMultiplier; //Running on the ground
+        else if (charPhysics.HasJumped) moveSpeed *= normalAirSpeedMultiplier; //Walking and in the air
 
         input.x *= moveSpeed;
         input.y *= flySpeed;
 
-        charPhysics.PlayerMove(input);
+        charPhysics.EntityMove(input);
 
         Turn(input.x);
     }    
@@ -96,6 +106,7 @@ public class Mover : MonoBehaviour
         canRoll = true;
     }
 
+    //Flip character model depeding on move direction
     public void Turn(float input)
     {
         if (Mathf.Abs(input) < Mathf.Epsilon) return;
@@ -128,6 +139,7 @@ public class Mover : MonoBehaviour
         return charController.velocity;
     }
 
+    //Animation events IGNORE
     void FootL() { }
     void FootR() { }
 }
