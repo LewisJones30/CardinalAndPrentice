@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RPG.Audio
-{
     public class RandomAudioPlayer : MonoBehaviour
     {
         [Range(0f, 1f)]
@@ -25,5 +23,5 @@ namespace RPG.Audio
             audioSource.Play();
         }
     }
-}
+
 

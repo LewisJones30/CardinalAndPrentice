@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         {
             GameObject instance = Instantiate(projectileHitFX, other.ClosestPointOnBounds(transform.position), Quaternion.identity); //Hit VFX
             Destroy(instance, 10f);
-        }       
+        }
 
         Destroy(gameObject);
     }

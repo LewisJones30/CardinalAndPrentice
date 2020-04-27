@@ -10,6 +10,7 @@ public class ShieldPower : MonoBehaviour
     [SerializeField] float shieldDistance = 3f;
     [SerializeField] float shieldDelayAfterWeaponFire = 2f;
     [SerializeField] float shieldRefresh = 0.5f;
+    [SerializeField] RandomAudioPlayer destroyShieldPlayer;
 
     //CACHE REFERENCES
 
@@ -115,6 +116,7 @@ public class ShieldPower : MonoBehaviour
     {
         timeSinceShieldDestroyed = 0f;
         currentShield.onDestroy -= DestroyShield;
+        destroyShieldPlayer.PlayRandomAudio();
         Destroy(currentShield.gameObject);
     }
 

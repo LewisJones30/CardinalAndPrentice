@@ -10,6 +10,10 @@ public class MeleeWeapon : Weapon
     [SerializeField] ParticleSystem slashEffect;
     [SerializeField] float stunTimeWhenParried = 2f;
 
+    [Header("Sound FX")]
+    [SerializeField] RandomAudioPlayer swingPlayer;
+    [SerializeField] RandomAudioPlayer hitPlayer;
+
     public override float AttackRate { get => attackRate; }
 
     //CACHE REFERENCES
@@ -75,7 +79,11 @@ public class MeleeWeapon : Weapon
             {
                 bool success = enemy.TakeDamage(damage, mover.Position); //successful if enemy not parrying
 
-                if (success) onDealDamage?.Invoke();
+                if (success)
+                {
+                    onDealDamage?.Invoke();
+                    hitPlayer?.PlayRandomAudio();
+                }
                 else combatTarget.Stun(stunTimeWhenParried); //stunned if attack unsuccessful
             }
         }        
@@ -109,6 +117,7 @@ public class MeleeWeapon : Weapon
         isReady = false;
 
         animator.SetTrigger("attackTrigger");
+        swingPlayer?.PlayRandomAudio(); 
 
         Invoke(nameof(WeaponReady), attackRate);
     }
