@@ -7,6 +7,7 @@ public class Cactus : MonoBehaviour
     [SerializeField] float damageRate = 1f;
     [SerializeField] int damage = 1;
     [SerializeField] float lifeTime = 30f;
+    [SerializeField] RandomAudioPlayer despawnPlayer;
 
     //STATES
 
@@ -85,6 +86,7 @@ public class Cactus : MonoBehaviour
     {
         yield return new WaitForSeconds(lifeTime);
         cactiCount--;
+        despawnPlayer.PlayRandomAudio();
         animator.SetTrigger("DeathTrigger");
         Destroy(gameObject, 1f); //Delay destroy for animation
     }

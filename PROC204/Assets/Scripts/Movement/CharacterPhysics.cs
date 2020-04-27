@@ -16,6 +16,9 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] float knockBackResistance = 20f;
     [SerializeField] float knockBackDecay = 0.8f;
 
+    [Header("Sound FX")]
+    [SerializeField] RandomAudioPlayer landedPlayer;
+
     //CACHE REFERENCES
 
     CharacterController charController;
@@ -208,6 +211,7 @@ public class CharacterPhysics : MonoBehaviour
     {
         if (charController.isGrounded)
         {
+            if (HasJumped) landedPlayer.PlayRandomAudio(); //Play land on ground sound FX
             airTime = 0f;
             HasJumped = false;
         }

@@ -14,6 +14,11 @@ public class Mover : MonoBehaviour
     [SerializeField] float normalAirSpeedMultiplier = 1.5f;
     [SerializeField] float flySpeed = 10f;
 
+    [Header("Sound FX")]
+    [SerializeField] RandomAudioPlayer normalFootstepsPlayer;
+    [SerializeField] RandomAudioPlayer runFootstepsPlayer;
+    [SerializeField] RandomAudioPlayer rollPlayer;
+
     //PROPERTIES
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
@@ -97,7 +102,8 @@ public class Mover : MonoBehaviour
         if (!canRoll || !charController.isGrounded) return;
 
         canRoll = false;
-        animator.SetTrigger("rollTrigger");        
+        animator.SetTrigger("rollTrigger");
+        rollPlayer.PlayRandomAudio();
         Invoke(nameof(EnableRoll), rollCooldown);
     }
 
@@ -121,7 +127,11 @@ public class Mover : MonoBehaviour
     // and play the jump animation
     public void Jump()
     {
-        if (charPhysics.Jump(jumpForce)) animator.SetTrigger("jumpTrigger");
+        if (charPhysics.Jump(jumpForce))
+        {
+            runFootstepsPlayer.PlayRandomAudio(); //Play jump sound
+            animator.SetTrigger("jumpTrigger");
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -139,7 +149,16 @@ public class Mover : MonoBehaviour
         return charController.velocity;
     }
 
-    //Animation events IGNORE
-    void FootL() { }
-    void FootR() { }
+    //Animation events to play step sound effects
+    void Step()
+    {
+        if (IsDashing) return;
+        normalFootstepsPlayer.PlayRandomAudio();
+    }
+
+    void RunStep()
+    {
+        if (!IsDashing) return;
+        runFootstepsPlayer.PlayRandomAudio();
+    }
 }
