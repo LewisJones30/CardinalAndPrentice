@@ -87,6 +87,7 @@ public class SubtitlesUI : MonoBehaviour
     {
 
         currentSubtitleNumber = currentSubtitleNumber + 1;
+        SubtitlesCanvas.enabled = true;
 
         //Element 0, first line of the starting game - "Cardinal and his wizard apprentice"
         audio.PlayOneShot(subtitleClips[0]);
@@ -185,6 +186,7 @@ public class SubtitlesUI : MonoBehaviour
     {
         //Element 11 and onwards required, gamestart uses 0-10. (Sprites)
         //For clips, start at element 3.
+        SubtitlesCanvas.enabled = true;
         currentSubtitleNumber = 10;
         //Element 11 - Gate Locked sprite
         audio.PlayOneShot(subtitleClips[3]);
@@ -207,90 +209,98 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(4.2f);
         Destroy(GameObject.Find("DiaTriggerBlueBlock"));
-    }
+        yield return new WaitForSeconds(5f);
+        SubtitlesCanvas.enabled = false;
 
-    IEnumerator EnemyTutorialSubtitles()
-    {
-        //Element 14 and onwards required. 0-13 used by TargetTutorial and gameStartSubtitles.
-        //For clips, starts at element 4.
-        currentSubtitleNumber = 13;
-        //Element 14 - Evil Knights
+        IEnumerator EnemyTutorialSubtitles()
+        {
+            //Element 14 and onwards required. 0-13 used by TargetTutorial and gameStartSubtitles.
+            //For clips, starts at element 4.
+            SubtitlesCanvas.enabled = true;
+            currentSubtitleNumber = 13;
+            //Element 14 - Evil Knights
 
-        audio.PlayOneShot(subtitleClips[4]);
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(4f);
+            audio.PlayOneShot(subtitleClips[4]);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(4f);
 
-        //Element 15 - Whack
+            //Element 15 - Whack
 
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(2f);
-    }
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(2f);
+        }
 
-    IEnumerator BlueEnemiesSubtitles()
-    {
-        //Element 16 and onwards required.
-        //Clips start at element 5.
+        IEnumerator BlueEnemiesSubtitles()
+        {
+            //Element 16 and onwards required.
+            //Clips start at element 5.
 
-        currentSubtitleNumber = 15;
-        //Element 16
-        audio.PlayOneShot(subtitleClips[5]);
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(3f);
+            currentSubtitleNumber = 15;
+            //Element 16
+            audio.PlayOneShot(subtitleClips[5]);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(3f);
 
 
-        //Element 17
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(4f);
+            //Element 17
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(4f);
 
-        //Element 18
-        audio.PlayOneShot(subtitleClips[6]);
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(2f); 
-        Destroy(GameObject.Find("DiaTriggerEndBlock"));
-    }
+            //Element 18
+            audio.PlayOneShot(subtitleClips[6]);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(2f);
+            Destroy(GameObject.Find("DiaTriggerEndBlock"));
+            yield return new WaitForSeconds(5f);
+            SubtitlesCanvas.enabled = false;
+        }
 
-    IEnumerator EndOfLevelOneSubtitles()
-    {
-        //Starts at Element 19.
-        //Clips start at element 7
+        IEnumerator EndOfLevelOneSubtitles()
+        {
+            //Starts at Element 19.
+            //Clips start at element 7
 
-        currentSubtitleNumber = 18;
-        //Element 19
-        audio.PlayOneShot(subtitleClips[7]);
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(3f);
+            currentSubtitleNumber = 18;
+            SubtitlesCanvas.enabled = true;
+            //Element 19
+            audio.PlayOneShot(subtitleClips[7]);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(3f);
 
-        //Element 20
-        audio.PlayOneShot(subtitleClips[8]);
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(0.1f);
+            //Element 20
+            audio.PlayOneShot(subtitleClips[8]);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(0.1f);
 
-        //Element 21
+            //Element 21
 
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(3.5f);
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(3.5f);
 
-        //Element 22
-        currentSubtitleNumber = currentSubtitleNumber + 1;
-        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
-        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
-        yield return new WaitForSeconds(2.75f);
+            //Element 22
+            currentSubtitleNumber = currentSubtitleNumber + 1;
+            currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+            currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+            yield return new WaitForSeconds(2.75f);
+            yield return new WaitForSeconds(5f);
+            SubtitlesCanvas.enabled = false;
+        }
     }
 
 }

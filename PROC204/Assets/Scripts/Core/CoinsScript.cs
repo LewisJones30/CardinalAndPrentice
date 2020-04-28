@@ -9,6 +9,7 @@ public class CoinsScript : MonoBehaviour
     public int coinsCollected = 0;
     Text coinCounter;
     bool level1 = false;
+    [SerializeField] GameObject CoinGateUnlock;
     void Start()
     {
         coinCounter = GameObject.Find("Coins Text").GetComponent<Text>();
@@ -73,6 +74,7 @@ public class CoinsScript : MonoBehaviour
         if (level1 == true)
         {
             PlayerPrefs.SetInt("LevelEndUnlocked", 1); //Unlock end of level 1
+            CoinGateUnlock.GetComponent<Animator>().SetTrigger("openGate");
         }
         else
         {
