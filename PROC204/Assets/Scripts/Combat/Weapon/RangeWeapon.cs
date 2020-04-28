@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangeWeapon : Weapon
 {
     [SerializeField] Transform shootPosition;
-    [SerializeField] Projectile projectile;
+    [SerializeField] Projectile projectilePrefab;
     [SerializeField] float reloadTime = 0.4f;
     [SerializeField] float inaccuracy = 0f;
 
@@ -14,15 +14,18 @@ public class RangeWeapon : Weapon
     [SerializeField] int clipSize = 3;
     [SerializeField] float clipReloadTime = 3f;
 
-    int currentClip;
+    //STATES
 
+    int currentClip;
     Vector3 targetPos;
+
+    //PROPERTIES
 
     public override float AttackRate => reloadTime;
 
     private void Start()
     {
-        currentClip = clipSize;
+        currentClip = clipSize; //full reload at start
     }
 
     public void SetTarget(Vector3 targetPos)
@@ -30,20 +33,23 @@ public class RangeWeapon : Weapon
         this.targetPos = targetPos;
     }
 
+    //Called by animation event from attack
     public void Shoot()
     {
         Vector3 launchPos = new Vector3(shootPosition.position.x, shootPosition.position.y, 0f);
-        Projectile instance = Instantiate(projectile, launchPos, Quaternion.identity);
+        Projectile projectile = Instantiate(projectilePrefab, launchPos, Quaternion.identity);
 
         Vector3 targetDir = targetPos - launchPos;
 
         float randomAccuracy = Random.Range(-inaccuracy, inaccuracy);
 
-        Vector2 aim = new Vector2(targetDir.x + randomAccuracy, targetDir.y  + randomAccuracy);
+        //Slight aim modification depending on inaccuracy of weapon
+        Vector2 aim = new Vector2(targetDir.x + randomAccuracy, targetDir.y  + randomAccuracy); 
 
-        instance.SetDirection(aim.normalized);        
+        projectile.SetDirection(aim.normalized);        
     }
 
+    //Use weapon begins shoot animation
     public override void UseWeapon()
     {        
         if (!isReady) return;
@@ -52,11 +58,11 @@ public class RangeWeapon : Weapon
         animator.SetTrigger("attackTrigger");
 
         float thisReload = reloadTime;
-        if (isBurst)
+        if (isBurst) 
         {
             currentClip--;
 
-            if (currentClip < 1)
+            if (currentClip < 1) //reload longer than normal when reloading clip
             {
                 thisReload = clipReloadTime;
                 currentClip = clipSize;

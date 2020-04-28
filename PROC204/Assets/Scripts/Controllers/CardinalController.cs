@@ -7,15 +7,46 @@ using UnityEngine.SceneManagement;
 
 public class CardinalController : Controller
 {
+    /* SINGLEPLAYER CONTROLS (Cardinal & Prentice)
+     * 
+     * CARDINAL
+     * Move - leftstick
+     * Jump - right shoulder
+     * Attack - right trigger
+     * Roll - lefstick press
+     * Run - left trigger
+     * Parry - left shoulder
+     * 
+     * PRENTICE
+     * Aim - rightstick / D-pad
+     * Shoot yellow - Y XBox / Triangle PS4
+     * Shoot red - B XBox / Circle PS4
+     * Shoot blue - X XBox / Square PS4
+     * Shoot green - A XBox / X PS4
+     * 
+     * MULTIPLAYER CONTROLS (Cardinal only)
+     * 
+     * Move - leftstick
+     * Jump - A XBox / X PS4 / right shoulder
+     * Attack - X XBox / Square PS4 / right trigger
+     * Roll - Y XBox / Triangle PS4 / leftstick press
+     * Run - left trigger
+     * Parry - B XBox / Circle PS4 / left shoulder
+     */
+
+    //CACHE REFERENCES
     Mover mover;
     Fighter fighter;
     Health health;
     CombatTarget combatTarget;
-    Vector2 moveInput;
-
+    
+    //STATES
     bool jumpReset = true;
     bool rollReset = true;
     bool parryReset = true;
+    Vector2 moveInput;
+
+    //Singleplayer or multiplayer controls
     bool isOneController;
 
     void Awake()
@@ -26,19 +57,20 @@ public class CardinalController : Controller
         combatTarget = GetComponent<CombatTarget>();
     }    
 
+    //Input taken each frame
     private void Update()
     {
-        if (Gamepad.all.Count < 1) return;
+        if (Gamepad.all.Count < 1) return; //Controllers plugged in?
 
-        if (Gamepad.all.Count == 1) isOneController = true;
-        else isOneController = false;
+        if (Gamepad.all.Count == 1) isOneController = true; //Singleplayer
+        else isOneController = false; //Multiplayer
 
         var gamepad = Gamepad.all[0];
-        if (gamepad == null) return;
+        if (gamepad == null) return; //Validate first controller
 
         Dead(gamepad);
 
-        if (isFrozen) return;
+        if (isFrozen) return; //Player input blocked?
 
         Move(gamepad);
         Jump(gamepad);
@@ -50,6 +82,7 @@ public class CardinalController : Controller
         mover.Move(moveInput, 1f);
     }
 
+    //Allows player 1 to navigate back to main menu or restart
     private void Dead(Gamepad gamepad)
     {
         if (!health.IsDead) return;
@@ -97,7 +130,7 @@ public class CardinalController : Controller
         if (isOneController) isRolling = gamepad.leftStickButton.IsPressed();
         else isRolling = gamepad.buttonNorth.IsPressed() || gamepad.leftStickButton.IsPressed();
 
-        if (isRolling && rollReset) //B on Xbox, Circle on PS4
+        if (isRolling && rollReset)
         {
             rollReset = false;
             mover.ForwardRoll();
@@ -109,6 +142,7 @@ public class CardinalController : Controller
         }
     }
 
+    //Player can hold down attack to continuously attack
     private void MeleeAttack(Gamepad gamepad)
     {
         bool isAttack;
@@ -118,7 +152,6 @@ public class CardinalController : Controller
         if (isAttack) fighter.Attack();
     }
 
-
     private void Jump(Gamepad gamepad)
     {
         bool isJump;
@@ -126,7 +159,7 @@ public class CardinalController : Controller
         if (isOneController) isJump = gamepad.rightShoulder.IsPressed();
         else isJump = gamepad.buttonSouth.IsPressed() || gamepad.rightShoulder.IsPressed();
 
-        if (isJump && jumpReset) //A on Xbox, X on PS4
+        if (isJump && jumpReset)
         {
             jumpReset = false;
             mover.Jump();
@@ -140,11 +173,11 @@ public class CardinalController : Controller
 
     private void Move(Gamepad gamepad)
     {
-        if (gamepad.leftStick.IsPressed()) //Only moves if player 1 is using the left stick
+        if (gamepad.leftStick.IsPressed())
         {
             moveInput = gamepad.leftStick.ReadValue();
         }
-        else
+        else //No movement if no input
         {
             moveInput = Vector3.zero;
         }

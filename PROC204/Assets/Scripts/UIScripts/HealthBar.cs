@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] float timeUnitlHide = 2f;
+
+    //CACHE REFERENCES
     Health health;
     Slider healthBar;
     Canvas canvas;
 
+    //STATES
     float timeSinceHealthChange = 0f;
 
     private void Awake()
@@ -38,6 +41,7 @@ public class HealthBar : MonoBehaviour
     {
         timeSinceHealthChange += Time.deltaTime;
 
+        //Hide health bar when time since damage passes set time
         if (timeSinceHealthChange > timeUnitlHide || health.IsDead) HideDisplay(true);
     }
 
@@ -49,6 +53,8 @@ public class HealthBar : MonoBehaviour
         healthBar.value = health.HealthPoints;
     }
 
+    //Health bar hidden after time of recieving damage is passed
+    //or character is dead to avoid clutter of UI
     void HideDisplay(bool isHidden)
     {
         canvas.enabled = !isHidden;

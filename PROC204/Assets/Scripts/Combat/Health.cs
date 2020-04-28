@@ -7,11 +7,15 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int health = 50;
 
+    //CACHE REFERENCES
+
     Animator animator;
     ParticleSystem sleepParticle;
 
     public delegate void OnHealthChange();
     public event OnHealthChange onHealthChange;
+
+    //PROPERTIES
 
     public bool IsDead { get; private set; } = false;
     public int HealthPoints { get { return health; } }
@@ -23,6 +27,7 @@ public class Health : MonoBehaviour
         sleepParticle = GetComponent<ParticleSystem>();
     }
 
+    //Change in health can be positive or negative
     public void ChangeHealth(int value)
     {
         if (IsDead) return;
@@ -37,12 +42,15 @@ public class Health : MonoBehaviour
     protected virtual void Die()
     {
         IsDead = true;
-        BroadcastMessage("DeadUpdate", true, SendMessageOptions.DontRequireReceiver);
 
+        //Notify controllers to block inputs from player or AI
+        BroadcastMessage("DeadUpdate", true, SendMessageOptions.DontRequireReceiver); 
+
+        //Enable walking through dead entity colliders
         gameObject.layer = LayerMask.NameToLayer("Passable");
 
         if (animator != null) animator.SetTrigger("Die");
-        if (sleepParticle != null) sleepParticle.Play();
+        if (sleepParticle != null) sleepParticle.Play(); //Sleeping VFX
     }
 
 }

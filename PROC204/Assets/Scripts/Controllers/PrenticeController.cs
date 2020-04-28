@@ -6,13 +6,21 @@ using UnityEngine.InputSystem;
 
 public class PrenticeController : Controller
 {
-    Health health;
+    /* PRENTICE CONTROLS (Controller 2)
+     * 
+     * Aim - rightstick / D-pad
+     * Shoot yellow - Y XBox / Triangle PS4
+     * Shoot red - B XBox / Circle PS4
+     * Shoot blue - X XBox / Square PS4
+     * Shoot green - A XBox / X PS4
+     */
+
+    //CACHE REFERENCES
     PrenticeAttack rangedWeapon;
     ShieldPower shield;
     
     void Awake()
     {
-        health = GetComponentInParent<Health>();
         rangedWeapon = GetComponent<PrenticeAttack>();
         shield = GetComponent<ShieldPower>();
     }
@@ -21,7 +29,7 @@ public class PrenticeController : Controller
     {
         if (isFrozen) return;
 
-        if (Gamepad.all.Count < 1) return;
+        if (Gamepad.all.Count < 1) return; //Must have at least 2 controller connected
 
         Gamepad gamepad;
         
@@ -88,6 +96,7 @@ public class PrenticeController : Controller
             aim = Vector2.zero;
         }
 
+        //Aim shield and projectiles
         shield.Protect(aim);
         rangedWeapon.Aim(aim);
     }

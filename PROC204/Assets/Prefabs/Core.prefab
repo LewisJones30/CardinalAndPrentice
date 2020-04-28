@@ -750,7 +750,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3739404358113489359}
   - component: {fileID: 3739404358113489358}
-  - component: {fileID: 3739404358113489357}
   - component: {fileID: 3739404358113489356}
   m_Layer: 0
   m_Name: Main Camera
@@ -767,7 +766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3739404358113489363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.1850257, z: -15}
+  m_LocalPosition: {x: 0, y: 2.1850257, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3739404358617462215}
@@ -816,14 +815,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3739404358113489357
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3739404358113489363}
-  m_Enabled: 1
 --- !u!114 &3739404358113489356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,6 +1248,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cardinal
       objectReference: {fileID: 0}
+    - target: {fileID: 5062185958967131555, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7399632264235643804, guid: db53ccecd76169d44b03a3d5c633c555,
         type: 3}
       propertyPath: m_Name
@@ -1278,6 +1274,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6443878084080415284, guid: 9a18d3b5df9851a489e6483d13c7e1b0,
         type: 3}
+    - target: {fileID: 8420279005296712935, guid: db53ccecd76169d44b03a3d5c633c555,
+        type: 3}
+      propertyPath: shieldRefresh
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9050173092880031997, guid: db53ccecd76169d44b03a3d5c633c555,
         type: 3}
       propertyPath: dashAirSpeedMultiplier

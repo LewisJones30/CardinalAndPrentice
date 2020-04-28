@@ -16,16 +16,30 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] float knockBackResistance = 20f;
     [SerializeField] float knockBackDecay = 0.8f;
 
+    [Header("Sound FX")]
+    [SerializeField] RandomAudioPlayer landedPlayer;
+
+    //CACHE REFERENCES
+
     CharacterController charController;
     CombatTarget combatTarget;
     Animator animator;
 
+    //STATES
+
+    //time since touching the ground
     float airTime = 0f;
+
+    //Time until character can be controlled
+    //Otherwise character affected by knockback forces
     float knockOutTimeRemaining = 0f;
+
+    //Prevents head jumping
     bool isSlipping = false;
 
-    // Stores player movement for that frame
-    Vector3 playerMovement;
+    // Stores desired movement for that frame depending
+    //on controller input
+    Vector3 desiredMovement;
 
     //Stored movement values effected by drag and gravity
     Vector2 characterVelocity;
@@ -33,12 +47,16 @@ public class CharacterPhysics : MonoBehaviour
     // Blocks player movement during knockback
     Coroutine knockBackProgress;
 
+    //PROPERTIES
+
     public bool IsStuck { get; private set; } = false;
 
     //Is true when the character is in the
     //air because of jumping
     public bool HasJumped { get; private set; } = false;
 
+    //Knockback ID prevents a knockback force from an entity
+    //from being passed on to another entity more than once
     public float KnockBackID { get; private set; }
 
     private void Awake()
@@ -48,51 +66,61 @@ public class CharacterPhysics : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    //Ensures all input is taken from Update() and then movement
+    //is applied afterwards
     private void LateUpdate()
     {
-        ApplyPlayerMovement();
+        ApplyDesiredCharacterMovement();
         CheckFalling();
 
+        //Keeps entity on the Z axis on 2D sideon environment
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
-    private void ApplyPlayerMovement()
+    //When entity is not knockedback they are free to move in any direction they want
+    //at a constant horizontal speed
+    private void ApplyDesiredCharacterMovement()
     {
         if (knockBackProgress != null) return;
 
-        ApplyGravity();
+        ApplyGravity(); //Only external force that is applied when entity controls movement
 
-        characterVelocity.y += playerMovement.y;
-        playerMovement.y = characterVelocity.y;
+        characterVelocity.y += desiredMovement.y; //Add flying force to overall character velocity
+        desiredMovement.y = characterVelocity.y; //Vertical movement not directly controlled
 
-        var flags = charController.Move(playerMovement * Time.deltaTime);
+        var flags = charController.Move(desiredMovement * Time.deltaTime);
         ProcessFlags(flags);
 
-        if (!isSlipping) animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x));
-        else animator.SetFloat("forwardSpeed", 0f);
+        if (!isSlipping) animator.SetFloat("forwardSpeed", Mathf.Abs(charController.velocity.x)); //animate movement
+        else animator.SetFloat("forwardSpeed", 0f); //no movement animation when slipping
 
-        playerMovement = Vector3.zero;
+        desiredMovement = Vector3.zero; //reset input movement
     }
 
+    //Character assumed stuck when collsion on the sides of character collider
+    //Used by AI controller to traverse blocking obstacles or entities
     private void ProcessFlags(CollisionFlags flags)
     {
         if (flags.HasFlag(CollisionFlags.Sides)) IsStuck = true;
         else IsStuck = false;
     }
 
+    //Knocks back this entity by set force and blocks input for set duration
+    //ID prevents same knockback force from being applied more than once to this entity
     public void KnockBack(Vector3 force, float duration, float id)
     {
         KnockBackID = id;
-        if (force.magnitude <= knockBackResistance) return;
+        if (force.magnitude <= knockBackResistance) return; //Entity can ignore small knockback forces depending on their resistance
 
-        if (knockBackProgress != null) StopCoroutine(knockBackProgress);
-        knockBackProgress = StartCoroutine(KnockBackProgress(force, duration));
-        combatTarget.Stun(duration);
+        if (knockBackProgress != null) StopCoroutine(knockBackProgress); //Reset knockback progress
+        knockBackProgress = StartCoroutine(KnockBackProgress(force, duration)); //Apply knockback force for duration
+        combatTarget.Stun(duration); //Block input by stun
     }
 
+    //Runs for duration of set knockback time while input is blocked
     IEnumerator KnockBackProgress(Vector3 force, float duration)
     {
-        characterVelocity = force;
+        characterVelocity = force; //Immediately apply full knockback force
 
         float time = 0f;
 
@@ -102,41 +130,47 @@ public class CharacterPhysics : MonoBehaviour
             knockOutTimeRemaining = duration - time;
 
             ApplyGravity();
-            ApplyDrag();
+            ApplyDrag(); //Slows horizontal knockback force overtime
 
             charController.Move(characterVelocity * Time.deltaTime);
 
             yield return null;
         }
 
-        playerMovement = Vector3.zero;
+        desiredMovement = Vector3.zero; //Ensures input remains blocked and reset
 
-        knockBackProgress = null;
+        knockBackProgress = null; //Knockback progress finished
     }
 
+    //Only used during knockback to slow horizontal force
     private void ApplyDrag()
     {
-        if (isSlipping) return;
+        if (isSlipping) return; //Slip force must remain constant
         characterVelocity.x *= 1 - horizontalDrag;
-        if (charController.isGrounded) characterVelocity.x *= 1 - groundFriction;
+        if (charController.isGrounded) characterVelocity.x *= 1 - groundFriction; //Character slows significantly faster when touching ground
     }
 
-    public bool PlayerMove(Vector3 movement)
+    //Sets input from mover
+    //Cannot take input when character knockedback or slipping
+    public bool EntityMove(Vector3 movement)
     {
         if (knockBackProgress != null || isSlipping) return false;
 
-        playerMovement = movement;
-        if (!isFlying) playerMovement.y = 0f;
+        desiredMovement = movement;
+        if (!isFlying) desiredMovement.y = 0f; //Only move veritcally when flying
         
         return true;
     }    
 
+    //Called when character is on head of another character
+    //Prevents sustained standing on other character heads
     public void SlipMove(float horizontalForce)
     {
         isSlipping = true;
-        playerMovement.x = horizontalForce;
+        desiredMovement.x = horizontalForce;
     }
 
+    //Input is allowed to be taken again
     public void FinishSlip()
     {
         isSlipping = false;
@@ -162,24 +196,28 @@ public class CharacterPhysics : MonoBehaviour
         }
     }
 
+    //Can only jump when touching ground
     public bool Jump(float jumpForce)
     {
-        if (!charController.isGrounded) return false;
+        if (!charController.isGrounded) return false; 
 
         HasJumped = true;            
         characterVelocity.y = jumpForce;
         return true;
     }
 
+    //Sets fall animation when in the air
     private void CheckFalling()
     {
         if (charController.isGrounded)
         {
+            if (HasJumped) landedPlayer.PlayRandomAudio(); //Play land on ground sound FX
             airTime = 0f;
             HasJumped = false;
         }
         else airTime += Time.deltaTime;
 
+        //Prevents fall animation from playing if air time is below a certain threshold
         bool isFalling;
         if (!charController.isGrounded && airTime > fallingAnimationDelay) isFalling = true;
         else isFalling = false;
@@ -187,12 +225,14 @@ public class CharacterPhysics : MonoBehaviour
         animator.SetBool("isGrounded", !isFalling);
     }
 
+    //Applies chain knockback to other characters this character touches
     private void OnControllerColliderHit(ControllerColliderHit other)
     {
         if (knockBackProgress == null) return;
         CharacterPhysics charPhysics = other.gameObject.GetComponent<CharacterPhysics>();
         if (charPhysics == null || charPhysics.KnockBackID == KnockBackID) return;
 
+        //Knockback decay prevents infinite chain of knockback
         charPhysics.KnockBack(characterVelocity * knockBackDecay, knockOutTimeRemaining * knockBackDecay, KnockBackID);
     }
 
