@@ -29,9 +29,15 @@ public class CoinsScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter() ///Triggered when the player walks into a coin
+    void OnTriggerEnter(Collider other) ///Triggered when the player walks into a coin
     {
-        if (this.gameObject.tag == "Coin")
+        if (other.gameObject.GetComponent<PrenticeProjectile>() != null)
+        {
+            CoinsScript parentScript = GameObject.Find("coins").GetComponentInParent<CoinsScript>();
+            parentScript.UpdateCounter();
+            Destroy(this.gameObject);
+        }
+        else if (other.gameObject.transform.parent.name == "Cardinal")
         {
             CoinsScript parentScript = GameObject.Find("coins").GetComponentInParent<CoinsScript>();
             parentScript.UpdateCounter();

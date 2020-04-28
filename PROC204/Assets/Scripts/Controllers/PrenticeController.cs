@@ -82,19 +82,37 @@ public class PrenticeController : Controller
     private void Aim(Gamepad gamepad)
     {
         Vector2 aim;
-
-        if (gamepad.rightStick.IsPressed()) //left joystick on Xbox/PS4
+        if (Gamepad.all.Count > 1)
         {
-            aim = gamepad.rightStick.ReadValue().normalized;
-        }
-        else if (gamepad.dpad.IsPressed())
-        {
-            aim = gamepad.dpad.ReadValue().normalized;
+            if (gamepad.leftStick.IsPressed()) //left joystick on Xbox/PS4
+            {
+                aim = gamepad.leftStick.ReadValue().normalized;
+            }
+            else if (gamepad.dpad.IsPressed())
+            {
+                aim = gamepad.dpad.ReadValue().normalized;
+            }
+            else
+            {
+                aim = Vector2.zero;
+            }
         }
         else
         {
-            aim = Vector2.zero;
+            if (gamepad.rightStick.IsPressed()) //left joystick on Xbox/PS4
+            {
+                aim = gamepad.rightStick.ReadValue().normalized;
+            }
+            else if (gamepad.dpad.IsPressed())
+            {
+                aim = gamepad.dpad.ReadValue().normalized;
+            }
+            else
+            {
+                aim = Vector2.zero;
+            }
         }
+
 
         //Aim shield and projectiles
         shield.Protect(aim);

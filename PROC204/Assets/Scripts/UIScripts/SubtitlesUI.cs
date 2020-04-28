@@ -207,7 +207,7 @@ public class SubtitlesUI : MonoBehaviour
         Destroy(GameObject.Find("DiaTriggerBlueBlock"));
         yield return new WaitForSeconds(5f);
         SubtitlesCanvas.enabled = false;
-
+    }
         IEnumerator EnemyTutorialSubtitles()
         {
             //Element 14 and onwards required. 0-13 used by TargetTutorial and gameStartSubtitles.
@@ -299,4 +299,3 @@ public class SubtitlesUI : MonoBehaviour
         }
     }
 
-}

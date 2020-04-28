@@ -7,6 +7,9 @@ public class SubtitlesObjectCaller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       // PlayerPrefs.SetInt("DiaTriggerStartPlayed", 0);
+        //PlayerPrefs.SetInt("DiaTriggerTargetPlayed", 0);
+        //PlayerPrefs.SetInt("DiaTriggerBluePlayed", 0);
         if (PlayerPrefs.GetInt("DiaTriggerStartPlayed") == 1)
         {
             Debug.Log("Tutorial Start already triggered before!");
@@ -60,7 +63,7 @@ public class SubtitlesObjectCaller : MonoBehaviour
             
 
         }
-        else if (this.gameObject.name == "DiaTriggerBlue")
+        else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal")
         {
         subtitles.StopAllCoroutines();
         audio.Stop();

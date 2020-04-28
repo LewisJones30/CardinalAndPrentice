@@ -384,7 +384,7 @@ MonoBehaviour:
   shieldPrefab: {fileID: 7349032184248651916, guid: dc54569f729608a4db19c4f8988f7bc3,
     type: 3}
   aimLine: {fileID: 0}
-  shieldDistance: 3
+  shieldDistance: 2
   shieldDelayAfterWeaponFire: 2
   shieldRefresh: 0.5
   destroyShieldPlayer: {fileID: 3789862160610869203}

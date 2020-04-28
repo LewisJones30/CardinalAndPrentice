@@ -74,6 +74,10 @@ public class PrenticeProjectile : Projectile
     //Deal damage if hit enemy and apply colour bonus 
     protected override void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Coin")
+        {
+            return;
+        }
         CombatTarget combatTarget = other.gameObject.GetComponentInParent<CombatTarget>();
         if (combatTarget != null) combatTarget.TakeDamage(damage, projectileColour, transform.position);
 

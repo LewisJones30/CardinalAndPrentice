@@ -23,6 +23,8 @@ public class Mover : MonoBehaviour
     public float Direction { get; private set; } = 1;
     public Vector3 Position { get => transform.TransformPoint(charController.center); }
     public bool IsDashing { get; set; } = false;
+
+    public bool IsRolling { get; set; } = false;
     public bool IsStuck { get => charPhysics.IsStuck; }
     public float MaxSpeed { get => runSpeed; }
 
