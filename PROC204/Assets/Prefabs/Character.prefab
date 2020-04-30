@@ -144,6 +144,9 @@ MonoBehaviour:
   normalFootstepsPlayer: {fileID: 523083891410154426}
   runFootstepsPlayer: {fileID: 56224068505596540}
   rollPlayer: {fileID: 8127609334626262975}
+  runVFX:
+  - {fileID: 8785061394916897185}
+  - {fileID: 4304260437841427314}
 --- !u!114 &6822585887371913590
 MonoBehaviour:
   m_ObjectHideFlags: 0
