@@ -74,7 +74,7 @@ else if (this.gameObject.name == "DiaTriggerTarget")
 
 
 }
-    else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal")
+    else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal" || other.gameObject.name == "Cardinal")
 {
     subtitles.StopAllCoroutines();
     audio.Stop();
@@ -88,7 +88,7 @@ else if (this.gameObject.name == "DiaTriggerTarget")
     subtitles.LevelOneComplete();
     Destroy(this.gameObject);
 }
-    else if (this.gameObject.name == "DiaTriggerLvl2" && other.gameObject.transform.parent.name == "Cardinal")
+    else if (this.gameObject.name == "DiaTriggerLvl2" && other.gameObject.transform.parent.name == "Cardinal" || other.gameObject.name == "Cardinal")
 {
     subtitles.LevelTwoComplete();
     Destroy(this.gameObject);

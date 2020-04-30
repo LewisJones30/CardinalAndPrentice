@@ -180,7 +180,9 @@ public class SubtitlesUI : MonoBehaviour
         currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
         yield return new WaitForSeconds(1.2f);
         currentSubtitle.enabled = true;
-        Destroy(GameObject.Find("DiaTriggerTargetBlock"));
+        Destroy(GameObject.Find("DiaTriggerTargetBlock")); 
+        yield return new WaitForSeconds(5f);
+        SubtitlesCanvas.enabled = false;
     }
 
     IEnumerator TargetTutorialSubtitles()
