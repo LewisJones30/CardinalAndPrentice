@@ -72,12 +72,12 @@ public class Cactus : MonoBehaviour
             targetsInContact[target] += Time.deltaTime;
             if (targetsInContact[target] >= damageRate) //Damage enemy again if contact is sustained for set damage rate
             {
-                target.TakeDamage(1, transform.position);
+                target.TakeDamage(damage, transform.position);
                 targetsInContact[target] = 0f;
                 hasAttacked = true;
             }
         }
-
+        if (animator == null) return;
         if (hasAttacked) animator.SetTrigger("AttackTrigger");
     }
 
