@@ -16,7 +16,7 @@ public class ShieldPower : MonoBehaviour
 
     Shield currentShield;
     GameObject currentAimLine;
-    Transform cardinal;
+    Mover cardinal;
     PrenticeAttack rangedWeapon;
 
     //STATES
@@ -27,7 +27,7 @@ public class ShieldPower : MonoBehaviour
 
     private void Awake()
     {
-        cardinal = GameObject.FindWithTag("Player 1").transform;
+        cardinal = GameObject.FindWithTag("Player 1").GetComponent<Mover>();
         rangedWeapon = GetComponent<PrenticeAttack>();
     }
 
@@ -59,7 +59,7 @@ public class ShieldPower : MonoBehaviour
 
         if (currentShield == null && timeSinceShieldDestroyed > shieldRefresh) // Instantiate shield
         {
-            currentShield = Instantiate(shieldPrefab, cardinal);
+            currentShield = Instantiate(shieldPrefab, cardinal.transform);
             currentShield.onDestroy += DestroyShield; //Track if shield is destroyed by touching enemy
         }
 
@@ -77,7 +77,7 @@ public class ShieldPower : MonoBehaviour
         {
             if (currentAimLine == null)
             {
-                currentAimLine = Instantiate(aimLine, cardinal);
+                currentAimLine = Instantiate(aimLine, cardinal.transform);
             }
         }
 
@@ -101,7 +101,7 @@ public class ShieldPower : MonoBehaviour
         if (currentShield == null) return;
 
         Vector3 v3Dir = new Vector3(dir.x, dir.y, 0f); 
-        Vector3 shieldPos = cardinal.position + v3Dir * shieldDistance; 
+        Vector3 shieldPos = cardinal.Position + v3Dir * shieldDistance; 
         currentShield.transform.position = shieldPos; //Position shield in pointed direction
         currentShield.transform.right = dir; //Rotate shield to face pointed direction
     }

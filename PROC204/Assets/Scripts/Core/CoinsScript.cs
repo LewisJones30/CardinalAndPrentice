@@ -31,15 +31,10 @@ public class CoinsScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other) ///Triggered when the player walks into a coin
     {
-        if (other.gameObject.GetComponent<PrenticeProjectile>() != null)
+        if (other.gameObject.GetComponent<PrenticeProjectile>() != null ||
+            other.gameObject.tag == "Player 1")
         {
-            CoinsScript parentScript = GameObject.Find("coins").GetComponentInParent<CoinsScript>();
-            parentScript.UpdateCounter();
-            Destroy(this.gameObject);
-        }
-        else if (other.gameObject.transform.parent.name == "Cardinal")
-        {
-            CoinsScript parentScript = GameObject.Find("coins").GetComponentInParent<CoinsScript>();
+            CoinsScript parentScript = transform.parent.GetComponent<CoinsScript>();
             parentScript.UpdateCounter();
             Destroy(this.gameObject);
         }
@@ -49,6 +44,7 @@ public class CoinsScript : MonoBehaviour
     {
         string display;
         coinsCollected = coinsCollected + 1;
+
         if (level1 == true)
         {
              display = "Coins: " + coinsCollected.ToString() + "/15";

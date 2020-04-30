@@ -8,18 +8,22 @@ using UnityEngine;
         [SerializeField] bool onAwake = false;
         [SerializeField] AudioClip[] audioClips;
 
+        float pitchOrigin;
+
         AudioSource audioSource;
 
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             if (onAwake) PlayRandomAudio();
+
+            pitchOrigin = audioSource.pitch;
         }
 
         public void PlayRandomAudio()
         {
             audioSource.clip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
-            audioSource.pitch = UnityEngine.Random.Range(audioSource.pitch - pitchVariation, audioSource.pitch + pitchVariation);
+            audioSource.pitch = UnityEngine.Random.Range(pitchOrigin - pitchVariation, pitchOrigin + pitchVariation);
             audioSource.Play();
         }
     }

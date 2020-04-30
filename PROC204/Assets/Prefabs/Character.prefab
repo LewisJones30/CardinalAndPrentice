@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2567089165147041024}
   - component: {fileID: 4447905401011297545}
   - component: {fileID: 7736476451184692613}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   dashAirSpeedMultiplier: 2.5
   normalAirSpeedMultiplier: 1.5
   flySpeed: 0.1
+  rollSpeedMult: 1.2
   normalFootstepsPlayer: {fileID: 523083891410154426}
   runFootstepsPlayer: {fileID: 56224068505596540}
   rollPlayer: {fileID: 8127609334626262975}

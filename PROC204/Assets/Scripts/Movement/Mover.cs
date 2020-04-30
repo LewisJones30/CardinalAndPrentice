@@ -13,6 +13,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float dashAirSpeedMultiplier = 2.5f;
     [SerializeField] float normalAirSpeedMultiplier = 1.5f;
     [SerializeField] float flySpeed = 10f;
+    [SerializeField] float rollSpeedMult = 1.2f;
 
     [Header("Sound FX")]
     [SerializeField] RandomAudioPlayer normalFootstepsPlayer;
@@ -73,6 +74,7 @@ public class Mover : MonoBehaviour
     //and dodge incoming projectiles
     public void SetRolling(bool isRolling)
     {
+        IsRolling = isRolling;
         if (isRolling) gameObject.layer = LayerMask.NameToLayer("Passable");
 
         //Layer should remain passable if character dies
@@ -90,6 +92,8 @@ public class Mover : MonoBehaviour
         if (IsDashing && charPhysics.HasJumped) moveSpeed *= dashAirSpeedMultiplier; //Running and in the air
         else if (IsDashing) moveSpeed *= dashSpeedMultiplier; //Running on the ground
         else if (charPhysics.HasJumped) moveSpeed *= normalAirSpeedMultiplier; //Walking and in the air
+
+        if (IsRolling) moveSpeed *= rollSpeedMult;
 
         input.x *= moveSpeed;
         input.y *= flySpeed;
