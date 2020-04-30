@@ -70,6 +70,11 @@ public class SubtitlesUI : MonoBehaviour
         SubtitlesCanvas.enabled = true;
         StartCoroutine("EndOfLevelOneSubtitles");
     }
+    public void LevelTwoComplete()
+    {
+        SubtitlesCanvas.enabled = true;
+        StartCoroutine("LevelTwoStartSubtitles");
+    }
     IEnumerator DisplaySubtitle()
     {
         //First, enable the canvas
@@ -297,5 +302,22 @@ public class SubtitlesUI : MonoBehaviour
             yield return new WaitForSeconds(5f);
             SubtitlesCanvas.enabled = false;
         }
+    IEnumerator LevelTwoStartSubtitles()
+    {
+        //Starts at element 23
+        //Clips start at element 9
+        currentSubtitleNumber = 22;
+        SubtitlesCanvas.enabled = true;
+        audio.PlayOneShot(subtitleClips[9]);
+        currentSubtitleNumber = currentSubtitleNumber + 1;
+        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+        yield return new WaitForSeconds(3.5f);
+        currentSubtitleNumber = currentSubtitleNumber + 1;
+        currentSubtitle.overrideSprite = subtitleSprites[currentSubtitleNumber];
+        currentSubtitle.sprite = subtitleSprites[currentSubtitleNumber];
+        yield return new WaitForSeconds(9f);
+        SubtitlesCanvas.enabled = false;
+    }
     }
 

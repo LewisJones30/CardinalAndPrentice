@@ -40,43 +40,59 @@ public class SubtitlesObjectCaller : MonoBehaviour
         GameObject UI = GameObject.Find("Subtitles Canvas");
         SubtitlesUI subtitles = UI.GetComponent<SubtitlesUI>();
         AudioSource audio = UI.GetComponent<AudioSource>();
-        if (this.gameObject.name == "DiaTriggerStart")
-        {
-            {
-                Destroy(this.gameObject);
-                subtitles.StopAllCoroutines();
-                audio.Stop();
-                PlayerPrefs.SetInt("DiaTriggerStartPlayed", 1);
-                subtitles.GameStart();
-
-            }
-
-        }
-        else if (this.gameObject.name == "DiaTriggerTarget")
-        {
-            
-                subtitles.StopAllCoroutines();
-                audio.Stop();
-                PlayerPrefs.SetInt("DiaTriggerTargetPlayed", 1);
-                subtitles.TargetTutorial();
-                Destroy(this.gameObject);
-            
-
-        }
-        else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal")
-        {
+        //Structure:
+        //Check the gameobject that this is applied to (For example, if you have a dialogue trigger for the beginning of a level, make an object called "DiaTriggerLevelExampleObject" and then check
+        //Then, trigger the following five lines of code:
+        /*
+        Destroy(this.gameObject);
         subtitles.StopAllCoroutines();
         audio.Stop();
-        PlayerPrefs.SetInt("DiaTriggerBluePlayed", 1);
-        subtitles.BlueEnemies();
+        PlayerPrefs.SetInt("DiaTriggerStartPlayed", 1);
+        subtitles.GameStart();
+        */
+        //The playerprefs are only required if the audio should not be played more than once, otherwise ignore it.
+if (this.gameObject.name == "DiaTriggerStart")
+{
+    {
         Destroy(this.gameObject);
-
-        }
-        else if (this.gameObject.name == "DiaTriggerEndL1" && other.gameObject.transform.parent.name == "Cardinal" )
-        {
-            subtitles.LevelOneComplete();
-            Destroy(this.gameObject);
-        }
+        subtitles.StopAllCoroutines();
+        audio.Stop();
+        PlayerPrefs.SetInt("DiaTriggerStartPlayed", 1);
+        subtitles.GameStart();
 
     }
+
+}
+else if (this.gameObject.name == "DiaTriggerTarget")
+{
+
+        subtitles.StopAllCoroutines();
+        audio.Stop();
+        PlayerPrefs.SetInt("DiaTriggerTargetPlayed", 1);
+        subtitles.TargetTutorial();
+        Destroy(this.gameObject);
+
+
+}
+    else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal")
+{
+    subtitles.StopAllCoroutines();
+    audio.Stop();
+    PlayerPrefs.SetInt("DiaTriggerBluePlayed", 1);
+    subtitles.BlueEnemies();
+    Destroy(this.gameObject);
+
+}
+    else if (this.gameObject.name == "DiaTriggerEndL1" && other.gameObject.transform.parent.name == "Cardinal" )
+{
+    subtitles.LevelOneComplete();
+    Destroy(this.gameObject);
+}
+    else if (this.gameObject.name == "DiaTriggerLvl2" && other.gameObject.transform.parent.name == "Cardinal")
+{
+    subtitles.LevelTwoComplete();
+    Destroy(this.gameObject);
+}
+
+}
 }

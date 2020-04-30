@@ -24,6 +24,7 @@ public class LevelCompleteUI : MonoBehaviour
         GameObject LevelCompleteCanvasObj = GameObject.Find("LevelCompUI Canvas");
         LevelCompleteCanvas = LevelCompleteCanvasObj.GetComponent<Canvas>();
         LevelCompleteCanvas.enabled = false;
+        PlayerPrefs.SetInt("Level2EndUnlocked", 0);
         if (SceneManager.GetActiveScene().name == "Level 1")
         {
             level1 = true;
@@ -64,41 +65,39 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 CheckCoinsL2();
             }
+            else if (this.gameObject.name == "Level2TriggerObject")
+            {
+                Level2Complete();
+            }
             else
             {
                 LevelComplete();
             }
-            
         }
     }
-
-    IEnumerator Fade()
-    {
-
-        while (fadecanvas.alpha < 1)
-        {
-            fadecanvas.alpha += Time.fixedDeltaTime / 50;
-            yield return null;
-        }
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Level 2");
-    }
-    IEnumerator FadeMainMenu()
-    {
-
-        while (fadecanvas.alpha < 1)
-        {
-            fadecanvas.alpha += Time.fixedDeltaTime / 12;
-            yield return null;
-        }
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Level 2");
-    }
-
     public void LevelComplete()
     {
         {
             PlayerPrefs.SetInt("Level1Completed", 1);
+            GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
+            mainCanvas.enabled = false;
+            if (levelCompleteCanvas != null)
+            {
+                levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
+                levelComplete = true;
+                //Disable the controller inputs to "freeze" the player as such
+                CardinalController cardinalController = (CardinalController)GameObject.FindObjectOfType(typeof(CardinalController));
+                cardinalController.BlockInput = true;
+                PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
+                prenticeController.BlockInput = true;
+            }
+
+        }
+    }
+    public void Level2Complete()
+    {
+        {
+            PlayerPrefs.SetInt("Level2Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
             mainCanvas.enabled = false;
             if (levelCompleteCanvas != null)
@@ -140,4 +139,29 @@ public class LevelCompleteUI : MonoBehaviour
             text.enabled = true;
         }
     }
-}
+    IEnumerator Fade()
+        {
+
+            while (fadecanvas.alpha < 1)
+            {
+                fadecanvas.alpha += Time.fixedDeltaTime / 50;
+                yield return null;
+            }
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene("Level 2");
+        }
+        IEnumerator FadeMainMenu()
+        {
+
+            while (fadecanvas.alpha < 1)
+            {
+                fadecanvas.alpha += Time.fixedDeltaTime / 12;
+                yield return null;
+            }
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene("Level 2");
+        }
+
+      
+    }
+
