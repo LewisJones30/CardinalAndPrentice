@@ -10,6 +10,7 @@ public class CoinsScript : MonoBehaviour
     Text coinCounter;
     bool level1 = false;
     [SerializeField] GameObject CoinGateUnlock;
+    [SerializeField] RandomAudioPlayer collectSFXPlayer;
     void Start()
     {
         coinCounter = GameObject.Find("Coins Text").GetComponent<Text>();
@@ -36,6 +37,7 @@ public class CoinsScript : MonoBehaviour
         {
             CoinsScript parentScript = transform.parent.GetComponent<CoinsScript>();
             parentScript.UpdateCounter();
+            parentScript.collectSFXPlayer.PlayRandomAudio();
             Destroy(this.gameObject);
         }
     }

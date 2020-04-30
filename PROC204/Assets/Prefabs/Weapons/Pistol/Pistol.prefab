@@ -78,7 +78,7 @@ MonoBehaviour:
     type: 2}
   isRightHanded: 1
   shootPosition: {fileID: 3794516368341545845}
-  projectile: {fileID: -6736819174270927029, guid: bc2d4f90575bd6d4aaa2adaa39adb624,
+  projectilePrefab: {fileID: -6736819174270927029, guid: bc2d4f90575bd6d4aaa2adaa39adb624,
     type: 3}
   reloadTime: 2
   inaccuracy: 0.5

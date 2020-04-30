@@ -8,7 +8,7 @@ using UnityEngine;
         [SerializeField] bool onAwake = false;
         [SerializeField] AudioClip[] audioClips;
 
-        float pitchOrigin;
+        float pitchOrigin = 1f;
 
         AudioSource audioSource;
 
@@ -16,8 +16,6 @@ using UnityEngine;
         {
             audioSource = GetComponent<AudioSource>();
             if (onAwake) PlayRandomAudio();
-
-            pitchOrigin = audioSource.pitch;
         }
 
         public void PlayRandomAudio()

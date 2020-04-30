@@ -1153,6 +1153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinsCollected: 0
   CoinGateUnlock: {fileID: 0}
+  collectSFXPlayer: {fileID: 0}
 --- !u!1 &7921928137741731735
 GameObject:
   m_ObjectHideFlags: 0
