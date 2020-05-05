@@ -15,6 +15,8 @@ public class LevelCompleteUI : MonoBehaviour
     Canvas LevelCompleteCanvas;
     bool endUnlocked;
     bool level1 = false;
+    [SerializeField] GameObject clock;
+    [SerializeField] GameObject portal;
     void Start()
     {
         endUnlocked = false;
@@ -41,7 +43,6 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 StartCoroutine("Fade"); //Starts coroutine for the fading animation
                 PlayerPrefs.SetInt("Level1Completed", 1); //1 for level complete, 0 is for when they have not started level
-                SceneManager.LoadScene("Level 2");
             }
             else if (Gamepad.all[0].startButton.isPressed == true)
             {
@@ -90,6 +91,7 @@ public class LevelCompleteUI : MonoBehaviour
                 cardinalController.BlockInput = true;
                 PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
                 prenticeController.BlockInput = true;
+
             }
 
         }
@@ -141,13 +143,14 @@ public class LevelCompleteUI : MonoBehaviour
     }
     IEnumerator Fade()
         {
-
-            while (fadecanvas.alpha < 1)
-            {
-                fadecanvas.alpha += Time.fixedDeltaTime / 50;
-                yield return null;
-            }
-            yield return new WaitForSeconds(1);
+        Animator clockAnim = clock.GetComponent<Animator>();
+        clockAnim.SetTrigger("clockDisappear");
+        //while (fadecanvas.alpha < 1)
+        //    {
+        //        fadecanvas.alpha += Time.fixedDeltaTime / 50;
+        //        yield return null;
+        //    }
+            yield return new WaitForSeconds(2.5f);
             SceneManager.LoadScene("Level 2");
         }
         IEnumerator FadeMainMenu()
