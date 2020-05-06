@@ -85,6 +85,7 @@ MonoBehaviour:
   isBurst: 0
   clipSize: 3
   clipReloadTime: 3
+  attackPlayer: {fileID: 0}
 --- !u!1001 &6531237588857516975
 PrefabInstance:
   m_ObjectHideFlags: 0

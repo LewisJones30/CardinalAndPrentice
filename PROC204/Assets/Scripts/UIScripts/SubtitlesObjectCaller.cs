@@ -74,7 +74,7 @@ else if (this.gameObject.name == "DiaTriggerTarget")
 
 
 }
-    else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal" || other.gameObject.name == "Cardinal")
+    else if (this.gameObject.name == "DiaTriggerBlue" && other.gameObject.transform.parent.name == "Cardinal")
 {
     subtitles.StopAllCoroutines();
     audio.Stop();

@@ -19,6 +19,7 @@ public class Mover : MonoBehaviour
     [SerializeField] RandomAudioPlayer normalFootstepsPlayer;
     [SerializeField] RandomAudioPlayer runFootstepsPlayer;
     [SerializeField] RandomAudioPlayer rollPlayer;
+    [SerializeField] AudioSource runLoopAudioSource;
 
     [Header("VFX")]
     [SerializeField] ParticleSystem[] runVFX;
@@ -58,18 +59,21 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         PassPlatforms();
-        EnableRunVFX();
+        EnableRunFX();
     }
 
-    private void EnableRunVFX()
+    private void EnableRunFX()
     {
         bool isRunning = IsDashing && charController.velocity.x != 0;
 
         foreach (var ps in runVFX)
         {
             var mod = ps.emission;
-            mod.enabled = isRunning;
-        }        
+            mod.enabled = isRunning;            
+        }
+
+        if (isRunning && !runLoopAudioSource.isPlaying) runLoopAudioSource.Play();
+        else if (!isRunning) runLoopAudioSource.Pause();
     }
 
     //Swaps layers so character can pass through platforms when jumping from under them

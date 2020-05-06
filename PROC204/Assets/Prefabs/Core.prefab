@@ -1264,11 +1264,6 @@ PrefabInstance:
       propertyPath: healthUI
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8071684230418285660, guid: db53ccecd76169d44b03a3d5c633c555,
-        type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 8420279005296712935, guid: db53ccecd76169d44b03a3d5c633c555,
         type: 3}
       propertyPath: aimLine

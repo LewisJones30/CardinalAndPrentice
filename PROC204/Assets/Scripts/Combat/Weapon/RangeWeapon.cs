@@ -14,6 +14,9 @@ public class RangeWeapon : Weapon
     [SerializeField] int clipSize = 3;
     [SerializeField] float clipReloadTime = 3f;
 
+    [Header("Sound FX")]
+    [SerializeField] RandomAudioPlayer attackPlayer;
+
     //STATES
 
     int currentClip;
@@ -56,6 +59,7 @@ public class RangeWeapon : Weapon
 
         isReady = false;
         animator.SetTrigger("attackTrigger");
+        if (attackPlayer != null) attackPlayer.PlayRandomAudio();
 
         float thisReload = reloadTime;
         if (isBurst) 

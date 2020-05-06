@@ -5,6 +5,8 @@ using UnityEngine;
 public class CombatTarget : MonoBehaviour
 {
     [SerializeField] float parryCooldown = 1f;
+    [SerializeField] RandomAudioPlayer parryPlayer;
+    [SerializeField] RandomAudioPlayer parrySuccessPlayer;
 
     //CACHE REFERENCES
 
@@ -55,7 +57,11 @@ public class CombatTarget : MonoBehaviour
         if (IsParrying) //Parry successful if facing position of attack
         {
             float targetDirection = Mathf.Sign(attackPos.x - transform.position.x);
-            if (targetDirection == mover.Direction) return false; //Attacker unsucessful
+            if (targetDirection == mover.Direction)
+            {
+                if (parrySuccessPlayer != null) parrySuccessPlayer.PlayRandomAudio();
+                return false; //Attacker unsucessful
+            }
         }
 
         health.ChangeHealth(-damage);
@@ -72,6 +78,7 @@ public class CombatTarget : MonoBehaviour
 
         canParry = false;
         animator.SetTrigger("parryTrigger");
+        if (parryPlayer != null) parryPlayer.PlayRandomAudio();
         Invoke(nameof(ResetParry), parryCooldown);
     }
 
