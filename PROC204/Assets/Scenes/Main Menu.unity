@@ -56389,7 +56389,6 @@ GameObject:
   - component: {fileID: 8076766465562567666}
   - component: {fileID: 8076766465562567667}
   - component: {fileID: 8076766465562567664}
-  - component: {fileID: 8076766465562567676}
   - component: {fileID: 8076766465562567668}
   - component: {fileID: 8076766465562567679}
   m_Layer: 5
@@ -56460,18 +56459,6 @@ MonoBehaviour:
   logo: {fileID: 1976263743}
   menuButtons: {fileID: 8076766466280517214}
   levelSelect: {fileID: 8076766466306860620}
---- !u!114 &8076766465562567676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8076766465562567665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9d59a2800552f47ae3442af3291157, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8076766465562567677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -56506,9 +56493,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: aa3d79b22cc269a498d7289309ac6b69,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c6f8bf6cd964b844983628c1af48640d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e33d6f36a70c9d44a93d7f399023eae7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
