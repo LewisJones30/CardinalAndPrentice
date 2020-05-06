@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2876497845785261018}
   - component: {fileID: 6534821138952604140}
   - component: {fileID: 688153922630595861}
-  - component: {fileID: 7093296437098936414}
-  - component: {fileID: 5114230483006497848}
   - component: {fileID: 5653915579260507547}
   - component: {fileID: 2506511034584473734}
   m_Layer: 0
@@ -85,35 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7093296437098936414
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274525652537704905}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8, y: 2.5526514, z: 1.5452232}
-  m_Center: {x: -0.00000047683716, y: 2.3807302, z: -0}
---- !u!114 &5114230483006497848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274525652537704905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 565e8b5b4e3ad5c408b01000b54c2297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageRate: 1
-  damage: 2
-  lifeTime: 1e+12
-  despawnPlayer: {fileID: 0}
 --- !u!64 &5653915579260507547
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -235,7 +204,9 @@ GameObject:
   - component: {fileID: 7102716757251229834}
   - component: {fileID: 7102716757251229832}
   - component: {fileID: 7102716757251229833}
-  m_Layer: 0
+  - component: {fileID: 1175754500919106124}
+  - component: {fileID: 5036754305185840575}
+  m_Layer: 19
   m_Name: FX_Fire (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4987,6 +4958,35 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!65 &1175754500919106124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102716757251229835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 2.5526514, z: 1.5452232}
+  m_Center: {x: -0.00000047683716, y: 1.15, z: -0}
+--- !u!114 &5036754305185840575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102716757251229835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565e8b5b4e3ad5c408b01000b54c2297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRate: 1
+  damage: 2
+  lifeTime: 1e+12
+  despawnPlayer: {fileID: 0}
 --- !u!1 &8372473889546435840
 GameObject:
   m_ObjectHideFlags: 0

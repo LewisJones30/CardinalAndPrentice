@@ -90,8 +90,6 @@ GameObject:
   - component: {fileID: 2499243079293496325}
   - component: {fileID: 6914185317661234739}
   - component: {fileID: 921152710925920970}
-  - component: {fileID: 2732307418485043149}
-  - component: {fileID: 7396404861967878907}
   - component: {fileID: 928974801795942040}
   - component: {fileID: 7373536997185922011}
   m_Layer: 0
@@ -164,35 +162,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2732307418485043149
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509903853807640086}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.42392302, y: 0.8822322, z: 0.7004013}
-  m_Center: {x: -0.0025327206, y: 1.4743979, z: -0.0000038146973}
---- !u!114 &7396404861967878907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509903853807640086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 565e8b5b4e3ad5c408b01000b54c2297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageRate: 1
-  damage: 1
-  lifeTime: 1e+12
-  despawnPlayer: {fileID: 0}
 --- !u!65 &928974801795942040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -302,6 +271,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &76416983485556479
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482076126330509879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42392302, y: 0.8822322, z: 0.7004013}
+  m_Center: {x: -0.0025327206, y: 0.58, z: -0.0000038146973}
+--- !u!114 &2238273600853983328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482076126330509879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565e8b5b4e3ad5c408b01000b54c2297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRate: 1
+  damage: 1
+  lifeTime: 1e+12
+  despawnPlayer: {fileID: 0}
 --- !u!1001 &7482076126330608791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +310,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
       propertyPath: m_Name
       value: FX_Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -371,6 +373,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
+--- !u!1 &7482076126330509879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7482076126330608791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7482076126330471959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9,
