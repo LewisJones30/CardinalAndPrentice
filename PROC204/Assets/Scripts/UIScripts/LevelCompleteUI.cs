@@ -41,7 +41,9 @@ public class LevelCompleteUI : MonoBehaviour
             LevelCompleteCanvas.enabled = true;
             if (Gamepad.all[0].buttonSouth.isPressed == true && level1 == true)
             {
+                levelComplete = false;
                 StartCoroutine("Fade"); //Starts coroutine for the fading animation
+
                 PlayerPrefs.SetInt("Level1Completed", 1); //1 for level complete, 0 is for when they have not started level
             }
             else if (Gamepad.all[0].startButton.isPressed == true)
@@ -145,12 +147,14 @@ public class LevelCompleteUI : MonoBehaviour
         {
         Animator clockAnim = clock.GetComponent<Animator>();
         clockAnim.SetTrigger("clockDisappear");
-        //while (fadecanvas.alpha < 1)
-        //    {
-        //        fadecanvas.alpha += Time.fixedDeltaTime / 50;
-        //        yield return null;
-        //    }
-            yield return new WaitForSeconds(2.5f);
+        GameObject levelCompleteCanvas = GameObject.Find("LevelCompUI Canvas");
+        LevelCompleteCanvas.enabled = false;
+        while (fadecanvas.alpha < 1)
+            {
+            fadecanvas.alpha += Time.fixedDeltaTime / 5;
+            yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
             SceneManager.LoadScene("Level 2");
         }
         IEnumerator FadeMainMenu()

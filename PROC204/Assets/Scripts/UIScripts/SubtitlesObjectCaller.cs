@@ -26,6 +26,10 @@ public class SubtitlesObjectCaller : MonoBehaviour
             Destroy(GameObject.Find("DiaTriggerBlue"));
             Destroy(GameObject.Find("DiaTriggerBlueBlock"));
         }
+        if (PlayerPrefs.GetInt("DiaTriggerLvl2Played") == 1)
+        {
+            Destroy(GameObject.Find("DiaTriggerLvl2"));
+        }
     }
 
     // Update is called once per frame
@@ -90,6 +94,11 @@ else if (this.gameObject.name == "DiaTriggerTarget")
 }
     else if (this.gameObject.name == "DiaTriggerLvl2" && other.gameObject.transform.parent.name == "Cardinal" || other.gameObject.name == "Cardinal")
 {
+            if (PlayerPrefs.GetInt("DiaTriggerLvl2Played") == 1)
+            {
+                return; //Don't play if heard once.
+            }
+    PlayerPrefs.SetInt("DiaTriggerLvl2Played", 1);
     subtitles.LevelTwoComplete();
     Destroy(this.gameObject);
 }
