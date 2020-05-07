@@ -49,7 +49,12 @@ public class Health : MonoBehaviour
         //Enable walking through dead entity colliders
         gameObject.layer = LayerMask.NameToLayer("Passable");
 
-        if (animator != null) animator.SetTrigger("Die");
+        if (animator != null)
+        {
+            animator.SetBool("isDead", true);
+            animator.SetTrigger("Die");
+        }
+
         if (sleepParticle != null) sleepParticle.Play(); //Sleeping VFX
     }
 

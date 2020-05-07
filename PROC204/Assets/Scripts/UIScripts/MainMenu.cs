@@ -52,7 +52,7 @@ public class MainMenu : MonoBehaviour
             buttonPressed = true;
             
         }
-        if (Gamepad.all[0].buttonWest.isPressed == true && buttonPressed == false && mainMenuChoice == false)
+        if (Gamepad.all[0].buttonEast.isPressed == true && buttonPressed == false && mainMenuChoice == false)
         {
             quitClicked();
         }
