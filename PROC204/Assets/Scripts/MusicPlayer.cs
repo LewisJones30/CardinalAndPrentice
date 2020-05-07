@@ -32,6 +32,7 @@ public class MusicPlayer : MonoBehaviour
             StopAllCoroutines();
             audioSource.Stop();
             audioSource.clip = gameOverTrack;
+            audioSource.volume = 0.25f;
             audioSource.Play();
         }
     }
