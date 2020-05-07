@@ -45,44 +45,47 @@ public class MainMenu : MonoBehaviour
         {
             buttonPressed = false;
         }
-        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == false && buttonPressed == false)
+        //Each state of the game
+        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == false && buttonPressed == false) //Front page
         {
             LogoClicked();
             logoPressed = true;
             buttonPressed = true;
             
         }
-        if (Gamepad.all[0].buttonEast.isPressed == true && buttonPressed == false && mainMenuChoice == false)
+        if (Gamepad.all[0].buttonEast.isPressed == true && buttonPressed == false && mainMenuChoice == false && levelSelectBool == false) //Front page, pressing B 
         {
-            quitClicked();
+            quitClicked(); //Closes the game entirely
         }
-        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false) 
+        if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false)  //Front page, pressing A
         {
             tutorial();
             LogoClicked();
             logoPressed = true;
             buttonPressed = true;
         }
-        else if (Gamepad.all[0].buttonWest.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false)
+        else if (Gamepad.all[0].buttonWest.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false) //Front page, pressing X
         {
             levelSelectClicked();
             LogoClicked();
             mainMenuChoice = true;
             levelSelectBool = true; //Boolean to activate level select page
         }
-        else if (Gamepad.all[0].leftShoulder.isPressed == true && logoPressed == true && levelSelectBool == true)
+        else if (Gamepad.all[0].leftShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing LB
         {
             tutorial();
         }
-        else if (Gamepad.all[0].rightShoulder.isPressed == true && logoPressed == true && levelSelectBool == true)
+        else if (Gamepad.all[0].rightShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing RB
         {
             level1();
         }
-        else if (Gamepad.all[0].buttonEast.isPressed == true && logoPressed == true && levelSelectBool == true)
+        else if (Gamepad.all[0].buttonEast.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing B
         {
-            backClicked();
             levelSelectBool = false;
             mainMenuChoice = false;
+            backClicked();
+            buttonPressed = true;
+
         }
     }
 
@@ -116,8 +119,7 @@ public class MainMenu : MonoBehaviour
 
         menuButtons.SetActive(true);
         levelScreen.SetTrigger("Back Clicked");
-
-        Invoke("deactivateLevelSelect", 1.1f); 
+        Invoke("deactivateLevelSelect", 5f); 
 
     }
 
@@ -127,7 +129,7 @@ public class MainMenu : MonoBehaviour
         levelSelect.SetActive(true);
         levelScreen.SetTrigger("Level Screen Click");
 
-        Invoke("deactivateMenu", 1.3f);
+        Invoke("deactivateMenu", 5f);
 
     }
 
