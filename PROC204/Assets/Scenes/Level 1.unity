@@ -25139,7 +25139,7 @@ GameObject:
   - component: {fileID: 594018919}
   - component: {fileID: 594018918}
   - component: {fileID: 594018921}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTriggerTargetBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35936,7 +35936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 673763135}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41373,7 +41373,7 @@ GameObject:
   - component: {fileID: 946456525}
   - component: {fileID: 946456524}
   - component: {fileID: 946456523}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTriggerEndBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57435,7 +57435,7 @@ GameObject:
   - component: {fileID: 1321878541}
   - component: {fileID: 1321878540}
   - component: {fileID: 1321878543}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTriggerStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64499,7 +64499,7 @@ GameObject:
   - component: {fileID: 1491699946}
   - component: {fileID: 1491699945}
   - component: {fileID: 1491699948}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTriggerEndL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73770,7 +73770,7 @@ GameObject:
   - component: {fileID: 1930027345}
   - component: {fileID: 1930027344}
   - component: {fileID: 1930027343}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiaTriggerTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
