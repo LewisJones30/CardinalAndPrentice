@@ -199,7 +199,7 @@ public class CharacterPhysics : MonoBehaviour
     //Can only jump when touching ground
     public bool Jump(float jumpForce)
     {
-        if (!charController.isGrounded) return false; 
+        if (!charController.isGrounded && airTime > fallingAnimationDelay) return false; 
 
         HasJumped = true;            
         characterVelocity.y = jumpForce;
