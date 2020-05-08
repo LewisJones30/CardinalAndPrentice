@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6167358976793665734
+--- !u!1 &3186308929458253567
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7191551002792465109}
-  - component: {fileID: 2204093343368194275}
-  - component: {fileID: 5596296879421281306}
-  - component: {fileID: 6167358976793665736}
-  - component: {fileID: 6167358976793665735}
+  - component: {fileID: 12962229592451385}
+  - component: {fileID: 7748277603606106415}
+  - component: {fileID: 8975569683108124436}
+  - component: {fileID: 9007853519994684414}
   m_Layer: 0
-  m_Name: Iron gate
+  m_Name: Iron gate mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7191551002792465109
+--- !u!4 &12962229592451385
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6167358976793665734}
-  m_LocalRotation: {x: -0, y: 0.6969626, z: -0, w: 0.71710753}
-  m_LocalPosition: {x: 132.627, y: 0.268, z: -0.146}
-  m_LocalScale: {x: 0.96158856, y: 0.8266, z: 2.8547063}
+  m_GameObject: {fileID: 3186308929458253567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7191551002792465109}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 88.368004, z: 0}
---- !u!33 &2204093343368194275
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7748277603606106415
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6167358976793665734}
+  m_GameObject: {fileID: 3186308929458253567}
   m_Mesh: {fileID: 2635491016920648906, guid: 65cfd298a7b58264d8cd9e17199734a7, type: 3}
---- !u!23 &5596296879421281306
+--- !u!23 &8975569683108124436
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6167358976793665734}
+  m_GameObject: {fileID: 3186308929458253567}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,19 +80,51 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6167358976793665736
+--- !u!65 &9007853519994684414
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6167358976793665734}
+  m_GameObject: {fileID: 3186308929458253567}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.5156028, y: 2.9064837, z: 0.062563606}
   m_Center: {x: 0, y: 1.4532418, z: 0}
+--- !u!1 &6167358976793665734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7191551002792465109}
+  - component: {fileID: 6167358976793665735}
+  m_Layer: 0
+  m_Name: Iron gate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7191551002792465109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6167358976793665734}
+  m_LocalRotation: {x: -0, y: 0.6969626, z: -0, w: 0.71710753}
+  m_LocalPosition: {x: 132.627, y: 0.268, z: -0.146}
+  m_LocalScale: {x: 0.96158856, y: 0.8266, z: 2.8547063}
+  m_Children:
+  - {fileID: 12962229592451385}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 88.368004, z: 0}
 --- !u!95 &6167358976793665735
 Animator:
   serializedVersion: 3
