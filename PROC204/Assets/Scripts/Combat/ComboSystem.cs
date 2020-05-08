@@ -8,7 +8,6 @@ public class ComboSystem : MonoBehaviour
     //Variables declaration
     [SerializeField] float reloadReductionPerStack = 0.05f;
     [SerializeField] Text comboText;
-    [SerializeField] HealthUI healthUI;
 
     //CACHE REFERENCES
 
@@ -51,6 +50,8 @@ public class ComboSystem : MonoBehaviour
         {
             playerHealth.ChangeHealth(2);
         }
+
+        comboText.text = "Combo: " + stackCount;
     }
     public void BreakCombo()
     {
