@@ -9,6 +9,12 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] float reloadReductionPerStack = 0.05f;
     [SerializeField] Text comboText;
 
+    [Header("Cardinal Combo Buff")]
+    [SerializeField] int minComboRequiredForHealthIncrease = 12;
+    [SerializeField] int comboNeededPerLifeIncrease = 2;
+
+    int comboRequiredForHealthIncrease;
+
     //CACHE REFERENCES
 
     Fighter fighter;
@@ -20,6 +26,8 @@ public class ComboSystem : MonoBehaviour
     //Combo counter
     int stackCount = 0;
 
+    
+
     private void Awake()
     {
         fighter = GetComponent<Fighter>(); 
@@ -29,6 +37,8 @@ public class ComboSystem : MonoBehaviour
 
     void Start()
     {
+        comboRequiredForHealthIncrease = minComboRequiredForHealthIncrease;
+
         //build combo when damage dealt
         fighter.MeleeWeapon.onDealDamage += BuildCombo;
     }
@@ -45,10 +55,12 @@ public class ComboSystem : MonoBehaviour
         //Increase the damage of all projectiles by the additional damage per stack variable. 
         prenticeAttack.ReloadReduction += reloadReductionPerStack;
 
-        // When combo is 5 add 2 lives to Cardinal
-        if (stackCount == 5)
+        // Once reload reduction cap is reached for Prentice
+        //Add one life to every 2 combo recieved afterwards
+        if (stackCount >= comboRequiredForHealthIncrease)
         {
-            playerHealth.ChangeHealth(2);
+            comboRequiredForHealthIncrease += comboNeededPerLifeIncrease;
+            playerHealth.ChangeHealth(1);
         }
 
         comboText.text = "Combo: " + stackCount;
@@ -57,6 +69,7 @@ public class ComboSystem : MonoBehaviour
     {
         stackCount = 0; //Immediately reset the stack count to zero
         prenticeAttack.ReloadReduction = 0;
+        comboRequiredForHealthIncrease = minComboRequiredForHealthIncrease;
 
         comboText.text = "Combo: " + stackCount;
     }

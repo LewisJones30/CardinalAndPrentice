@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PrenticeAttack : MonoBehaviour
 {
-    [SerializeField] float minReloadTime = 0.1f;
+    [SerializeField] float minReloadTime = 0.5f;
 
     [SerializeField] PrenticeProjectile yellowProjectile;
     [SerializeField] PrenticeProjectile redProjectile;

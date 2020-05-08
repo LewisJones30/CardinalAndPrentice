@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d36a057223224478c714541a8e105c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minReloadTime: 0.1
+  minReloadTime: 0.5
   yellowProjectile: {fileID: -3650573850797042174, guid: 1608c3f9bcd1e9746b09dcb49a56fea9,
     type: 3}
   redProjectile: {fileID: -3579212382191866586, guid: eca1ff6741def5a468081e17839fc91e,
@@ -731,6 +731,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadReductionPerStack: 0.1
   comboText: {fileID: 0}
+  minComboRequiredForHealthIncrease: 7
+  comboNeededPerLifeIncrease: 2
 --- !u!1 &3795290056376011815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2584,7 @@ PrefabInstance:
     - target: {fileID: 6822585887371913590, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
       propertyPath: health
-      value: 30
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 7558936624355934848, guid: 99cddfe4ae8513d4eb67ba19a415c1fa,
         type: 3}
