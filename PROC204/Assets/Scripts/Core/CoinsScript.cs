@@ -83,6 +83,7 @@ public class CoinsScript : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("Level2EndUnlocked", 1); //Unlock end of level 2
+            Destroy(GameObject.Find("Level2CompleteObject"));
         }
 
     }

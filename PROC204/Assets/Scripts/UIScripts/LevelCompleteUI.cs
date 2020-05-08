@@ -135,6 +135,7 @@ public class LevelCompleteUI : MonoBehaviour
         if (PlayerPrefs.GetInt("Level2EndUnlocked") == 1)
         {
             Destroy(this.gameObject);
+            Destroy(GameObject.Find("Level2CompleteObject (1)"));
         }
         else
         {
