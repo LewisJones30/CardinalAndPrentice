@@ -85,9 +85,13 @@ public class Cactus : MonoBehaviour
     IEnumerator Lifetime()
     {
         yield return new WaitForSeconds(lifeTime);
-        cactiCount--;
         despawnPlayer.PlayRandomAudio();
         animator.SetTrigger("DeathTrigger");
         Destroy(gameObject, 1f); //Delay destroy for animation
+    }
+
+    private void OnDestroy()
+    {
+        cactiCount--;
     }
 }
