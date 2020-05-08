@@ -12,7 +12,6 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] Canvas fadeCanvas;
     CanvasGroup fadecanvas;
     Canvas[] mainCanvas;
-    Canvas healthCanvas;
     Canvas LevelCompleteCanvas;
     bool endUnlocked;
     bool level1 = false;
@@ -94,11 +93,12 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
                 levelComplete = true;
-                //Disable the controller inputs to "freeze" the player as such
-                CardinalController cardinalController = (CardinalController)GameObject.FindObjectOfType(typeof(CardinalController));
-                cardinalController.BlockInput = true;
-                PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
-                prenticeController.BlockInput = true;
+                //Freeze every character in the scene when game has ended
+                var controllers = FindObjectsOfType<Controller>();
+                foreach (var controller in controllers)
+                {
+                    controller.BlockInput = true;
+                }
 
             }
 
@@ -119,11 +119,12 @@ public class LevelCompleteUI : MonoBehaviour
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
                 levelComplete = true;
-                //Disable the controller inputs to "freeze" the player as such
-                CardinalController cardinalController = (CardinalController)GameObject.FindObjectOfType(typeof(CardinalController));
-                cardinalController.BlockInput = true;
-                PrenticeController prenticeController = (PrenticeController)GameObject.FindObjectOfType(typeof(PrenticeController));
-                prenticeController.BlockInput = true;
+                //Freeze every character in the scene when game has ended
+                var controllers = FindObjectsOfType<Controller>();
+                foreach (var controller in controllers)
+                {
+                    controller.BlockInput = true;
+                }
             }
 
         }
