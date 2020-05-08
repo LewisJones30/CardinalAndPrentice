@@ -11,7 +11,8 @@ public class LevelCompleteUI : MonoBehaviour
     bool levelComplete = false;
     [SerializeField] Canvas fadeCanvas;
     CanvasGroup fadecanvas;
-    Canvas mainCanvas;
+    Canvas[] mainCanvas;
+    Canvas healthCanvas;
     Canvas LevelCompleteCanvas;
     bool endUnlocked;
     bool level1 = false;
@@ -22,7 +23,7 @@ public class LevelCompleteUI : MonoBehaviour
         endUnlocked = false;
         fadecanvas = fadeCanvas.GetComponent<CanvasGroup>();
         GameObject canvas = GameObject.Find("Main Canvas");
-        mainCanvas = canvas.GetComponent<Canvas>(); //Get the canvas from the Main Canvas (contains the game UI).
+        mainCanvas = canvas.GetComponentsInChildren<Canvas>(); //Get the canvas from the Main Canvas (contains the game UI).
         GameObject LevelCompleteCanvasObj = GameObject.Find("LevelCompUI Canvas");
         LevelCompleteCanvas = LevelCompleteCanvasObj.GetComponent<Canvas>();
         LevelCompleteCanvas.enabled = false;
@@ -83,7 +84,12 @@ public class LevelCompleteUI : MonoBehaviour
         {
             PlayerPrefs.SetInt("Level1Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
-            mainCanvas.enabled = false;
+            
+            foreach (var canvas in mainCanvas)
+            {
+                canvas.enabled = false;
+            }
+
             if (levelCompleteCanvas != null)
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
@@ -103,7 +109,12 @@ public class LevelCompleteUI : MonoBehaviour
         {
             PlayerPrefs.SetInt("Level2Completed", 1);
             GameObject levelCompleteCanvas = GameObject.Find("LevelComplete Canvas");
-            mainCanvas.enabled = false;
+
+            foreach (var canvas in mainCanvas)
+            {
+                canvas.enabled = false;
+            }
+
             if (levelCompleteCanvas != null)
             {
                 levelCompleteCanvas.GetComponent<Canvas>().enabled = true;
