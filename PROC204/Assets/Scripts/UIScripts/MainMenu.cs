@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
 
     public GameObject levelSelect;
 
+    public GameObject title;
+
     bool logoPressed = false;
 
     bool mainMenuChoice = false;
@@ -48,44 +50,59 @@ public class MainMenu : MonoBehaviour
         //Each state of the game
         if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == false && buttonPressed == false) //Front page
         {
+            buttonPressed = true;
             LogoClicked();
             logoPressed = true;
-            buttonPressed = true;
-            
+            return;
+
         }
-        if (Gamepad.all[0].buttonEast.isPressed == true && buttonPressed == false && mainMenuChoice == false && levelSelectBool == false) //Front page, pressing B 
-        {
-            quitClicked(); //Closes the game entirely
-        }
+
         if (Gamepad.all[0].buttonSouth.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false)  //Front page, pressing A
         {
+            buttonPressed = true;
             tutorial();
             LogoClicked();
             logoPressed = true;
             buttonPressed = true;
         }
-        else if (Gamepad.all[0].buttonWest.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false) //Front page, pressing X
+        if (Gamepad.all[0].buttonWest.isPressed == true && logoPressed == true && mainMenuChoice == false && buttonPressed == false) //Front page, pressing X
         {
+            buttonPressed = true;
             levelSelectClicked();
             LogoClicked();
             mainMenuChoice = true;
             levelSelectBool = true; //Boolean to activate level select page
+            return;
         }
-        else if (Gamepad.all[0].leftShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing LB
+        if (Gamepad.all[0].leftShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing LB
         {
+            buttonPressed = true;
             tutorial();
         }
-        else if (Gamepad.all[0].rightShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing RB
+        if (Gamepad.all[0].rightShoulder.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing RB
         {
+            buttonPressed = true;
             level1();
         }
-        else if (Gamepad.all[0].buttonEast.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing B
+        if (Gamepad.all[0].buttonEast.isPressed == true && logoPressed == true && levelSelectBool == true) //Level Select, pressing B
         {
             levelSelectBool = false;
             mainMenuChoice = false;
-            backClicked();
             buttonPressed = true;
+            backClicked();
+            return;
 
+
+
+        }
+        if (Gamepad.all[0].startButton.isPressed == true && buttonPressed == false && mainMenuChoice == false && levelSelectBool == false) //Front page, pressing B 
+        {
+            buttonPressed = true;
+            quitClicked(); //Closes the game entirely
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
+        {
+            quitClicked();
         }
     }
 
@@ -116,20 +133,21 @@ public class MainMenu : MonoBehaviour
     public void backClicked()
     {
 
-
+        menuButtons.transform.position = new Vector3(Screen.width / 2, -405, 409);
         menuButtons.SetActive(true);
+        buttonMove.SetTrigger("Logo Click");
         levelScreen.SetTrigger("Back Clicked");
-        Invoke("deactivateLevelSelect", 5f); 
+        Invoke("deactivateLevelSelect", 2f); 
 
     }
 
     public void levelSelectClicked()
     {
-
+        levelSelect.transform.position = new Vector3((Screen.width * 1.5f) + 1061.5f, -6.5f, 0);
         levelSelect.SetActive(true);
         levelScreen.SetTrigger("Level Screen Click");
 
-        Invoke("deactivateMenu", 5f);
+        Invoke("deactivateMenu", 0.5f);
 
     }
 
@@ -159,12 +177,13 @@ public class MainMenu : MonoBehaviour
     {
         menuButtons.SetActive(true);
 
-        logoMove.SetTrigger("Logo Click");
+        logoMove.SetTrigger("Logo Disappear");
 
         buttonMove.SetTrigger("Logo Click");
         
 
         logo.interactable = false;
+
 
 
     }
